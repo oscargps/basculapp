@@ -9,6 +9,7 @@ import { createStore } from "redux";
 import reducer from "./reducers";
 
 const InitialState = {
+  loading:true,
   cliente: {},
   user: {},
   fincas: [],

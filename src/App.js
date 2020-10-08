@@ -1,34 +1,38 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
-import { setInformation } from "./actions";
+import { setInformation,setLoading } from "./actions";
 import Navbar from "./components/navbar";
 import Loader from "./components/loader";
 import Dashboard from "./pages/dashboard";
 import "./App.css";
 
 const App = (props) => {
-  let loading = true;
+  const {loading} = props
   const url =
     "http://basculapp.000webhostapp.com/api/getInfoCliente.php?cliente=100&finca=100_1";
   useEffect(() => {
     axios.get(url).then((response) => {
-      loading=false
+      props.setLoading(loading);
       props.setInformation(response.data[0]);
     });
   }, []);
-  if (!loading) {
-    return <Loader />;
-  } else {
+
     return (
       <div className="App">
         <Navbar />
-        <Dashboard />
+        {loading?<Loader />:<Dashboard />}
+        
       </div>
     );
-  }
+  
 };
 const mapDispatchToProps = {
-  setInformation,
+  setInformation,setLoading
 };
-export default connect(null, mapDispatchToProps)(App);
+const mapStateToProps = (state) => {
+  return {
+    loading:state.loading
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -5,8 +5,6 @@ import Tabla from "../components/tabla";
 
 const Dashboard = ({reses,lotes,registros}) => {
 
-
-
   return (
     <div className="Dashboard">
       <Tabla titulo="Reses" row="numero" datos={reses}/>

@@ -8,6 +8,11 @@ const reducer = (state, action) => {
          lotes: action.payload.lotes, // el elemento que mmodifico
          registros:  action.payload.registros, // el elemento que mmodifico
       };
+      case "SET_LOADING":
+      return{
+        ...state,
+        loading:  !action.payload, // el elemento que mmodifico
+      }
     default:
       return state;
   }
