@@ -6,7 +6,7 @@ const TablaItem = (props) => {
     return(
         <div className="TablaItem">
             {titulo}
-            <button className="btn btn-success btn-sm">Ver</button>
+            <button className="btn btn-info btn-sm">Ver</button>
         </div>
     )
 }
