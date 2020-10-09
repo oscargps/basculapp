@@ -4,7 +4,6 @@ import TablaItem from "./TablaItem";
 
 const Tabla = ({ titulo, datos, row }) => {
 
-let counter = 0;
   return (
     <div className="Tabla">
       <div className="card">

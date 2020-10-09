@@ -10,3 +10,7 @@ export const setLogin= payload => ({
     type: 'SET_LOGIN',
     payload,//el payload es la informacion que vamos a transmitir
 })
+export const setFinca= payload => ({ 
+    type: 'SET_FINCA',
+    payload,//el payload es la informacion que vamos a transmitir
+})

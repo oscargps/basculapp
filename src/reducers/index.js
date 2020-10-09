@@ -11,7 +11,7 @@ const reducer = (state, action) => {
     case "SET_LOADING":
       return {
         ...state,
-        loading: !action.payload, // el elemento que mmodifico
+        loading: action.payload, // el elemento que mmodifico
       };
     case "SET_LOGIN":
       return {
@@ -19,7 +19,13 @@ const reducer = (state, action) => {
         onLogin: true,
         cliente: action.payload.cliente[0], // el elemento que mmodifico
         usuario: action.payload.usuario[0], // el elemento que mmodifico
-        fincas: action.payload.fincas[0], // el elemento que mmodifico
+        fincas: action.payload.fincas, // el elemento que mmodifico
+      };
+    case "SET_FINCA":
+      return {
+        ...state,
+        selectedFinca:true,
+        fincaActual: action.payload // el elemento que mmodifico
       };
     default:
       return state;

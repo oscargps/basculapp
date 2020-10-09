@@ -10,9 +10,10 @@ import reducer from "./reducers";
 
 const InitialState = {
   onLogin:false,
-  loading:true,
+  loading:false,
   cliente: {},
   usuario: {},
+  fincaActual:'',
   fincas: [],
   reses: [],
   lotes: [],

@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import "../styles/components/loginform.css";
 import { connect } from "react-redux";
+import {useHistory} from 'react-router-dom'
 import { setLogin } from "../actions";
 import Login from "../utils/login";
 import Swal from "sweetalert2";
 const LoginForm = (props) => {
+  let history = useHistory();
+;
   const [form, setValues] = useState({
     user: "",
     pw: "",
@@ -20,7 +23,8 @@ const LoginForm = (props) => {
     e.preventDefault();
     let resp = await Login(form);
     if (resp) {
-        props.setLogin(resp)
+        props.setLogin(resp);
+        history.push("/");
     } else {
       Swal.fire({
         title: "Información incorrecta",
@@ -69,6 +73,7 @@ const mapDispatchToProps = {
   setLogin,
 };
 const mapStateToProps = (state) => {
-  return {};
+  return {
+  };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
