@@ -1,0 +1,8 @@
+.LoginForm{
+    width:80%
+}
+
+.LoginForm > input{
+    margin: 1em 0;
+    text-align: center;
+}

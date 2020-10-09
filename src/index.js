@@ -2,16 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "./index.css";
-import App from "./App";
+import App from "./routes/App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import reducer from "./reducers";
 
 const InitialState = {
+  onLogin:false,
   loading:true,
   cliente: {},
-  user: {},
+  usuario: {},
   fincas: [],
   reses: [],
   lotes: [],

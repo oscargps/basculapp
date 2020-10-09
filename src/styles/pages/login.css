@@ -1,0 +1,32 @@
+.Login {
+  display: flex;
+}
+.Login-form {
+    border:1em solid #F44336;
+    padding: 1em;
+  width: 50vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+}
+.Login-form__img{
+    margin: 1em;
+}
+.Login-Imagen {
+    background-color: #F44336;
+    padding: 1em;
+  width: 50vw;
+  height: 100vh;
+}
+
+@media only screen and (max-width: 600px) {
+    
+    .Login-Imagen {
+        display: none;
+    }
+    .Login-form {
+      width: 100vw;
+      height: 100vh;
+    }
+}

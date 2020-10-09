@@ -20,17 +20,20 @@ const Dashboard = (props) => {
   }, []);
 
   return (
-    <div className="Dashboard">
-      {loading ? (
-        <Loader />
-      ) : (
-        <>
-          <Tabla titulo="Reses" row="numero" datos={reses} />
-          <Tabla titulo="Lotes" row="ref" datos={lotes} />
-          <Tabla titulo="Registros de pesaje" row="fecha" datos={registros} />
-        </>
-      )}
-    </div>
+    <>
+      <Navbar />
+      <div className="Dashboard">
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            <Tabla titulo="Reses" row="numero" datos={reses} />
+            <Tabla titulo="Lotes" row="ref" datos={lotes} />
+            <Tabla titulo="Registros de pesaje" row="fecha" datos={registros} />
+          </>
+        )}
+      </div>
+    </>
   );
 };
 const mapDispatchToProps = {
