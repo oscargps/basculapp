@@ -24,7 +24,12 @@ const LoginForm = (props) => {
     let resp = await Login(form);
     if (resp) {
         props.setLogin(resp);
+        // console.log(resp.cliente);
+       sessionStorage.setItem('resp',JSON.stringify(resp));
+      //  sessionStorage.setItem('fincas',resp.fincas);
+      //  sessionStorage.setItem('usuario',resp.usuario);
         history.push("/");
+        // console.log(sessionStorage.getItem("cliente"));
     } else {
       Swal.fire({
         title: "Información incorrecta",

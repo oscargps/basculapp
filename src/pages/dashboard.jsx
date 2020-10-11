@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { setInformation, setLoading } from "../actions";
+import { setInformation, setLoading, setLogin } from "../actions";
 import axios from "axios";
 import Navbar from "../components/navbar";
 import Loader from "../components/loader";
@@ -22,9 +22,10 @@ const Dashboard = (props) => {
   } = props;
 
   useEffect(() => {
-    if (onLogin) {
+    if (sessionStorage.getItem("resp")) {
+      let data = JSON.parse(sessionStorage.getItem("resp"));
+      props.setLogin(data);
       if (fincaActual) {
-        
         getInfo();
       }
     } else {
@@ -37,7 +38,8 @@ const Dashboard = (props) => {
     const url =
       "http://basculapp.000webhostapp.com/api/getInfoCliente.php?cliente=" +
       cliente.id +
-      "&finca="+fincaActual;
+      "&finca=" +
+      fincaActual;
     axios.get(url).then((response) => {
       props.setLoading(false);
       props.setInformation(response.data[0]);
@@ -72,7 +74,9 @@ const Dashboard = (props) => {
   );
 };
 const mapDispatchToProps = {
-  setLoading,setInformation
+  setLoading,
+  setInformation,
+  setLogin,
 };
 const mapStateToProps = (state) => {
   return {
