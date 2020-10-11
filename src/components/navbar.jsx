@@ -2,24 +2,30 @@ import React from "react";
 import axios from "axios";
 import "../styles/components/navbar.css";
 import Logo from "../assets/img/logo.png";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { setFinca,setLoading,setInformation } from "../actions";
+import { setFinca, setLoading, setInformation } from "../actions";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 const Navbar = (props) => {
-  const { fincas,cliente } = props;
+  let history = useHistory();
+  const { fincas, cliente } = props;
 
   const handleSelect = async (e) => {
-   await props.setFinca(e);
-    getInfo(e)
+    await props.setFinca(e);
+    getInfo(e);
   };
-
+  const handleLogout = () => {
+    sessionStorage.clear();
+    history.push("/login");
+  };
   const getInfo = (e) => {
     props.setLoading(true);
     const url =
       "http://basculapp.000webhostapp.com/api/getInfoCliente.php?cliente=" +
       cliente.id +
-      "&finca="+e;
+      "&finca=" +
+      e;
     axios.get(url).then((response) => {
       props.setLoading(false);
       props.setInformation(response.data[0]);
@@ -43,11 +49,16 @@ const Navbar = (props) => {
           ))}
         </DropdownButton>
       </div>
+      <button onClick={handleLogout} className="btn btn-danger">
+        Cerrar sesión
+      </button>
     </div>
   );
 };
 const mapDispatchToProps = {
-  setFinca,setLoading,setInformation
+  setFinca,
+  setLoading,
+  setInformation,
 };
 const mapStateToProps = (state) => {
   return {
