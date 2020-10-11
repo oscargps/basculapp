@@ -10,16 +10,7 @@ import Tabla from "../components/tabla";
 // import getInfo from "../utils/getInfo";
 
 const Dashboard = (props) => {
-  const {
-    onLogin,
-    cliente,
-    usuario,
-    fincaActual,
-    reses,
-    lotes,
-    registros,
-    loading,
-  } = props;
+  const { cliente, fincaActual, reses, lotes, registros, loading } = props;
 
   useEffect(() => {
     if (sessionStorage.getItem("resp")) {
@@ -56,11 +47,22 @@ const Dashboard = (props) => {
           <>
             {fincaActual ? (
               <>
-                <Tabla titulo="Reses" row="numero" datos={reses} />
-                <Tabla titulo="Lotes" row="ref" datos={lotes} />
                 <Tabla
-                  titulo="Registros de pesaje"
-                  row="fecha"
+                  titulo_tabla="Reses"
+                  titulo="numero"
+                  subtitulo="subgenero"
+                  datos={reses}
+                />
+                <Tabla
+                  titulo_tabla="Lotes"
+                  titulo="ref"
+                  subtitulo="obs"
+                  datos={lotes}
+                />
+                <Tabla
+                  titulo_tabla="Registros de pesaje"
+                  titulo="id"
+                  subtitulo="fecha"
                   datos={registros}
                 />
               </>
@@ -80,9 +82,7 @@ const mapDispatchToProps = {
 };
 const mapStateToProps = (state) => {
   return {
-    onLogin: state.onLogin,
     loading: state.loading,
-    usuario: state.usuario,
     cliente: state.cliente,
     fincaActual: state.fincaActual,
     reses: state.reses,

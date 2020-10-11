@@ -12,3 +12,14 @@
 .Navbar-title{
     color: white;
 }
+@media only screen and (max-width: 1024px) {
+    .Navbar{
+        flex-direction: column;
+        height: auto;
+        justify-content:space-between;
+    }
+    .Navbar>*{
+        margin: .5em 0;
+    }
+
+}
