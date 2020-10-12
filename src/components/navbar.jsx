@@ -27,7 +27,6 @@ const Navbar = (props) => {
       cliente.id +
       "&finca=" +
       e;
-      console.log(url);
     axios.get(url).then((response) => {
       props.setLoading(false);
       props.setInformation(response.data[0]);

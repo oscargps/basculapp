@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from "react";
 import "../styles/components/tabla.css";
 import TablaItem from "./TablaItem";
+import { setModal, setDetail } from "../actions";
+import { connect } from "react-redux";
 
-const Tabla = ({ titulo_tabla, data, titulo, subtitulo }) => {
+const Tabla = (props) => {
+  const { titulo_tabla, data, titulo, subtitulo, tipo } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState(data);
-
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
   };
-
+  const clickDetail = (e) => {
+    props.setModal(true);
+    props.setDetail({
+      tipo,
+      id: e.target.value,
+    });
+  };
   useEffect(() => {
     setSearchResults(data);
   }, [data]);
@@ -43,6 +51,8 @@ const Tabla = ({ titulo_tabla, data, titulo, subtitulo }) => {
                   key={res.id}
                   titulo={res[titulo]}
                   subtitulo={res[subtitulo]}
+                  id={res.id}
+                  select={clickDetail}
                 />
               ))}
           </div>
@@ -57,4 +67,9 @@ const Tabla = ({ titulo_tabla, data, titulo, subtitulo }) => {
   );
 };
 
-export default Tabla;
+const mapDispatchToProps = {
+  setDetail,
+  setModal,
+};
+
+export default connect(null, mapDispatchToProps)(Tabla);

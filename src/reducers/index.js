@@ -32,6 +32,11 @@ const reducer = (state, action) => {
         ...state,
         modal:action.payload,
       };
+    case "SET_DETAIL":
+      return {
+        ...state,
+        onDetail:action.payload,
+      };
     default:
       return state;
   }

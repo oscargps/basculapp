@@ -7,11 +7,33 @@ import Loader from "../components/loader";
 import "../styles/pages/dashboard.css";
 import Tabla from "../components/tabla";
 import Modal from "../components/modal";
+import ResDetail from "./resDetail";
 
 const Dashboard = (props) => {
-  const { cliente, fincaActual, reses, lotes, registros, loading, modal } = props;
+  const {
+    cliente,
+    fincaActual,
+    reses,
+    lotes,
+    registros,
+    loading,
+    modal,
+    onDetail,
+  } = props;
   const toggleModal = () => {
+    console.log("cerrando modal");
     props.setModal(!modal);
+  };
+
+  const setDetailComponent = () => {
+    switch (onDetail.tipo) {
+      case "res":
+        return <ResDetail id={onDetail.id} />;
+      case "lote":
+        return <ResDetail id={onDetail.id} />;
+      case "registro":
+        return <ResDetail id={onDetail.id} />;
+    }
   };
   useEffect(() => {
     if (sessionStorage.getItem("resp")) {
@@ -32,7 +54,6 @@ const Dashboard = (props) => {
       cliente.id +
       "&finca=" +
       fincaActual.id;
-    console.log(url);
     axios.get(url).then((response) => {
       props.setLoading(false);
       props.setInformation(response.data[0]);
@@ -53,18 +74,21 @@ const Dashboard = (props) => {
                   titulo_tabla="Reses"
                   titulo="numero"
                   subtitulo="subgenero"
+                  tipo="res"
                   data={reses}
                 />
                 <Tabla
                   titulo_tabla="Lotes"
                   titulo="ref"
                   subtitulo="obs"
+                  tipo="lote"
                   data={lotes}
                 />
                 <Tabla
                   titulo_tabla="Registros de pesaje"
                   titulo="id"
                   subtitulo="fecha"
+                  tipo="registro"
                   data={registros}
                 />
               </>
@@ -75,7 +99,7 @@ const Dashboard = (props) => {
         )}
       </div>
       <Modal isOpen={modal} onClose={toggleModal}>
-        <h4>Hola este es un modal</h4>
+        {setDetailComponent()}
       </Modal>
     </>
   );
@@ -84,7 +108,7 @@ const mapDispatchToProps = {
   setLoading,
   setInformation,
   setLogin,
-  setModal
+  setModal,
 };
 const mapStateToProps = (state) => {
   return {
@@ -94,7 +118,8 @@ const mapStateToProps = (state) => {
     reses: state.reses,
     lotes: state.lotes,
     registros: state.registros,
-    modal: state.modal
+    modal: state.modal,
+    onDetail: state.onDetail,
   };
 };
 

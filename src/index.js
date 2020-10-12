@@ -19,7 +19,8 @@ const InitialState = {
   lotes: [],
   pesajes: [],
   registros: [],
-  modal: false
+  modal: false,
+  onDetail:{}
 };
 const store = createStore(reducer, InitialState);
 ReactDOM.render(
