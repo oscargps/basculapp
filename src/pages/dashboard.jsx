@@ -51,19 +51,19 @@ const Dashboard = (props) => {
                   titulo_tabla="Reses"
                   titulo="numero"
                   subtitulo="subgenero"
-                  datos={reses}
+                  data={reses}
                 />
                 <Tabla
                   titulo_tabla="Lotes"
                   titulo="ref"
                   subtitulo="obs"
-                  datos={lotes}
+                  data={lotes}
                 />
                 <Tabla
                   titulo_tabla="Registros de pesaje"
                   titulo="id"
                   subtitulo="fecha"
-                  datos={registros}
+                  data={registros}
                 />
               </>
             ) : (
