@@ -10,9 +10,9 @@ const Tabla = ({ titulo_tabla, data, titulo, subtitulo }) => {
     setSearchTerm(e.target.value);
   };
 
-  useEffect(()=>{
-    setSearchResults(data)
-  },[data])
+  useEffect(() => {
+    setSearchResults(data);
+  }, [data]);
   useEffect(() => {
     const results = data.filter((dato) =>
       dato[titulo].toLowerCase().includes(searchTerm)
@@ -24,28 +24,34 @@ const Tabla = ({ titulo_tabla, data, titulo, subtitulo }) => {
     <div className="Tabla">
       <div className="card">
         <div className="card-header Tabla-header">{titulo_tabla}</div>
-        <div className="Tabla-filter">
-          <input
-            type="text"
-            name=""
-            value={searchTerm}
-            placeholder="Buscar..."
-            onChange={handleChange}
-            className="form-control"
-            id=""
-          />
-        </div>
-        <div className="card-body">
-          {searchResults.length > 0 &&
-            searchResults.map((res) => (
-              <TablaItem
-                key={res.id}
-                titulo={res[titulo]}
-                subtitulo={res[subtitulo]}
+        {searchResults.length > 0 ? (
+          <div className="card-body">
+            <div className="Tabla-filter">
+              <input
+                type="text"
+                name=""
+                value={searchTerm}
+                placeholder="Buscar..."
+                onChange={handleChange}
+                className="form-control"
+                id=""
               />
-            ))}
+            </div>
+            {searchResults.length > 0 &&
+              searchResults.map((res) => (
+                <TablaItem
+                  key={res.id}
+                  titulo={res[titulo]}
+                  subtitulo={res[subtitulo]}
+                />
+              ))}
+          </div>
+        ) : (
+          <h5>No se encuentran registros</h5>
+        )}
+        <div className="card-footer">
+          <h5>Total: {searchResults.length}</h5>
         </div>
-        <div className="card-footer"></div>
       </div>
     </div>
   );

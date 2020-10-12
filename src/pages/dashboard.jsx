@@ -16,7 +16,7 @@ const Dashboard = (props) => {
     if (sessionStorage.getItem("resp")) {
       let data = JSON.parse(sessionStorage.getItem("resp"));
       props.setLogin(data);
-      if (fincaActual) {
+      if (Object.keys(fincaActual)>0) {
         getInfo();
       }
     } else {
@@ -30,7 +30,8 @@ const Dashboard = (props) => {
       "http://basculapp.000webhostapp.com/api/getInfoCliente.php?cliente=" +
       cliente.id +
       "&finca=" +
-      fincaActual;
+      fincaActual.id;
+      console.log(url);
     axios.get(url).then((response) => {
       props.setLoading(false);
       props.setInformation(response.data[0]);
@@ -45,7 +46,7 @@ const Dashboard = (props) => {
           <Loader />
         ) : (
           <>
-            {fincaActual ? (
+            {fincaActual.id ? (
               <>
                 <Tabla
                   titulo_tabla="Reses"

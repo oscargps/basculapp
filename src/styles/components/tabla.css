@@ -3,7 +3,6 @@
     border-radius:10px;
     width:100%;
     margin: 0 1em;
-
 }
 .Tabla-header{
     background-color: #F44336;
@@ -11,9 +10,8 @@
     /* font-weight: bold; */
     font-size:1.5em
 }
-.Tabla-filter > input{
-    border:0;
-    border-bottom: 1px solid lightgray;
+.Tabla-filter{
+    margin-bottom: .5em;
 }
 
 @media only screen and (max-width: 1024px) {

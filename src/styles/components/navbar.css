@@ -1,25 +1,36 @@
-.Navbar{
-    background-color:#F44336;
-    padding: 0 1em;
-    height:4em;
-    display: flex;
-    justify-content:space-between;
-    align-items:center;
+.Navbar {
+  background-color: #f44336;
+  padding: 0 1em;
+  height: 4em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.Navbar-logo{
-    height:50px;
+.Navbar-logo {
+  height: 50px;
 }
-.Navbar-title{
+.Navbar-title {
+  color: white;
+}
+.Navbar-Menu{
+    display:flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.Navbar-Menu>*{
+    margin: 0 1em;
+}
+.Navbar-Menu__username{
     color: white;
+    font-weight: bold;
 }
 @media only screen and (max-width: 1024px) {
-    .Navbar{
-        flex-direction: column;
-        height: auto;
-        justify-content:space-between;
-    }
-    .Navbar>*{
-        margin: .5em 0;
-    }
-
+  .Navbar {
+    flex-direction: column;
+    height: auto;
+    justify-content: space-between;
+  }
+  .Navbar > * {
+    margin: 0.5em 0;
+  }
 }

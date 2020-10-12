@@ -13,7 +13,7 @@ const InitialState = {
   loading:false,
   cliente: {},
   usuario: {},
-  fincaActual:'',
+  fincaActual:{},
   fincas: [],
   reses: [],
   lotes: [],

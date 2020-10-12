@@ -5,7 +5,7 @@ const getInfo = (props) => {
     props.setLoading(true);
     const {cliente,fincaActual} = props;
     const url =
-      'http://basculapp.000webhostapp.com/api/getInfoCliente.php?cliente='+cliente.id+'&finca='+fincaActual;
+      'http://basculapp.000webhostapp.com/api/getInfoCliente.php?cliente='+cliente.id+'&finca='+fincaActual.id;
     axios.get(url).then((response) => {
       props.setLoading(false);
       props.setInformation(response.data[0]);

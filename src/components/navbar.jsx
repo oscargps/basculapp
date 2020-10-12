@@ -9,11 +9,12 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 const Navbar = (props) => {
   let history = useHistory();
-  const { fincas, cliente } = props;
+  const { fincas, cliente,usuario,fincaActual } = props;
 
   const handleSelect = async (e) => {
-    await props.setFinca(e);
-    getInfo(e);
+    let finca = JSON.parse(e)
+    await props.setFinca(finca);
+    getInfo(finca.id);
   };
   const handleLogout = () => {
     sessionStorage.clear();
@@ -26,6 +27,7 @@ const Navbar = (props) => {
       cliente.id +
       "&finca=" +
       e;
+      console.log(url);
     axios.get(url).then((response) => {
       props.setLoading(false);
       props.setInformation(response.data[0]);
@@ -35,23 +37,22 @@ const Navbar = (props) => {
     <div className="Navbar">
       <img className="Navbar-logo" src={Logo} alt="" />
       <h3 className="Navbar-title">BASCULAPP</h3>
-      <div>
+      <div className="Navbar-Menu">
         <DropdownButton
           variant="secondary"
-          title="Cambiar finca"
+          title={fincaActual.id ?fincaActual.nombre:'Seleccionar finca..'}
           id="dropdown-menu-align-right"
           onSelect={handleSelect}
         >
           {fincas.map((finca) => (
-            <Dropdown.Item key={finca.id} eventKey={finca.id}>
+            <Dropdown.Item key={finca.id} eventKey={JSON.stringify(finca)}>
               {finca.nombre}
             </Dropdown.Item>
           ))}
         </DropdownButton>
+        <p  className="Navbar-Menu__username">{usuario.username}</p>
+        <button onClick={handleLogout} className=" btn btn-warning btn-sm">Cerrar sesión</button>
       </div>
-      <button onClick={handleLogout} className="btn btn-danger">
-        Cerrar sesión
-      </button>
     </div>
   );
 };
@@ -64,6 +65,8 @@ const mapStateToProps = (state) => {
   return {
     cliente: state.cliente,
     fincas: state.fincas,
+    usuario:state.usuario,
+    fincaActual: state.fincaActual,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
