@@ -1,22 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { setInformation, setLoading, setLogin } from "../actions";
+import { setInformation, setLoading, setLogin, setModal } from "../actions";
 import axios from "axios";
 import Navbar from "../components/navbar";
 import Loader from "../components/loader";
-
 import "../styles/pages/dashboard.css";
 import Tabla from "../components/tabla";
-// import getInfo from "../utils/getInfo";
+import Modal from "../components/modal";
 
 const Dashboard = (props) => {
-  const { cliente, fincaActual, reses, lotes, registros, loading } = props;
-
+  const { cliente, fincaActual, reses, lotes, registros, loading, modal } = props;
+  const toggleModal = () => {
+    props.setModal(!modal);
+  };
   useEffect(() => {
     if (sessionStorage.getItem("resp")) {
       let data = JSON.parse(sessionStorage.getItem("resp"));
       props.setLogin(data);
-      if (Object.keys(fincaActual)>0) {
+      if (Object.keys(fincaActual) > 0) {
         getInfo();
       }
     } else {
@@ -31,7 +32,7 @@ const Dashboard = (props) => {
       cliente.id +
       "&finca=" +
       fincaActual.id;
-      console.log(url);
+    console.log(url);
     axios.get(url).then((response) => {
       props.setLoading(false);
       props.setInformation(response.data[0]);
@@ -73,6 +74,9 @@ const Dashboard = (props) => {
           </>
         )}
       </div>
+      <Modal isOpen={modal} onClose={toggleModal}>
+        <h4>Hola este es un modal</h4>
+      </Modal>
     </>
   );
 };
@@ -80,6 +84,7 @@ const mapDispatchToProps = {
   setLoading,
   setInformation,
   setLogin,
+  setModal
 };
 const mapStateToProps = (state) => {
   return {
@@ -89,6 +94,7 @@ const mapStateToProps = (state) => {
     reses: state.reses,
     lotes: state.lotes,
     registros: state.registros,
+    modal: state.modal
   };
 };
 

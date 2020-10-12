@@ -27,6 +27,11 @@ const reducer = (state, action) => {
         selectedFinca:true,
         fincaActual: action.payload // el elemento que mmodifico
       };
+    case "SET_MODAL":
+      return {
+        ...state,
+        modal:action.payload,
+      };
     default:
       return state;
   }

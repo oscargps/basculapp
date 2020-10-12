@@ -14,3 +14,7 @@ export const setFinca= payload => ({
     type: 'SET_FINCA',
     payload,//el payload es la informacion que vamos a transmitir
 })
+export const setModal= payload => ({ 
+    type: 'SET_MODAL',
+    payload,//el payload es la informacion que vamos a transmitir
+})
