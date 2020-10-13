@@ -19,16 +19,20 @@
 .resDetail-data2__grafica{
  width:100%; 
 }
-.resDetail-data__info {
+.resDetail-data2__info {
     display: grid;
     grid-template-columns: 2fr 1fr;
 }
-.resDetail-chart__options {
+.resDetail-data2__info-registros{
+  padding:.5em;
+  overflow: hidden
+}
+.resDetail-data2__info-options {
   display: flex;
   flex-direction: column;
   /* height: 100%; */
 }
-.resDetail-chart__options > button {
+.resDetail-data2__info-options> button {
   margin: 1em 0;
 }
 @media only screen and (max-width: 1024px) {
@@ -43,7 +47,7 @@
     display: flex;
     flex-direction: column;
   }
-  .resDetail-data__info{
+  .resDetail-data2__info{
     display: flex;
     flex-direction: column;
   }
