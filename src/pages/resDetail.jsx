@@ -1,56 +1,72 @@
-import React, {useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import Chart from "react-google-charts";
 import "../styles/pages/resdetail.css";
 import DetailTable from "../components/detailTable";
+import TablePesajes from "../components/tablePesaje";
+import getPesos from "../utils/getPesos";
 const ResDetail = ({ cliente, reses, onDetail }) => {
-  const [actual,setActual] = useState('')
-  useEffect(()=>{
-    const result = reses.filter((res)=>(
-      res.id == onDetail.id
-    ))
-    setActual(result[0])
-  },[onDetail.id])
+  const [actual, setActual] = useState("");
+  const [Pesos, setPesos] = useState([]);
+  const [dataGrafica, setDataGrafica] = useState([]);
+
+  useEffect(() => {
+    const result = reses.filter((res) => res.id == onDetail.id);
+    setActual(result[0]);
+    fillPesos();
+  }, [onDetail.id]);
+
+  const fillPesos = async () => {
+    let data = await getPesos(onDetail.id, cliente.id);
+    setPesos(data);
+    graficar(data);
+  };
+
+  const graficar = (data) => {
+    let dato = [["0", 0]];
+    if (data.length > 0) {
+      dato = data.map((peso) => {
+        let pesoNum = parseInt(peso.cantidad);
+        return [`${peso.fecha}`, pesoNum];
+      });
+    }
+    setDataGrafica([["fecha", "peso"]].concat(dato));
+  };
+
   return (
     <div className="ResDetail">
+      <DetailTable data={actual} />
       <div className="resDetail-data">
-        <DetailTable data={actual} className="resDetail-data__detailTable" />
-      </div>
-      <div className="resDetail-chart">
-        <Chart
-          width={"90%"}
-          height={"100%"}
-          chartType="LineChart"
-          loader={<div>Cargando gráfica...</div>}
-          data={[
-            ["x", "dogs"],
-            [0, 0],
-            [1, 10],
-            [2, 23],
-            [3, 17],
-            [4, 18],
-            [5, 9],
-            [6, 11],
-            [7, 27],
-            [8, 33],
-            [9, 40],
-            [10, 32],
-            [11, 35],
-          ]}
-          options={{
-            hAxis: {
-              title: "Tiempo",
-            },
-            vAxis: {
-              title: "Peso",
-            },
-          }}
-          rootProps={{ "data-testid": "1" }}
-        />
-        <div className="resDetail-chart__options">
-          <button className="btn btn-info">test</button>
-          <button className="btn btn-info">test</button>
-          <button className="btn btn-info">test</button>
+        <div className="resDetail-data__table">
+          <TablePesajes pesos={Pesos} />
+        </div>
+        <div className="resDetail-data2">
+          <div className="resDetail-data2__grafica">
+            <Chart
+              width={"100%"}
+              height={"90%"}
+              chartType="LineChart"
+              loader={<div>Cargando gráfica...</div>}
+              data={dataGrafica}
+              options={{
+                hAxis: {
+                  title: "Tiempo",
+                },
+                vAxis: {
+                  title: "Peso",
+                },
+              }}
+              rootProps={{ "data-testid": "1" }}
+            />
+          </div>
+          <div className="resDetail-data__info">
+            <div></div>
+            <div className="resDetail-chart__options">
+              <button className="btn btn-info btn-md">test</button>
+              <button className="btn btn-info btn-md">test</button>
+              <button className="btn btn-info btn-md">test</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -39,13 +39,13 @@ const Navbar = (props) => {
       <div className="Navbar-Menu">
         <DropdownButton
           variant="secondary"
-          title={fincaActual.id ?fincaActual.nombre:'Seleccionar finca..'}
+          title={fincaActual.id ?(fincaActual.id+'-'+fincaActual.nombre):'Seleccionar finca..'}
           id="dropdown-menu-align-right"
           onSelect={handleSelect}
         >
           {fincas.map((finca) => (
             <Dropdown.Item key={finca.id} eventKey={JSON.stringify(finca)}>
-              {finca.nombre}
+              {finca.id}-{finca.nombre}
             </Dropdown.Item>
           ))}
         </DropdownButton>

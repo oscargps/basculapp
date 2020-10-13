@@ -4,16 +4,24 @@ const DetailTable = ({ data }) => {
   const columns = Object.keys(data);
 
   return (
-    <table className="table">
+    <table className="table table-responsive-md">
+      <thead>
+        <tr>
+          {columns.map((col) =>
+            data[col] != null ? (
+              <th className="table-coltitle" key={col}>
+                {col.toUpperCase()}
+              </th>
+            ) : null
+          )}
+        </tr>
+      </thead>
       <tbody>
-        {columns.map((col) =>
-          data[col] != null ? (
-            <tr key={col}>
-              <td className="table-coltitle">{col.toUpperCase()}</td>
-              <td>{data[col]}</td>
-            </tr>
-          ) : null
-        )}
+        <tr>
+          {columns.map((col) =>
+            data[col] != null ? <td key={col}>{data[col]}</td> : null
+          )}
+        </tr>
       </tbody>
     </table>
   );
