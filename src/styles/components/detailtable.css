@@ -1,0 +1,10 @@
+.table{
+    width:20%;
+ font-size: .8em;
+}
+.table th, .table td{
+    padding:0.5rem
+}
+.table-coltitle{
+    background-color: lightgray;
+}
