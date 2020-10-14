@@ -1,0 +1,19 @@
+.regDetail-content{
+display: grid;
+grid-template-columns: 3fr 1fr;
+}
+.regDetail-optiones{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around;
+    padding: 1em;
+}
+@media only screen and (max-width: 1024px) {
+    .regDetail-content{
+        display: flex;
+        flex-direction: column;
+        }
+        .regDetail-optiones>*{
+            margin: .5em 0;
+        }
+  }

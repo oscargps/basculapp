@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import {setDetail } from "../actions";
+import { setDetail } from "../actions";
 import "../styles/components/tablepesaje.css";
 const TableReses = (props) => {
-  const { reses, idLote, resultados,grafica } = props;
+  const { reses, idLote, resultados, grafica } = props;
   const [resesLote, setResesLote] = useState([]);
   useEffect(() => {
     let result = reses.filter((res) => res.lote === idLote);
@@ -15,24 +15,29 @@ const TableReses = (props) => {
   const getResults = (data) => {
     let cantidad = 0;
     let valmax = 0;
-    let idMax=""
-    let idMin=""
+    let idMax = "";
+    let idMin = "";
     let valmin = 100000;
     let total = 0;
     data.map((res) => {
-      let peso = parseInt(res["ultimo peso"])
+      let peso = parseInt(res["ultimo peso"]);
       cantidad++;
       if (peso > valmax) {
         valmax = peso;
-        idMax = res.id
+        idMax = res.id;
       }
       if (peso < valmin && peso > 0) {
         valmin = peso;
-        idMin= res.id
+        idMin = res.id;
       }
       total += peso;
     });
-    resultados({cantidad, total, max:{valmax,idMax}, min:{valmin,idMin}});
+    resultados({
+      cantidad,
+      total,
+      max: { valmax, idMax },
+      min: { valmin, idMin },
+    });
   };
   const graficar = (data) => {
     let dato = [["0", 0]];
@@ -47,10 +52,10 @@ const TableReses = (props) => {
 
   const handleClick = (e) => {
     props.setDetail({
-      tipo:'res',
+      tipo: "res",
       id: e.target.value,
     });
-  }
+  };
   return (
     <>
       <table className=" table  table-responsive-md TableReses-table">
@@ -69,7 +74,15 @@ const TableReses = (props) => {
           {resesLote.length > 0 ? (
             resesLote.map((res) => (
               <tr key={res.id}>
-                <td><button className="btn btn-secondary btn-sm" value={res.id} onClick={handleClick}>{res.numero}</button></td>
+                <td>
+                  <button
+                    className="btn btn-secondary btn-sm"
+                    value={res.id}
+                    onClick={handleClick}
+                  >
+                    {res.numero}
+                  </button>
+                </td>
                 <td>{res.raza}</td>
                 <td>{res.genero}</td>
                 <td>{res.subgenero}</td>
@@ -92,4 +105,4 @@ const mapDispatchToProps = {
   setDetail,
 };
 
-export default connect(null, mapDispatchToProps) (TableReses);
+export default connect(null, mapDispatchToProps)(TableReses);

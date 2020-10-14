@@ -9,10 +9,10 @@ import Tabla from "../components/tabla";
 import Modal from "../components/modal";
 import ResDetail from "./resDetail";
 import LoteDetail from "./loteDetail";
+import RegDetail from "./regDetail";
 
 const Dashboard = (props) => {
   const {
-    cliente,
     fincaActual,
     reses,
     lotes,
@@ -32,7 +32,7 @@ const Dashboard = (props) => {
       case "lote":
         return <LoteDetail id={onDetail.id} />;
       case "registro":
-        return <ResDetail id={onDetail.id} />;
+        return <RegDetail id={onDetail.id} />;
     }
   };
   useEffect(() => {

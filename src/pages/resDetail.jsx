@@ -6,7 +6,7 @@ import DetailTable from "../components/detailTable";
 import TablePesajes from "../components/tablePesaje";
 import TableRegistros from "../components/tableRegistros";
 import getPesos from "../utils/getPesos";
-import Loader from '../components/loader'
+import Loader from "../components/loader";
 const ResDetail = ({ cliente, reses, onDetail }) => {
   const [actual, setActual] = useState("");
   const [Pesos, setPesos] = useState([]);
@@ -14,7 +14,7 @@ const ResDetail = ({ cliente, reses, onDetail }) => {
 
   useEffect(() => {
     const result = reses.filter((res) => res.id == onDetail.id);
-    setActual(result[0]);
+    setActual(result.length > 0 ? result[0] : {});
     fillPesos();
   }, [onDetail.id]);
 
@@ -48,7 +48,11 @@ const ResDetail = ({ cliente, reses, onDetail }) => {
               width={"100%"}
               height={"90%"}
               chartType="LineChart"
-              loader={<div><Loader/></div>}
+              loader={
+                <div>
+                  <Loader />
+                </div>
+              }
               data={dataGrafica}
               options={{
                 hAxis: {
@@ -63,13 +67,17 @@ const ResDetail = ({ cliente, reses, onDetail }) => {
           </div>
           <div className="resDetail-data2__info">
             <div className="resDetail-data2__info-registros">
-            <h4>Listado de registros de pesaje</h4>
-            <TableRegistros data={Pesos} />
+              <h4>Listado de registros de pesaje</h4>
+              <TableRegistros data={Pesos} />
             </div>
             <div className="resDetail-data2__info-options">
-              <button className="btn btn-success btn-md">Descargar pesajes</button>
+              <button className="btn btn-success btn-md">
+                Descargar pesajes
+              </button>
               <button className="btn btn-info btn-md">Mover/Vender</button>
-              <button className="btn btn-danger btn-md">Imprimir reporte</button>
+              <button className="btn btn-danger btn-md">
+                Imprimir reporte
+              </button>
             </div>
           </div>
         </div>
