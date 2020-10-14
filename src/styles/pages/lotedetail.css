@@ -1,0 +1,36 @@
+.loteDetail {
+    display: flex;
+    flex-direction: column;
+  }
+  .loteDetail-data{
+      display: grid;
+      grid-template-columns:1fr 1fr;
+  }
+  .loteDetail-data__stadistics{
+      display: flex;
+      flex-direction: column;
+  }
+  .loteDetail-data__thead{
+      background-color:lightgray;
+  }
+  .loteDetail-data__stadistics-chart{
+      width:100%
+  }
+  .loteDetail--options{
+    display: flex;
+    justify-content:space-around
+  }
+  @media only screen and (max-width: 1024px) {
+    .loteDetail-data{
+        display: flex;
+        flex-direction: column;
+    }
+    .loteDetail--options{
+        display: flex;
+        flex-direction: column;
+        
+    }
+    .loteDetail--options>*{
+        margin: .5em 0;
+    }
+  }

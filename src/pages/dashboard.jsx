@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { setInformation, setLoading, setLogin, setModal } from "../actions";
 import axios from "axios";
@@ -8,6 +8,7 @@ import "../styles/pages/dashboard.css";
 import Tabla from "../components/tabla";
 import Modal from "../components/modal";
 import ResDetail from "./resDetail";
+import LoteDetail from "./loteDetail";
 
 const Dashboard = (props) => {
   const {
@@ -21,7 +22,6 @@ const Dashboard = (props) => {
     onDetail,
   } = props;
   const toggleModal = () => {
-    console.log("cerrando modal");
     props.setModal(!modal);
   };
 
@@ -30,7 +30,7 @@ const Dashboard = (props) => {
       case "res":
         return <ResDetail id={onDetail.id} />;
       case "lote":
-        return <ResDetail id={onDetail.id} />;
+        return <LoteDetail id={onDetail.id} />;
       case "registro":
         return <ResDetail id={onDetail.id} />;
     }
@@ -39,26 +39,12 @@ const Dashboard = (props) => {
     if (sessionStorage.getItem("resp")) {
       let data = JSON.parse(sessionStorage.getItem("resp"));
       props.setLogin(data);
-      if (Object.keys(fincaActual) > 0) {
-        getInfo();
-      }
     } else {
       props.history.push("/login");
     }
   }, []);
 
-  const getInfo = () => {
-    props.setLoading(true);
-    const url =
-      "http://basculapp.000webhostapp.com/api/getInfoCliente.php?cliente=" +
-      cliente.id +
-      "&finca=" +
-      fincaActual.id;
-    axios.get(url).then((response) => {
-      props.setLoading(false);
-      props.setInformation(response.data[0]);
-    });
-  };
+
 
   return (
     <>
