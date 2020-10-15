@@ -5,6 +5,8 @@ import TableReses from "../components/tableReses";
 import "../styles/pages/lotedetail.css";
 import Chart from "react-google-charts";
 import Loader from "../components/loader";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
+
 const LoteDetail = ({ cliente, reses, lotes, onDetail }) => {
   const [actual, setActual] = useState("");
   const [totales, setTotales] = useState({});
@@ -87,8 +89,16 @@ const LoteDetail = ({ cliente, reses, lotes, onDetail }) => {
         </div>
       </div>
       <div className="loteDetail--options">
-              <button className="btn btn-warning">Movimientos masivos</button>
-              <button className="btn btn-danger">Imprimir</button>
+        <ReactHTMLTableToExcel
+          id="test-table-xls-button"
+          className=" btn btn-success btn-md download-table-xls-button"
+          table="table-to-xls"
+          filename={onDetail.id}
+          sheet={onDetail.id}
+          buttonText="Descargar Lote"
+        />
+        <button className="btn btn-warning">Movimientos masivos</button>
+        <button className="btn btn-danger">Imprimir</button>
       </div>
     </div>
   );

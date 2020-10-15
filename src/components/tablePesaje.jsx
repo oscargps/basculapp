@@ -4,7 +4,7 @@ const TablePesajes = ({ pesos }) => {
   let pesoAnt = [];
   return (
     <>
-      <table className=" table TablePesajes-table">
+      <table id="table-to-xls" className=" table TablePesajes-table">
         <thead>
           <tr>
             <th>Peso</th>

@@ -7,7 +7,7 @@ import TablePesajes from "../components/tablePesaje";
 import TableRegistros from "../components/tableRegistros";
 import getPesos from "../utils/getPesos";
 import Loader from "../components/loader";
-
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
 // import Pdf from "react-to-pdf";
 
 const ResDetail = ({ cliente, reses, onDetail, print }) => {
@@ -15,11 +15,11 @@ const ResDetail = ({ cliente, reses, onDetail, print }) => {
   const [Pesos, setPesos] = useState([]);
   const [dataGrafica, setDataGrafica] = useState([]);
 
-//   const ref = React.createRef();
-//   const options = {
-//     orientation: 'landscape',
-//     format: [1142,593]
-// };
+  //   const ref = React.createRef();
+  //   const options = {
+  //     orientation: 'landscape',
+  //     format: [1142,593]
+  // };
   useEffect(() => {
     const result = reses.filter((res) => res.id == onDetail.id);
     setActual(result.length > 0 ? result[0] : {});
@@ -37,7 +37,8 @@ const ResDetail = ({ cliente, reses, onDetail, print }) => {
     if (data.length > 0) {
       dato = data.map((peso) => {
         let pesoNum = parseInt(peso.cantidad);
-        return [`${peso.fecha}`, pesoNum];
+        let fecha = peso.fecha.split(' ')
+        return [fecha[0], pesoNum];
       });
     }
     setDataGrafica([["fecha", "peso"]].concat(dato));
@@ -79,13 +80,21 @@ const ResDetail = ({ cliente, reses, onDetail, print }) => {
               <TableRegistros data={Pesos} />
             </div>
             <div className="resDetail-data2__info-options">
-              <button className="btn btn-success btn-md">
-                Descargar pesajes
-              </button>
+              {/* <button className="btn btn-success btn-md"> */}
+                <ReactHTMLTableToExcel
+                  id="test-table-xls-button"
+                  className=" btn btn-success btn-md download-table-xls-button"
+                  table="table-to-xls"
+                  filename={onDetail.id}
+                  sheet="pesajes"
+                  buttonText="Descargar pesajes"
+                />
+              {/* </button> */}
               <button className="btn btn-info btn-md">Mover/Vender</button>
               <button onClick={print} className="btn btn-danger btn-md">
                 Imprimir reporte
               </button>
+
               {/* <Pdf targetRef={ref} options={options} x={.5} y={.5}  filename="code-example.pdf">
                 {({ toPdf }) => <button onClick={toPdf}>Generate Pdf</button>}
               </Pdf> */}

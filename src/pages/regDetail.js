@@ -5,6 +5,7 @@ import Loader from "../components/loader";
 import { connect } from "react-redux";
 import TableRegDetalles from "../components/tableRegDetalles";
 import "../styles/pages/regdetail.css";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
 
 
 const RegDetail = (props) => {
@@ -27,7 +28,14 @@ const RegDetail = (props) => {
       <div className="regDetail-content">
         <TableRegDetalles data={Cantidades} />
         <div className="regDetail-optiones">
-          <button className="btn btn-success">Descargar</button>
+        <ReactHTMLTableToExcel
+                  id="test-table-xls-button"
+                  className=" btn btn-success btn-md download-table-xls-button"
+                  table="table-to-xls"
+                  filename={onDetail.id}
+                  sheet="pesajes"
+                  buttonText="Descargar reporte"
+                />
           <button className="btn btn-danger">Imprimir</button>
         </div>
       </div>

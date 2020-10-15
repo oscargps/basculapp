@@ -11,7 +11,7 @@ const TableRegDetalle = (props) => {
   };
   return (
     <>
-      <table className=" table TableRegDetalle-table">
+      <table id="table-to-xls" className=" table TableRegDetalle-table">
         <thead>
           <tr>
             <th>Id</th>

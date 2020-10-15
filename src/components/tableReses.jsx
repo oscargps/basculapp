@@ -58,7 +58,7 @@ const TableReses = (props) => {
   };
   return (
     <>
-      <table className=" table  table-responsive-md TableReses-table">
+      <table id="table-to-xls" className=" table  table-responsive-md TableReses-table">
         <thead>
           <tr>
             <th>Res</th>
