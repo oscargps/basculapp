@@ -1,11 +1,18 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { setInformation, setLoading, setLogin, setModal } from "../actions";
+import {
+  setInformation,
+  setLoading,
+  setLogin,
+  setModal,
+  setModal2,
+} from "../actions";
 import Navbar from "../components/navbar";
 import Loader from "../components/loader";
 import "../styles/pages/dashboard.css";
 import Tabla from "../components/tabla";
 import Modal from "../components/modal";
+import Modal2 from "../components/modal2";
 import ResDetail from "./resDetail";
 import LoteDetail from "./loteDetail";
 import RegDetail from "./regDetail";
@@ -18,6 +25,7 @@ const Dashboard = (props) => {
     registros,
     loading,
     modal,
+    modal2,
     onDetail,
   } = props;
   const toggleModal = () => {
@@ -27,11 +35,13 @@ const Dashboard = (props) => {
   const setDetailComponent = () => {
     switch (onDetail.tipo) {
       case "res":
-        return <ResDetail  id={onDetail.id} />;
+        return <ResDetail id={onDetail.id} />;
       case "lote":
         return <LoteDetail id={onDetail.id} />;
       case "registro":
         return <RegDetail id={onDetail.id} />;
+      default:
+        return null;
     }
   };
   useEffect(() => {
@@ -42,6 +52,13 @@ const Dashboard = (props) => {
       props.history.push("/login");
     }
   }, []);
+
+  useEffect(() => {
+    window.onpopstate = (e) => {
+      e.preventDefault();
+      props.setModal(false);
+    };
+  });
 
   return (
     <>
@@ -85,6 +102,9 @@ const Dashboard = (props) => {
       <Modal isOpen={modal} onClose={toggleModal}>
         {setDetailComponent()}
       </Modal>
+      <Modal2 isOpen={modal2} onClose={null}>
+        <h4>Modal 2</h4>
+      </Modal2>
     </>
   );
 };
@@ -93,6 +113,7 @@ const mapDispatchToProps = {
   setInformation,
   setLogin,
   setModal,
+  setModal2,
 };
 const mapStateToProps = (state) => {
   return {
@@ -103,6 +124,7 @@ const mapStateToProps = (state) => {
     lotes: state.lotes,
     registros: state.registros,
     modal: state.modal,
+    modal2: state.modal2,
     onDetail: state.onDetail,
   };
 };

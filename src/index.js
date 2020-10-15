@@ -20,6 +20,7 @@ const InitialState = {
   pesajes: [],
   registros: [],
   modal: false,
+  modal2: false,
   onDetail:{}
 };
 const store = createStore(reducer, InitialState);

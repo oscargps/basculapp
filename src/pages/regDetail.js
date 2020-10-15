@@ -7,14 +7,14 @@ import TableRegDetalles from "../components/tableRegDetalles";
 import "../styles/pages/regdetail.css";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 
-
 const RegDetail = (props) => {
-  const { cliente, usuario, onDetail } = props;
+  const { onDetail } = props;
   const [Encabezado, setEncabezado] = useState([]);
   const [Cantidades, setCantidades] = useState([]);
+  let result = {};
 
   const getContenido = async () => {
-    const result = await getRegistro(onDetail.id);
+    result = await getRegistro(onDetail.id);
     setEncabezado(result.encabezado);
     setCantidades(result.medidas);
   };
@@ -28,14 +28,14 @@ const RegDetail = (props) => {
       <div className="regDetail-content">
         <TableRegDetalles data={Cantidades} />
         <div className="regDetail-optiones">
-        <ReactHTMLTableToExcel
-                  id="test-table-xls-button"
-                  className=" btn btn-success btn-md download-table-xls-button"
-                  table="table-to-xls"
-                  filename={onDetail.id}
-                  sheet="pesajes"
-                  buttonText="Descargar reporte"
-                />
+          <ReactHTMLTableToExcel
+            id="test-table-xls-button"
+            className=" btn btn-success btn-md download-table-xls-button"
+            table="table-to-xls"
+            filename={onDetail.id}
+            sheet="pesajes"
+            buttonText="Descargar reporte"
+          />
           <button className="btn btn-danger">Imprimir</button>
         </div>
       </div>

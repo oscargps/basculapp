@@ -70,7 +70,7 @@ const LoteDetail = ({ cliente, reses, lotes, onDetail }) => {
                   <Loader />
                 </div>
               }
-              data={dataGrafica}
+              data={dataGrafica.length> 0?dataGrafica:[]}
               options={{
                 title: "Relación de pesos de animales del lote",
                 crosshair: { trigger: "both", orientation: "both" },

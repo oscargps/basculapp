@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { setModal2 } from "../actions";
 import Chart from "react-google-charts";
 import "../styles/pages/resdetail.css";
 import DetailTable from "../components/detailTable";
@@ -10,7 +11,8 @@ import Loader from "../components/loader";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 // import Pdf from "react-to-pdf";
 
-const ResDetail = ({ cliente, reses, onDetail, print }) => {
+const ResDetail = (props) => {
+  const { cliente, reses, onDetail, print } = props;
   const [actual, setActual] = useState("");
   const [Pesos, setPesos] = useState([]);
   const [dataGrafica, setDataGrafica] = useState([]);
@@ -20,8 +22,11 @@ const ResDetail = ({ cliente, reses, onDetail, print }) => {
   //     orientation: 'landscape',
   //     format: [1142,593]
   // };
+  const handleMove = ()=>{
+    props.setModal2(true)
+  }
   useEffect(() => {
-    const result = reses.filter((res) => res.id == onDetail.id);
+    const result = reses.filter((res) => res.id === onDetail.id);
     setActual(result.length > 0 ? result[0] : {});
     fillPesos();
   }, [onDetail.id]);
@@ -90,7 +95,7 @@ const ResDetail = ({ cliente, reses, onDetail, print }) => {
                   buttonText="Descargar pesajes"
                 />
               {/* </button> */}
-              <button className="btn btn-info btn-md">Mover/Vender</button>
+              <button className="btn btn-info btn-md" onClick={handleMove}>Mover/Vender</button>
               <button onClick={print} className="btn btn-danger btn-md">
                 Imprimir reporte
               </button>
@@ -105,15 +110,16 @@ const ResDetail = ({ cliente, reses, onDetail, print }) => {
     </div>
   );
 };
+const mapDispatchToProps = {
+
+  setModal2,
+};
 const mapStateToProps = (state) => {
   return {
     cliente: state.cliente,
-    fincaActual: state.fincaActual,
     reses: state.reses,
-    lotes: state.lotes,
-    registros: state.registros,
-    modal: state.modal,
+    modal2: state.modal2,
     onDetail: state.onDetail,
   };
 };
-export default connect(mapStateToProps, null)(ResDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(ResDetail);

@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import "../styles/components/modal.css";
 import { connect } from "react-redux";
-import { setModal } from "../actions";
-class Modal extends Component {
+import { setModal2 } from "../actions";
+class Modal2 extends Component {
   state = {};
 
   close = () => {
-    this.props.setModal(false);
+    this.props.setModal2(false);
   };
   render() {
     if (!this.props.isOpen) {
@@ -22,13 +22,13 @@ class Modal extends Component {
           {this.props.children}
         </div>
       </div>,
-      document.getElementById("modal")
+      document.getElementById("modal2")
     );
   }
 }
 
 const mapDispatchToProps = {
-  setModal,
+  setModal2,
 };
 
-export default connect(null, mapDispatchToProps)(Modal);
+export default connect(null, mapDispatchToProps)(Modal2);

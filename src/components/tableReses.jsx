@@ -31,6 +31,7 @@ const TableReses = (props) => {
         idMin = res.id;
       }
       total += peso;
+      return true
     });
     resultados({
       cantidad,

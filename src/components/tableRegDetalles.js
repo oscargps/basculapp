@@ -24,7 +24,7 @@ const TableRegDetalle = (props) => {
           {data.length > 0 ? (
             data.map((peso) => {
               return (
-                <tr key={peso.fecha}>
+                <tr key={peso.ref}>
                   <td>{peso.ref}</td>
                   <td>
                     <button

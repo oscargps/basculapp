@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../styles/components/tablepesaje.css";
 import { connect } from "react-redux";
 import { setDetail } from "../actions";
