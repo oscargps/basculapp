@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { setInformation, setLoading, setLogin, setModal } from "../actions";
-import axios from "axios";
 import Navbar from "../components/navbar";
 import Loader from "../components/loader";
 import "../styles/pages/dashboard.css";
@@ -28,7 +27,7 @@ const Dashboard = (props) => {
   const setDetailComponent = () => {
     switch (onDetail.tipo) {
       case "res":
-        return <ResDetail id={onDetail.id} />;
+        return <ResDetail  id={onDetail.id} />;
       case "lote":
         return <LoteDetail id={onDetail.id} />;
       case "registro":
@@ -43,8 +42,6 @@ const Dashboard = (props) => {
       props.history.push("/login");
     }
   }, []);
-
-
 
   return (
     <>
@@ -84,6 +81,7 @@ const Dashboard = (props) => {
           </>
         )}
       </div>
+
       <Modal isOpen={modal} onClose={toggleModal}>
         {setDetailComponent()}
       </Modal>

@@ -19,12 +19,13 @@ const Tabla = (props) => {
     });
   };
   useEffect(() => {
-    setSearchResults(data);
+    setSearchResults(data.length > 0 ? data : []);
   }, [data]);
   useEffect(() => {
-    const results = data.filter((dato) =>
-      dato[titulo].toLowerCase().includes(searchTerm)
-    );
+    const results =
+      data.length > 0
+        ? data.filter((dato) => dato[titulo].toLowerCase().includes(searchTerm))
+        : [];
     setSearchResults(results);
   }, [searchTerm]);
 

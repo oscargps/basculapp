@@ -12,12 +12,15 @@
 }
 .resDetail-data2 {
   /* max-height: 50vh; */
-  display: grid;
+  /* display: grid;
   grid-template-rows: 1fr 1fr;
-  width: 100%;
+  width: 100%; */
+  display: flex;
+  flex-direction: column;
+  justify-content:space-between;
 }
 .resDetail-data2__grafica{
- width:100%; 
+ width:90%; 
 }
 .resDetail-data2__info {
     display: grid;
@@ -25,12 +28,13 @@
 }
 .resDetail-data2__info-registros{
   padding:.5em;
-  overflow: hidden
+  overflow: scroll;
+  height: 100%;
 }
 .resDetail-data2__info-options {
   display: flex;
   flex-direction: column;
-  /* height: 100%; */
+  justify-content:space-around;
 }
 .resDetail-data2__info-options> button {
   margin: 1em 0;

@@ -7,11 +7,19 @@ import TablePesajes from "../components/tablePesaje";
 import TableRegistros from "../components/tableRegistros";
 import getPesos from "../utils/getPesos";
 import Loader from "../components/loader";
-const ResDetail = ({ cliente, reses, onDetail }) => {
+
+// import Pdf from "react-to-pdf";
+
+const ResDetail = ({ cliente, reses, onDetail, print }) => {
   const [actual, setActual] = useState("");
   const [Pesos, setPesos] = useState([]);
   const [dataGrafica, setDataGrafica] = useState([]);
 
+//   const ref = React.createRef();
+//   const options = {
+//     orientation: 'landscape',
+//     format: [1142,593]
+// };
   useEffect(() => {
     const result = reses.filter((res) => res.id == onDetail.id);
     setActual(result.length > 0 ? result[0] : {});
@@ -36,7 +44,7 @@ const ResDetail = ({ cliente, reses, onDetail }) => {
   };
 
   return (
-    <div className="ResDetail">
+    <div className="ResDetail" ref={null}>
       <DetailTable data={actual} />
       <div className="resDetail-data">
         <div className="resDetail-data__table">
@@ -75,9 +83,12 @@ const ResDetail = ({ cliente, reses, onDetail }) => {
                 Descargar pesajes
               </button>
               <button className="btn btn-info btn-md">Mover/Vender</button>
-              <button className="btn btn-danger btn-md">
+              <button onClick={print} className="btn btn-danger btn-md">
                 Imprimir reporte
               </button>
+              {/* <Pdf targetRef={ref} options={options} x={.5} y={.5}  filename="code-example.pdf">
+                {({ toPdf }) => <button onClick={toPdf}>Generate Pdf</button>}
+              </Pdf> */}
             </div>
           </div>
         </div>
