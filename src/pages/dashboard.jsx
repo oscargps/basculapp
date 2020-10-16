@@ -31,11 +31,7 @@ const Dashboard = (props) => {
     modal2,
     onDetail,
     onMove,
-
   } = props;
-  const toggleModal = () => {
-    props.setModal(!modal);
-  };
 
   const escFunction = (e) => {
     if (e.keyCode === 27) {
@@ -50,11 +46,11 @@ const Dashboard = (props) => {
   const setDetailComponent = () => {
     switch (onDetail.tipo) {
       case "res":
-        return <ResDetail id={onDetail.id} />;
+        return <ResDetail/>;
       case "lote":
-        return <LoteDetail id={onDetail.id} />;
+        return <LoteDetail/>;
       case "registro":
-        return <RegDetail id={onDetail.id} />;
+        return <RegDetail/>;
       case "novedad":
         return <TablaNovedades />;
       default:
@@ -65,8 +61,6 @@ const Dashboard = (props) => {
     switch (onMove.tipo) {
       case "mv":
         return <MoveSell />;
-      case "lote":
-        return <LoteDetail id={onDetail.id} />;
       default:
         return null;
     }
@@ -81,13 +75,6 @@ const Dashboard = (props) => {
     }
   }, []);
 
-  useEffect(() => {
-    window.onpopstate = (e) => {
-      e.preventDefault();
-      props.setModal(false);
-    };
-  });
-
   return (
     <>
       <Navbar />
@@ -98,9 +85,7 @@ const Dashboard = (props) => {
           <>
             {fincaActual.id ? (
               <>
-                <div className="Dashboard-options">
-                  
-                </div>
+                <div className="Dashboard-options"></div>
                 <div className="Dashboard-tables">
                   <Tabla
                     titulo_tabla="Reses"
@@ -130,9 +115,7 @@ const Dashboard = (props) => {
             )}
           </>
         )}
-        <Modal isOpen={modal} onClose={toggleModal}>
-          {setDetailComponent()}
-        </Modal>
+        <Modal isOpen={modal}>{setDetailComponent()}</Modal>
         <Modal2 isOpen={modal2} onClose={null}>
           {setMoveComponent()}
         </Modal2>

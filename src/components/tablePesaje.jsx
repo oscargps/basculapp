@@ -16,7 +16,6 @@ const TablePesajes = ({ pesos }) => {
         <tbody>
           {pesos.length > 0 ? (
             pesos.map((peso) => {
-
               pesoAnt.push(peso.cantidad);
               let ganancia =
                 peso.cantidad - (pesoAnt.length >= 2

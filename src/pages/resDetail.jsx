@@ -9,14 +9,12 @@ import TableRegistros from "../components/tableRegistros";
 import getPesos from "../utils/getPesos";
 import Loader from "../components/loader";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
-// import Pdf from "react-to-pdf";
 
 const ResDetail = (props) => {
   const { cliente, reses, onDetail, print } = props;
   const [actual, setActual] = useState("");
   const [Pesos, setPesos] = useState([]);
   const [dataGrafica, setDataGrafica] = useState([]);
-
  
   const handleMove = () => {
     props.setMoveSell({

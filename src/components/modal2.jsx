@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { setModal2 } from "../actions";
 class Modal2 extends Component {
   state = {};
-
   close = () => {
     this.props.setModal2(false);
   };
@@ -26,7 +25,6 @@ class Modal2 extends Component {
     );
   }
 }
-
 const mapDispatchToProps = {
   setModal2,
 };

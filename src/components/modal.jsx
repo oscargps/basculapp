@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { setModal } from "../actions";
 class Modal extends Component {
   state = {};
-
   close = () => {
     this.props.setModal(false);
   };

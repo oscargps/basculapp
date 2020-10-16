@@ -93,7 +93,7 @@ const MoveSell = (props) => {
         Swal.fire("Error!", "Si persiste, contacte a soporte", "error");
     }
   };
-  const handleSave = async () => {
+  const handleSave = () => {
     if (option === "move") {
       if (actual.lote === Lote.id) {
         Swal.fire({
@@ -220,7 +220,6 @@ const mapDispatchToProps = {
 };
 const mapStateToProps = (state) => {
   return {
-    loading: state.loading,
     cliente: state.cliente,
     usuario: state.usuario,
     fincaActual: state.fincaActual,

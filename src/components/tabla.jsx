@@ -38,12 +38,10 @@ const Tabla = (props) => {
             <div className="Tabla-filter">
               <input
                 type="text"
-                name=""
                 value={searchTerm}
                 placeholder="Buscar..."
                 onChange={handleChange}
                 className="form-control"
-                id=""
               />
             </div>
             {searchResults.length > 0 &&

@@ -7,7 +7,7 @@ import Chart from "react-google-charts";
 import Loader from "../components/loader";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 
-const LoteDetail = ({ cliente, reses, lotes, onDetail }) => {
+const LoteDetail = ({reses, lotes, onDetail }) => {
   const [actual, setActual] = useState("");
   const [totales, setTotales] = useState({});
   const [maximo, setMaximo] = useState({});
@@ -105,7 +105,6 @@ const LoteDetail = ({ cliente, reses, lotes, onDetail }) => {
 };
 const mapStateToProps = (state) => {
   return {
-    cliente: state.cliente,
     reses: state.reses,
     lotes: state.lotes,
     registros: state.registros,
