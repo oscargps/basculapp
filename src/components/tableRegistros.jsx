@@ -12,7 +12,7 @@ const TableRegistros = (props) => {
   };
   return (
     <>
-      <table className=" table TableRegistros-table">
+      <table className=" table table-responsive-md TableRegistros-table">
         <thead>
           <tr>
             <th>Registro</th>

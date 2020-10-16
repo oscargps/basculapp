@@ -1,17 +1,33 @@
-.Dashboard{
-    height:100%;
-    padding: 2em;
-    display: flex;
-    justify-content:space-around;
+.Dashboard {
+  height: 100%;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.Dashboard-tables {
+  height: 100%;
+  width: 100%;
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
 }
 
 @media only screen and (max-width: 1024px) {
-    .Dashboard{
-       
-        display: flex;
-        flex-direction: column;
-        justify-content:space-around;
-        align-items:center;
-    }
-
+  .Dashboard-tables {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .Dashboard-options {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin: 1em;
+  }
 }

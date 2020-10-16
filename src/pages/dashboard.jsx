@@ -6,6 +6,7 @@ import {
   setLogin,
   setModal,
   setModal2,
+  setDetail,
 } from "../actions";
 import Navbar from "../components/navbar";
 import Loader from "../components/loader";
@@ -14,6 +15,7 @@ import Tabla from "../components/tabla";
 import Modal from "../components/modal";
 import Modal2 from "../components/modal2";
 import MoveSell from "../components/moveSell";
+import TablaNovedades from "../components/tablaNovedades";
 import ResDetail from "./resDetail";
 import LoteDetail from "./loteDetail";
 import RegDetail from "./regDetail";
@@ -29,6 +31,7 @@ const Dashboard = (props) => {
     modal2,
     onDetail,
     onMove,
+
   } = props;
   const toggleModal = () => {
     props.setModal(!modal);
@@ -52,6 +55,8 @@ const Dashboard = (props) => {
         return <LoteDetail id={onDetail.id} />;
       case "registro":
         return <RegDetail id={onDetail.id} />;
+      case "novedad":
+        return <TablaNovedades />;
       default:
         return null;
     }
@@ -93,41 +98,45 @@ const Dashboard = (props) => {
           <>
             {fincaActual.id ? (
               <>
-                <Tabla
-                  titulo_tabla="Reses"
-                  titulo="numero"
-                  subtitulo="subgenero"
-                  tipo="res"
-                  data={reses}
-                />
-                <Tabla
-                  titulo_tabla="Lotes"
-                  titulo="ref"
-                  subtitulo="obs"
-                  tipo="lote"
-                  data={lotes}
-                />
-                <Tabla
-                  titulo_tabla="Registros de pesaje"
-                  titulo="id"
-                  subtitulo="fecha"
-                  tipo="registro"
-                  data={registros}
-                />
+                <div className="Dashboard-options">
+                  
+                </div>
+                <div className="Dashboard-tables">
+                  <Tabla
+                    titulo_tabla="Reses"
+                    titulo="numero"
+                    subtitulo="subgenero"
+                    tipo="res"
+                    data={reses}
+                  />
+                  <Tabla
+                    titulo_tabla="Lotes"
+                    titulo="ref"
+                    subtitulo="obs"
+                    tipo="lote"
+                    data={lotes}
+                  />
+                  <Tabla
+                    titulo_tabla="Registros de pesaje"
+                    titulo="id"
+                    subtitulo="fecha"
+                    tipo="registro"
+                    data={registros}
+                  />
+                </div>
               </>
             ) : (
               <h4>Selecciona una finca..</h4>
             )}
           </>
         )}
+        <Modal isOpen={modal} onClose={toggleModal}>
+          {setDetailComponent()}
+        </Modal>
+        <Modal2 isOpen={modal2} onClose={null}>
+          {setMoveComponent()}
+        </Modal2>
       </div>
-
-      <Modal isOpen={modal} onClose={toggleModal}>
-        {setDetailComponent()}
-      </Modal>
-      <Modal2 isOpen={modal2} onClose={null}>
-        {setMoveComponent()}
-      </Modal2>
     </>
   );
 };
@@ -137,6 +146,7 @@ const mapDispatchToProps = {
   setLogin,
   setModal,
   setModal2,
+  setDetail,
 };
 const mapStateToProps = (state) => {
   return {
@@ -146,7 +156,6 @@ const mapStateToProps = (state) => {
     reses: state.reses,
     lotes: state.lotes,
     registros: state.registros,
-    novedades: state.novedades,
     modal: state.modal,
     modal2: state.modal2,
     onDetail: state.onDetail,

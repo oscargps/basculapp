@@ -17,18 +17,14 @@ const ResDetail = (props) => {
   const [Pesos, setPesos] = useState([]);
   const [dataGrafica, setDataGrafica] = useState([]);
 
-  //   const ref = React.createRef();
-  //   const options = {
-  //     orientation: 'landscape',
-  //     format: [1142,593]
-  // };
-  const handleMove = ()=>{
+ 
+  const handleMove = () => {
     props.setMoveSell({
-      tipo:'mv',
-      id: onDetail.id
-    })
-    props.setModal2(true)
-  }
+      tipo: "mv",
+      id: onDetail.id,
+    });
+    props.setModal2(true);
+  };
   useEffect(() => {
     const result = reses.filter((res) => res.id === onDetail.id);
     setActual(result.length > 0 ? result[0] : {});
@@ -46,7 +42,7 @@ const ResDetail = (props) => {
     if (data.length > 0) {
       dato = data.map((peso) => {
         let pesoNum = parseInt(peso.cantidad);
-        let fecha = peso.fecha.split(' ')
+        let fecha = peso.fecha.split(" ");
         return [fecha[0], pesoNum];
       });
     }
@@ -90,23 +86,21 @@ const ResDetail = (props) => {
             </div>
             <div className="resDetail-data2__info-options">
               {/* <button className="btn btn-success btn-md"> */}
-                <ReactHTMLTableToExcel
-                  id="test-table-xls-button"
-                  className=" btn btn-success btn-md download-table-xls-button"
-                  table="table-to-xls"
-                  filename={onDetail.id}
-                  sheet="pesajes"
-                  buttonText="Descargar pesajes"
-                />
+              <ReactHTMLTableToExcel
+                id="test-table-xls-button"
+                className=" btn btn-success btn-md download-table-xls-button"
+                table="table-to-xls"
+                filename={onDetail.id}
+                sheet="pesajes"
+                buttonText="Descargar pesajes"
+              />
               {/* </button> */}
-              <button className="btn btn-info btn-md" onClick={handleMove}>Trasladar/Vender</button>
+              <button className="btn btn-info btn-md" onClick={handleMove}>
+                Trasladar/Vender
+              </button>
               <button onClick={print} className="btn btn-danger btn-md">
                 Imprimir reporte
               </button>
-
-              {/* <Pdf targetRef={ref} options={options} x={.5} y={.5}  filename="code-example.pdf">
-                {({ toPdf }) => <button onClick={toPdf}>Generate Pdf</button>}
-              </Pdf> */}
             </div>
           </div>
         </div>
@@ -115,8 +109,8 @@ const ResDetail = (props) => {
   );
 };
 const mapDispatchToProps = {
-
-  setModal2,setMoveSell
+  setModal2,
+  setMoveSell,
 };
 const mapStateToProps = (state) => {
   return {

@@ -4,7 +4,13 @@ import "../styles/components/navbar.css";
 import Logo from "../assets/img/logo.png";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { setFinca, setLoading, setInformation } from "../actions";
+import {
+  setFinca,
+  setLoading,
+  setInformation,
+  setDetail,
+  setModal,
+} from "../actions";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 const Navbar = (props) => {
@@ -28,17 +34,27 @@ const Navbar = (props) => {
       "&finca=" +
       e;
     try {
-      axios.get(url).then((response) => {
-        props.setLoading(false);
-        props.setInformation(response.data[0]);
-      }).catch((er)=>{
-        props.setLoading(false);
-        props.setInformation([]);
-      })
+      axios
+        .get(url)
+        .then((response) => {
+          props.setLoading(false);
+          props.setInformation(response.data[0]);
+        })
+        .catch((er) => {
+          props.setLoading(false);
+          props.setInformation([]);
+        });
     } catch (error) {
       props.setLoading(false);
       props.setInformation([]);
     }
+  };
+  const handleNovedad = () => {
+    props.setModal(true);
+    props.setDetail({
+      tipo: "novedad",
+      id: null,
+    });
   };
   return (
     <div className="Navbar">
@@ -61,6 +77,11 @@ const Navbar = (props) => {
             </Dropdown.Item>
           ))}
         </DropdownButton>
+        {fincaActual.id ? (
+          <button className="btn btn-info btn-md" onClick={handleNovedad}>
+            Ultimas Novedades
+          </button>
+        ) : null}
         <p className="Navbar-Menu__username">{usuario.username}</p>
         <button onClick={handleLogout} className=" btn btn-warning btn-sm">
           Cerrar sesión
@@ -73,6 +94,8 @@ const mapDispatchToProps = {
   setFinca,
   setLoading,
   setInformation,
+  setDetail,
+  setModal,
 };
 const mapStateToProps = (state) => {
   return {
