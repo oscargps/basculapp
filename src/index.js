@@ -21,7 +21,8 @@ const InitialState = {
   registros: [],
   modal: false,
   modal2: false,
-  onDetail:{}
+  onDetail:{},
+  onMove:{},
 };
 const store = createStore(reducer, InitialState);
 ReactDOM.render(

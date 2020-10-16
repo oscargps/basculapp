@@ -26,3 +26,7 @@ export const setDetail= payload => ({
     type: 'SET_DETAIL',
     payload,//el payload es la informacion que vamos a transmitir
 })
+export const setMoveSell= payload => ({ 
+    type: 'SET_MOVESELL',
+    payload,//el payload es la informacion que vamos a transmitir
+})

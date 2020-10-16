@@ -1,0 +1,20 @@
+.moveSell {
+}
+.moveSell-data__thead {
+  background-color: lightgray;
+}
+.moveSell-options {
+  display: flex;
+  justify-content: space-around;
+}
+.moveSell-moveform {
+  display: flex;
+  justify-content: center;
+  margin: 1em 0;
+}
+input {
+  margin: 1em 0;
+}
+.moveSell-moveform__button {
+  margin-top: 1em;
+}

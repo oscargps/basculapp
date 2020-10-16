@@ -42,6 +42,11 @@ const reducer = (state, action) => {
         ...state,
         onDetail:action.payload,
       };
+    case "SET_MOVESELL":
+      return {
+        ...state,
+        onMove:action.payload,
+      };
     default:
       return state;
   }

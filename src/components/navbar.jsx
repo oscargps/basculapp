@@ -9,10 +9,10 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 const Navbar = (props) => {
   let history = useHistory();
-  const { fincas, cliente,usuario,fincaActual } = props;
+  const { fincas, cliente, usuario, fincaActual } = props;
 
   const handleSelect = async (e) => {
-    let finca = JSON.parse(e)
+    let finca = JSON.parse(e);
     await props.setFinca(finca);
     getInfo(finca.id);
   };
@@ -27,10 +27,18 @@ const Navbar = (props) => {
       cliente.id +
       "&finca=" +
       e;
-    axios.get(url).then((response) => {
+    try {
+      axios.get(url).then((response) => {
+        props.setLoading(false);
+        props.setInformation(response.data[0]);
+      }).catch((er)=>{
+        props.setLoading(false);
+        props.setInformation([]);
+      })
+    } catch (error) {
       props.setLoading(false);
-      props.setInformation(response.data[0]);
-    });
+      props.setInformation([]);
+    }
   };
   return (
     <div className="Navbar">
@@ -39,7 +47,11 @@ const Navbar = (props) => {
       <div className="Navbar-Menu">
         <DropdownButton
           variant="secondary"
-          title={fincaActual.id ?(fincaActual.id+'-'+fincaActual.nombre):'Seleccionar finca..'}
+          title={
+            fincaActual.id
+              ? fincaActual.id + "-" + fincaActual.nombre
+              : "Seleccionar finca.."
+          }
           id="dropdown-menu-align-right"
           onSelect={handleSelect}
         >
@@ -49,8 +61,10 @@ const Navbar = (props) => {
             </Dropdown.Item>
           ))}
         </DropdownButton>
-        <p  className="Navbar-Menu__username">{usuario.username}</p>
-        <button onClick={handleLogout} className=" btn btn-warning btn-sm">Cerrar sesión</button>
+        <p className="Navbar-Menu__username">{usuario.username}</p>
+        <button onClick={handleLogout} className=" btn btn-warning btn-sm">
+          Cerrar sesión
+        </button>
       </div>
     </div>
   );
@@ -64,7 +78,7 @@ const mapStateToProps = (state) => {
   return {
     cliente: state.cliente,
     fincas: state.fincas,
-    usuario:state.usuario,
+    usuario: state.usuario,
     fincaActual: state.fincaActual,
   };
 };

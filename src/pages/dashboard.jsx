@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import {
   setInformation,
@@ -13,6 +13,7 @@ import "../styles/pages/dashboard.css";
 import Tabla from "../components/tabla";
 import Modal from "../components/modal";
 import Modal2 from "../components/modal2";
+import MoveSell from "../components/moveSell";
 import ResDetail from "./resDetail";
 import LoteDetail from "./loteDetail";
 import RegDetail from "./regDetail";
@@ -27,11 +28,22 @@ const Dashboard = (props) => {
     modal,
     modal2,
     onDetail,
+    onMove,
   } = props;
   const toggleModal = () => {
     props.setModal(!modal);
   };
 
+  const escFunction = (e) => {
+    if (e.keyCode === 27) {
+      console.log(modal);
+      if (modal) {
+        props.setModal2(false);
+      } else {
+        props.setModal(false);
+      }
+    }
+  };
   const setDetailComponent = () => {
     switch (onDetail.tipo) {
       case "res":
@@ -44,10 +56,21 @@ const Dashboard = (props) => {
         return null;
     }
   };
+  const setMoveComponent = () => {
+    switch (onMove.tipo) {
+      case "mv":
+        return <MoveSell />;
+      case "lote":
+        return <LoteDetail id={onDetail.id} />;
+      default:
+        return null;
+    }
+  };
   useEffect(() => {
     if (sessionStorage.getItem("resp")) {
       let data = JSON.parse(sessionStorage.getItem("resp"));
       props.setLogin(data);
+      document.addEventListener("keydown", escFunction, false);
     } else {
       props.history.push("/login");
     }
@@ -103,7 +126,7 @@ const Dashboard = (props) => {
         {setDetailComponent()}
       </Modal>
       <Modal2 isOpen={modal2} onClose={null}>
-        <h4>Modal 2</h4>
+        {setMoveComponent()}
       </Modal2>
     </>
   );
@@ -126,6 +149,7 @@ const mapStateToProps = (state) => {
     modal: state.modal,
     modal2: state.modal2,
     onDetail: state.onDetail,
+    onMove: state.onMove,
   };
 };
 

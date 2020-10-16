@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { setModal2 } from "../actions";
+import { setModal2, setMoveSell } from "../actions";
 import Chart from "react-google-charts";
 import "../styles/pages/resdetail.css";
 import DetailTable from "../components/detailTable";
@@ -23,6 +23,10 @@ const ResDetail = (props) => {
   //     format: [1142,593]
   // };
   const handleMove = ()=>{
+    props.setMoveSell({
+      tipo:'mv',
+      id: onDetail.id
+    })
     props.setModal2(true)
   }
   useEffect(() => {
@@ -95,7 +99,7 @@ const ResDetail = (props) => {
                   buttonText="Descargar pesajes"
                 />
               {/* </button> */}
-              <button className="btn btn-info btn-md" onClick={handleMove}>Mover/Vender</button>
+              <button className="btn btn-info btn-md" onClick={handleMove}>Trasladar/Vender</button>
               <button onClick={print} className="btn btn-danger btn-md">
                 Imprimir reporte
               </button>
@@ -112,7 +116,7 @@ const ResDetail = (props) => {
 };
 const mapDispatchToProps = {
 
-  setModal2,
+  setModal2,setMoveSell
 };
 const mapStateToProps = (state) => {
   return {
