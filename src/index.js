@@ -19,6 +19,7 @@ const InitialState = {
   lotes: [],
   pesajes: [],
   registros: [],
+  novedades: [],
   modal: false,
   modal2: false,
   onDetail:{},

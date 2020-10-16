@@ -146,6 +146,7 @@ const mapStateToProps = (state) => {
     reses: state.reses,
     lotes: state.lotes,
     registros: state.registros,
+    novedades: state.novedades,
     modal: state.modal,
     modal2: state.modal2,
     onDetail: state.onDetail,
