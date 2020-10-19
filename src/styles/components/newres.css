@@ -10,9 +10,13 @@
   padding-bottom: 0.5em;
 }
 .NewRes-header__options {
-  width: 50%;
+  width: 60%;
   display: flex;
   justify-content: space-around;
+  align-items: center;
+}
+.NewRes-header__options >.custom-file {
+width:auto;
 }
 
 .watchTable {

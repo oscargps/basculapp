@@ -9,18 +9,22 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import Swal from "sweetalert2";
 import TableNewRes from "../components/tableNewRes";
+import newRes from "../utils/newRes";
+import * as XLSX from "xlsx";
 const NewRes = (props) => {
+  const { reses, cliente, fincaActual, usuario, newReses } = props;
   const getToday = () => {
     let hoy = new Date();
     let año = hoy.getFullYear();
     let mes = hoy.getMonth() + 1;
     let dia = hoy.getDate();
-    let fecha = año + "-" + (mes < 10
-    ? "0" + mes
-    : mes) + "-" +( dia < 10
-    ? "0" + dia
-    : dia);
-    return fecha
+    let fecha =
+      año +
+      "-" +
+      (mes < 10 ? "0" + mes : mes) +
+      "-" +
+      (dia < 10 ? "0" + dia : dia);
+    return fecha;
   };
   const { lotes } = props;
   const [Lote, setLote] = useState("");
@@ -32,6 +36,12 @@ const NewRes = (props) => {
   const [pesonac, setpesonac] = useState(0);
   const [fechaing, setfechaing] = useState(getToday);
   const [obs, setobs] = useState("");
+  const [fileName, setFileName] = useState("Cargar archivo...");
+  const [file, setFile] = useState({
+    hoja: "",
+    hojas: [],
+    file: false,
+  });
 
   const razas = [
     "Brahman",
@@ -55,8 +65,21 @@ const NewRes = (props) => {
     "Otra",
   ];
 
-  const validarForm = (ingreso) => {
+  const validatedForm = (ingreso) => {
     let result = true;
+    let numerosReses = reses.filter((res) => res.numero === ingreso.numeroRes);
+    let numerosIngresasos = newReses.filter(
+      (res) => res.numeroRes === ingreso.numeroRes
+    );
+    if (numerosReses.length > 0 || numerosIngresasos.length > 0) {
+      Swal.fire(
+        "¡Numero duplicado!",
+        "El numero del animal ya se encuentra en base de datos",
+        "warning"
+      );
+      result = false;
+      return;
+    }
     Object.keys(ingreso).map((item) => {
       if (ingreso[item] === "" && item != "obs") {
         Swal.fire(
@@ -72,9 +95,16 @@ const NewRes = (props) => {
   };
 
   const addRes = () => {
+    if (!Lote) {
+      Swal.fire("Lote vacio!", "Selecciona un lote", "warning");
+      return;
+    }
     let ingreso = {
-      Lote,
+      id: fincaActual.id + "_" + numeroRes,
       numeroRes,
+      cliente: cliente.id,
+      finca: fincaActual.id,
+      lote: Lote.id,
       raza,
       fechanac,
       genero,
@@ -83,9 +113,86 @@ const NewRes = (props) => {
       fechaing,
       obs,
     };
-    if (validarForm(ingreso)) {
+    if (validatedForm(ingreso)) {
       props.setNewRes(ingreso);
     }
+  };
+  const saveReses = async () => {
+    let resp = await newRes(usuario.id, newReses);
+    if (resp) {
+      Swal.fire(
+        "¡Listo!",
+        "Los animales han sido añadidos con exito",
+        "success"
+      );
+    } else {
+      Swal.fire("¡Error!", "Si el error persiste, contacte a soporte", "error");
+    }
+  };
+
+  const handleInputChange = (event) => {
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    setFileName(value.split("\\")[2]);
+    const name = target.name;
+    setFile({
+      [name]: value,
+    });
+    let hojas = [];
+    if (name === "file") {
+      let reader = new FileReader();
+      reader.readAsArrayBuffer(target.files[0]);
+      reader.onloadend = async (e) => {
+        var data = new Uint8Array(e.target.result);
+        var workbook = XLSX.read(data, { type: "array" });
+        workbook.SheetNames.map((sheetName) => {
+          var XL_row_object = XLSX.utils.sheet_to_row_object_array(
+            workbook.Sheets[sheetName]
+          );
+          hojas.push({
+            data: XL_row_object,
+            sheetName,
+          });
+        });
+        setFile({
+          selectedFileDocument: target.files[0],
+          hojas,
+          file:true
+        });
+      };
+    }
+  };
+
+  const LoadReses = () => {
+    let data = file.hojas[0].data;
+    if (!Lote) {
+      Swal.fire("Lote vacio!", "Selecciona un lote", "warning");
+      return;
+    }
+    data.map((res) => {
+      try {
+        let ingreso = {
+          id: fincaActual.id + "_" + res["Numero"],
+          numeroRes: res["Numero"].toString(),
+          cliente: cliente.id,
+          finca: fincaActual.id,
+          lote: Lote.id,
+          raza: res["Raza"],
+          fechanac: res["Fecha Nacimiento"],
+          genero: res["Genero"],
+          subgenero: res["Subgenero"],
+          pesonac: res["Peso Nacimiento"],
+          fechaing,
+          obs: res["Observacion"],
+        };
+        if (validatedForm(ingreso)) {
+          props.setNewRes(ingreso);
+        }
+      } catch (error) {
+        console.log(error);
+        return;
+      }
+    });
   };
   return (
     <div className="NewRes">
@@ -108,8 +215,44 @@ const NewRes = (props) => {
           </DropdownButton>
         </div>
         <div className="NewRes-header__options">
-          <button className="btn btn-success">Descargar plantilla </button>
-          <button className="btn btn-success">Cargar Reses </button>
+          <a
+            href="http://basculapp.000webhostapp.com/reses.xlsx"
+            className="btn btn-success"
+            download
+          >
+            Descargar plantilla
+          </a>
+          <form className="was-validated">
+            <div class="input-group is-invalid">
+              <div class="custom-file">
+                <input
+                  type="file"
+                  name="file"
+                  className="custom-file-input"
+                  id="validatedInputGroupCustomFile"
+                  required
+                  onChange={handleInputChange}
+                />
+                <label
+                  className="custom-file-label"
+                  for="validatedInputGroupCustomFile"
+                >
+                  {fileName}
+                </label>
+              </div>
+              <div class="input-group-append">
+                <button
+                  className="btn btn-outline-secondary"
+                  onClick={LoadReses}
+                  type="button"
+                  disabled={file.file?false: true}
+                >
+                  Cargar
+                </button>
+              </div>
+            </div>
+          </form>
+          {/* <button onClick={null}>Read</button> */}
         </div>
         <button
           onClick={() => {
@@ -244,7 +387,7 @@ const NewRes = (props) => {
             <button className="btn btn-primary" onClick={addRes}>
               Añadir
             </button>
-            <button className="btn btn-success btn-block" onClick={null}>
+            <button className="btn btn-success btn-block" onClick={saveReses}>
               Guardar
             </button>
           </div>

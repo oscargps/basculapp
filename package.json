@@ -25,7 +25,8 @@
     "react-scripts": "3.4.3",
     "react-to-pdf": "0.0.13",
     "redux": "^4.0.5",
-    "sweetalert2": "^10.3.6"
+    "sweetalert2": "^10.3.6",
+    "xlsx": "^0.16.8"
   },
   "scripts": {
     "start": "react-scripts start",

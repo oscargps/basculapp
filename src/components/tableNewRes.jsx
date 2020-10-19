@@ -24,7 +24,7 @@ const TableNewRes = (props) => {
         {newReses.length > 0 ? (
           newReses.map((res) => (
             <tr key={res.numeroRes}>
-              <td>{res.Lote.id}</td>
+              <td>{res.lote}</td>
               <td>{res.numeroRes}</td>
               <td>{res.raza}</td>
               <td>{res.genero}</td>
