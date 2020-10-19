@@ -23,11 +23,4 @@
     justify-content: space-around;
     align-items: center;
   }
-  .Dashboard-options {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    margin: 1em;
-  }
 }

@@ -92,7 +92,6 @@ const Dashboard = (props) => {
           <>
             {fincaActual.id ? (
               <>
-                <div className="Dashboard-options"></div>
                 <div className="Dashboard-tables">
                   <Tabla
                     titulo_tabla="Reses"

@@ -70,9 +70,16 @@ const MoveSell = (props) => {
     formData.append("obs", descripcion + obs);
     let resp = await movesell(formData);
     if (resp) {
-      Swal.fire("Listo!", "Se ha registrado la novedad", "success");
-    }else{
-        Swal.fire("Error!", "Si persiste, contacte a soporte", "error");
+      Swal.fire({
+        title: "Listo!",
+        text: "Se ha registrado la novedad",
+        icon: "success",
+        onClose: () => {
+          props.setModal2(false);
+        },
+      });
+    } else {
+      Swal.fire("Error!", "Si persiste, contacte a soporte", "error");
     }
   };
   const venderRes = async () => {
@@ -89,8 +96,8 @@ const MoveSell = (props) => {
     let resp = await movesell(formData);
     if (resp) {
       Swal.fire("Listo!", "Se ha registrado la novedad", "success");
-    }else{
-        Swal.fire("Error!", "Si persiste, contacte a soporte", "error");
+    } else {
+      Swal.fire("Error!", "Si persiste, contacte a soporte", "error");
     }
   };
   const handleSave = () => {

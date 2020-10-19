@@ -13,6 +13,9 @@ import {
 } from "../actions";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
+import getInfo from "../utils/getInfo";
+import Swal from "sweetalert2";
+
 const Navbar = (props) => {
   let history = useHistory();
   const { fincas, cliente, usuario, fincaActual } = props;
@@ -20,35 +23,44 @@ const Navbar = (props) => {
   const handleSelect = async (e) => {
     let finca = JSON.parse(e);
     await props.setFinca(finca);
-    getInfo(finca.id);
+    props.setLoading(true)
+    let data = await getInfo(cliente.id, finca.id)
+    if(Object.keys(data).length > 0){      
+      props.setInformation(data);
+      props.setLoading(false)
+    }else{
+      Swal.fire("Error!", "Si persiste, contacte a soporte", "error");
+    }
+
+    // getInfo(finca.id);
   };
   const handleLogout = () => {
     sessionStorage.clear();
     history.push("/login");
   };
-  const getInfo = (e) => {
-    props.setLoading(true);
-    const url =
-      "http://basculapp.000webhostapp.com/api/getInfoCliente.php?cliente=" +
-      cliente.id +
-      "&finca=" +
-      e;
-    try {
-      axios
-        .get(url)
-        .then((response) => {
-          props.setLoading(false);
-          props.setInformation(response.data[0]);
-        })
-        .catch((er) => {
-          props.setLoading(false);
-          props.setInformation([]);
-        });
-    } catch (error) {
-      props.setLoading(false);
-      props.setInformation([]);
-    }
-  };
+  // const getInfo = (e) => {
+  //   props.setLoading(true);
+  //   const url =
+  //     "http://basculapp.000webhostapp.com/api/getInfoCliente.php?cliente=" +
+  //     cliente.id +
+  //     "&finca=" +
+  //     e;
+  //   try {
+  //     axios
+  //       .get(url)
+  //       .then((response) => {
+  //         props.setLoading(false);
+  //         props.setInformation(response.data[0]);
+  //       })
+  //       .catch((er) => {
+  //         props.setLoading(false);
+  //         props.setInformation([]);
+  //       });
+  //   } catch (error) {
+  //     props.setLoading(false);
+  //     props.setInformation([]);
+  //   }
+  // };
   const handleNovedad = () => {
     props.setModal(true);
     props.setDetail({
