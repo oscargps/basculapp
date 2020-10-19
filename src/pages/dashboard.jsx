@@ -16,9 +16,12 @@ import Modal from "../components/modal";
 import Modal2 from "../components/modal2";
 import MoveSell from "../components/moveSell";
 import TablaNovedades from "../components/tablaNovedades";
+import NewRes from "../components/newRes";
 import ResDetail from "./resDetail";
 import LoteDetail from "./loteDetail";
 import RegDetail from "./regDetail";
+import TableNewRes from "../components/tableNewRes";
+
 
 const Dashboard = (props) => {
   const {
@@ -53,14 +56,18 @@ const Dashboard = (props) => {
         return <RegDetail/>;
       case "novedad":
         return <TablaNovedades />;
+      case "newres":
+        return <NewRes />;
       default:
         return null;
     }
   };
-  const setMoveComponent = () => {
+  const setDetail2Component = () => {
     switch (onMove.tipo) {
       case "mv":
         return <MoveSell />;
+      case "newReses":
+        return <TableNewRes />;
       default:
         return null;
     }
@@ -117,7 +124,7 @@ const Dashboard = (props) => {
         )}
         <Modal isOpen={modal}>{setDetailComponent()}</Modal>
         <Modal2 isOpen={modal2} onClose={null}>
-          {setMoveComponent()}
+          {setDetail2Component()}
         </Modal2>
       </div>
     </>

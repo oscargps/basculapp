@@ -1,4 +1,5 @@
-.moveSell {
+.moveSell > input {
+  margin: 1em 0;
 }
 .moveSell-data__thead {
   background-color: lightgray;
@@ -12,9 +13,7 @@
   justify-content: center;
   margin: 1em 0;
 }
-input {
-  margin: 1em 0;
-}
+
 .moveSell-moveform__button {
   margin-top: 1em;
 }

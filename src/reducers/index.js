@@ -48,6 +48,16 @@ const reducer = (state, action) => {
         ...state,
         onMove:action.payload,
       };
+    case "SET_NEWRES":
+      return {
+        ...state,
+        newReses:[...state.newReses,action.payload],
+      };
+    case "DELETE_NEWRES":
+      return {
+        ...state,
+        newReses: state.newReses.filter((items) => items.numeroRes !== action.payload),
+      };
     default:
       return state;
   }

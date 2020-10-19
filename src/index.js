@@ -7,7 +7,11 @@ import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import reducer from "./reducers";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import {  faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
+library.add(fab,faPlusCircle)
 const InitialState = {
   onLogin:false,
   loading:false,
@@ -24,6 +28,7 @@ const InitialState = {
   modal2: false,
   onDetail:{},
   onMove:{},
+  newReses:[]
 };
 const store = createStore(reducer, InitialState);
 ReactDOM.render(

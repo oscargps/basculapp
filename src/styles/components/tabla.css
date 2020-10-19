@@ -13,7 +13,13 @@
 .Tabla-filter{
     margin-bottom: .5em;
 }
-
+.Tabla-new{
+    margin:.5em;
+    position:absolute;
+    right:0;
+    top: 0;
+    font-size: .8em;
+}
 @media only screen and (max-width: 1024px) {
     .Tabla{
 

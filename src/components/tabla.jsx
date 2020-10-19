@@ -3,7 +3,7 @@ import "../styles/components/tabla.css";
 import TablaItem from "./TablaItem";
 import { setModal, setDetail } from "../actions";
 import { connect } from "react-redux";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Tabla = (props) => {
   const { titulo_tabla, data, titulo, subtitulo, tipo } = props;
   const [searchTerm, setSearchTerm] = useState("");
@@ -29,10 +29,23 @@ const Tabla = (props) => {
     setSearchResults(results);
   }, [searchTerm]);
 
+  const handleNew = () => {
+    props.setModal(true);
+
+    props.setDetail({
+      tipo:'new'+tipo,
+      id: null,
+    });
+  }
   return (
     <div className="Tabla">
       <div className="card">
-        <div className="card-header Tabla-header">{titulo_tabla}</div>
+        <div className="card-header Tabla-header">
+          {titulo_tabla}
+          <button className="btn btn-dark Tabla-new" onClick={handleNew}>
+            <FontAwesomeIcon icon="plus-circle" />
+          </button>
+        </div>
         {searchResults.length > 0 ? (
           <div className="card-body">
             <div className="Tabla-filter">

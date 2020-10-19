@@ -30,3 +30,11 @@ export const setMoveSell= payload => ({
     type: 'SET_MOVESELL',
     payload,//el payload es la informacion que vamos a transmitir
 })
+export const setNewRes= payload => ({ 
+    type: 'SET_NEWRES',
+    payload,//el payload es la informacion que vamos a transmitir
+})
+export const deleteNewRes= payload => ({ 
+    type: 'DELETE_NEWRES',
+    payload,//el payload es la informacion que vamos a transmitir
+})
