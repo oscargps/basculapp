@@ -7,7 +7,7 @@ import Chart from "react-google-charts";
 import Loader from "../components/loader";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 
-const LoteDetail = ({reses, lotes, onDetail }) => {
+const LoteDetail = ({ reses, lotes, onDetail }) => {
   const [actual, setActual] = useState("");
   const [totales, setTotales] = useState({});
   const [maximo, setMaximo] = useState({});
@@ -29,18 +29,12 @@ const LoteDetail = ({reses, lotes, onDetail }) => {
   };
   return (
     <div className="loteDetail">
-      <DetailTable data={actual} />
+      <div className="loteDetail-detailTable">
+        <DetailTable data={actual} />
+      </div>
       <div className="loteDetail-data">
-        <div className="loteDetail-data__table">
-          <TableReses
-            resultados={onConteo}
-            grafica={graficar}
-            reses={reses}
-            idLote={onDetail.id}
-          />
-        </div>
         <div className="loteDetail-data__stadistics">
-          <table className="table">
+          <table className="table loteDetail-data__stadistics-table">
             <tbody>
               <tr>
                 <th className="loteDetail-data__thead">Total de reses: </th>
@@ -62,15 +56,13 @@ const LoteDetail = ({reses, lotes, onDetail }) => {
           </table>
           <div className="loteDetail-data__stadistics-chart">
             <Chart
-              width={"100%"}
-              height={"100%"}
               chartType="ScatterChart"
               loader={
                 <div>
                   <Loader />
                 </div>
               }
-              data={dataGrafica.length> 0?dataGrafica:[]}
+              data={dataGrafica.length > 0 ? dataGrafica : []}
               options={{
                 title: "Relación de pesos de animales del lote",
                 crosshair: { trigger: "both", orientation: "both" },
@@ -86,6 +78,14 @@ const LoteDetail = ({reses, lotes, onDetail }) => {
               rootProps={{ "data-testid": "1" }}
             />
           </div>
+        </div>
+        <div className="loteDetail-data__table">
+          <TableReses
+            resultados={onConteo}
+            grafica={graficar}
+            reses={reses}
+            idLote={onDetail.id}
+          />
         </div>
       </div>
       <div className="loteDetail--options">

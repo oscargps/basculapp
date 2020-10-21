@@ -33,10 +33,10 @@ const Tabla = (props) => {
     props.setModal(true);
 
     props.setDetail({
-      tipo:'new'+tipo,
+      tipo: "new" + tipo,
       id: null,
     });
-  }
+  };
   return (
     <div className="Tabla">
       <div className="card">
@@ -46,18 +46,19 @@ const Tabla = (props) => {
             <FontAwesomeIcon icon="plus-circle" />
           </button>
         </div>
-        {searchResults.length > 0 ? (
-          <div className="card-body">
-            <div className="Tabla-filter">
-              <input
-                type="text"
-                value={searchTerm}
-                placeholder="Buscar..."
-                onChange={handleChange}
-                className="form-control"
-              />
-            </div>
-            {searchResults.length > 0 &&
+        <div className="Tabla-filter">
+          <input
+            type="text"
+            value={searchTerm}
+            placeholder="Buscar..."
+            onChange={handleChange}
+            className="form-control filter"
+          />
+        </div>
+        <div className="card-body">
+          <div className="tabla-content">
+            {searchResults.length > 0 ? (
+              searchResults.length > 0 &&
               searchResults.map((res) => (
                 <TablaItem
                   key={res.id}
@@ -66,11 +67,12 @@ const Tabla = (props) => {
                   id={res.id}
                   select={clickDetail}
                 />
-              ))}
+              ))
+            ) : (
+              <h5>No se encuentran registros</h5>
+            )}
           </div>
-        ) : (
-          <h5>No se encuentran registros</h5>
-        )}
+        </div>
         <div className="card-footer">
           <h5>Total: {searchResults.length}</h5>
         </div>

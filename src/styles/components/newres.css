@@ -80,6 +80,16 @@ width:auto;
     align-items: center;
     padding-bottom: 0.5em;
   }
+  .NewRes-header__options {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .input-group{
+    align-items: center;
+  }
   .watchTable {
     display: block;
   }

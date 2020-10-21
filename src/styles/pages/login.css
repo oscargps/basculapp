@@ -1,32 +1,34 @@
 .Login {
   display: flex;
+  height: 100%;
+  width: 100%;
 }
 .Login-form {
-    border:1em solid #F44336;
-    padding: 1em;
-  width: 50vw;
+  border: 1em solid #f44336;
+  padding: 1em;
+  width: 50%;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items:center;
+  align-items: center;
 }
-.Login-form__img{
-    margin: 1em;
+.Login-form__img {
+
+  margin: 1em;
 }
 .Login-Imagen {
-    background-color: #F44336;
-    padding: 1em;
-  width: 50vw;
+  background-color: #f44336;
+  padding: 1em;
+  width: 50%;
   height: 100vh;
 }
 
 @media only screen and (max-width: 1024px) {
-    
-    .Login-Imagen {
-        display: none;
-    }
-    .Login-form {
-      width: 100vw;
-      height: 100vh;
-    }
+  .Login-Imagen {
+    display: none;
+  }
+  .Login-form {
+    width: 100vw;
+    height: 100vh;
+  }
 }

@@ -4,14 +4,25 @@
     width:100%;
     margin: 0 1em;
 }
+.Tabla > .card{
+    height: 100%;
+}
+.tabla-content{
+    height: 100%;
+    overflow-y: auto;
+}
 .Tabla-header{
     background-color: #F44336;
     color: white;
-    /* font-weight: bold; */
     font-size:1.5em
 }
 .Tabla-filter{
     margin-bottom: .5em;
+    padding:1em;
+    background-color: lightgray;;
+}
+.card-body{
+    padding: 0;
 }
 .Tabla-new{
     margin:.5em;
@@ -24,6 +35,9 @@
     .Tabla{
 
         margin: 1em;
+    }
+    .Tabla > .card{
+        height: 90vh;
     }
 
 }

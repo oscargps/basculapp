@@ -15,7 +15,7 @@ const ResDetail = (props) => {
   const [actual, setActual] = useState("");
   const [Pesos, setPesos] = useState([]);
   const [dataGrafica, setDataGrafica] = useState([]);
- 
+
   const handleMove = () => {
     props.setMoveSell({
       tipo: "mv",
@@ -49,7 +49,9 @@ const ResDetail = (props) => {
 
   return (
     <div className="ResDetail" ref={null}>
-      <DetailTable data={actual} />
+      <div className="resDetail-detailTable">
+        <DetailTable data={actual} />
+      </div>
       <div className="resDetail-data">
         <div className="resDetail-data__table">
           <TablePesajes pesos={Pesos} />

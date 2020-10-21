@@ -24,7 +24,9 @@ const RegDetail = (props) => {
   }, [onDetail.id]);
   return (
     <div className="regDetail">
-      <DetailTable data={Encabezado} />
+      <div className="regDetail-detailTable">
+        <DetailTable data={Encabezado} />
+      </div>
       <div className="regDetail-content">
         <TableRegDetalles data={Cantidades} />
         <div className="regDetail-optiones">

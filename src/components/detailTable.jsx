@@ -4,7 +4,7 @@ const DetailTable = ({ data }) => {
   const columns = Object.keys(data)
 
   return (
-    <table className="table table-responsive-md">
+    <table className="table table-responsive-md detailTable">
       <thead>
         <tr>
           {columns.length>0 && columns.map((col) =>

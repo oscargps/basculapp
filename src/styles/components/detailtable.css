@@ -1,7 +1,14 @@
-.table{
- font-size: .8em;
+.detailTable {
+  font-size: 0.8em;
+overflow: auto;
 }
 
-.table-coltitle{
-    background-color: lightgray;
+.table-coltitle {
+  background-color: lightgray;
+}
+@media only screen and (max-width: 1024px) {
+  .detailTable {
+    height: 100%;
+    width: 100%;
+  }
 }
