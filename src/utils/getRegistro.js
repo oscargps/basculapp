@@ -3,7 +3,7 @@ import axios from "axios";
 const getRegistro = async (id) => {
   let resp;
   let url =
-    "http://basculapp.000webhostapp.com/api/getRegistro.php?reporte=" + id;
+    "https://basculapp.000webhostapp.com/api/getRegistro.php?reporte=" + id;
   try {
     await axios.get(url).then((response) => {
       resp = response.data;

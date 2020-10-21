@@ -2,7 +2,7 @@ import axios from "axios";
 
 const newRes = async (usuario, data) => {
   let resp;
-  const url = "http://basculapp.000webhostapp.com/api/newRes.php";
+  const url = "https://basculapp.000webhostapp.com/api/newRes.php";
   let formData = new FormData();
   formData.append("usuario", usuario);
   formData.append("data", JSON.stringify(data));
