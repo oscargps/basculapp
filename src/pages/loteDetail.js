@@ -6,8 +6,10 @@ import "../styles/pages/lotedetail.css";
 import Chart from "react-google-charts";
 import Loader from "../components/loader";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
+import { setMoveSell, setModal2 } from "../actions";
 
-const LoteDetail = ({ reses, lotes, onDetail }) => {
+const LoteDetail = (props) => {
+  const { reses, lotes, onDetail } = props;
   const [actual, setActual] = useState("");
   const [totales, setTotales] = useState({});
   const [maximo, setMaximo] = useState({});
@@ -23,6 +25,13 @@ const LoteDetail = ({ reses, lotes, onDetail }) => {
     setMaximo(resultados.max);
     setMinimo(resultados.min);
     setpromedio(resultados.total / resultados.cantidad);
+  };
+  const handleMove = () => {
+    props.setMoveSell({
+      tipo: "mm",
+      id: onDetail.id,
+    });
+    props.setModal2(true);
   };
   const graficar = (data) => {
     setDataGrafica(data);
@@ -97,11 +106,18 @@ const LoteDetail = ({ reses, lotes, onDetail }) => {
           sheet={onDetail.id}
           buttonText="Descargar Lote"
         />
-        <button className="btn btn-warning">Movimientos masivos</button>
+        <button className="btn btn-warning" onClick={handleMove}>
+          Movimientos masivos
+        </button>
         <button className="btn btn-danger">Imprimir</button>
       </div>
     </div>
   );
+};
+
+const mapDispatchToProps = {
+  setMoveSell,
+  setModal2,
 };
 const mapStateToProps = (state) => {
   return {
@@ -111,4 +127,4 @@ const mapStateToProps = (state) => {
     onDetail: state.onDetail,
   };
 };
-export default connect(mapStateToProps, null)(LoteDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(LoteDetail);

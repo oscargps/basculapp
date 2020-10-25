@@ -3,6 +3,7 @@
   flex-direction: column;
   height: 100%;
 }
+
 .loteDetail-detailTable {
   height: 15%;
 }
@@ -18,7 +19,7 @@
 .loteDetail-data__stadistics {
   display: grid;
   grid-template-rows: 1fr 1fr;
-  height: 100%;
+  height: 80%;
 }
 .loteDetail-data__stadistics-table {
   height: 50%;

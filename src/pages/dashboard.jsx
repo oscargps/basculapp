@@ -21,6 +21,7 @@ import ResDetail from "./resDetail";
 import LoteDetail from "./loteDetail";
 import RegDetail from "./regDetail";
 import TableNewRes from "../components/tableNewRes";
+import MovMasivos from "../components/movMasivos";
 
 
 const Dashboard = (props) => {
@@ -68,6 +69,8 @@ const Dashboard = (props) => {
         return <MoveSell />;
       case "newReses":
         return <TableNewRes />;
+      case "mm":
+        return <MovMasivos />;
       default:
         return null;
     }
@@ -99,6 +102,7 @@ const Dashboard = (props) => {
                     subtitulo="subgenero"
                     tipo="res"
                     data={reses}
+                    allowNew={true}
                   />
                   <Tabla
                     titulo_tabla="Lotes"
@@ -106,6 +110,7 @@ const Dashboard = (props) => {
                     subtitulo="obs"
                     tipo="lote"
                     data={lotes}
+                    allowNew={true}
                   />
                   <Tabla
                     titulo_tabla="Registros de pesaje"
@@ -113,6 +118,7 @@ const Dashboard = (props) => {
                     subtitulo="fecha"
                     tipo="registro"
                     data={registros}
+                    allowNew={false}
                   />
                 </div>
               </>

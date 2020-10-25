@@ -5,7 +5,7 @@ import { setModal, setDetail } from "../actions";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Tabla = (props) => {
-  const { titulo_tabla, data, titulo, subtitulo, tipo } = props;
+  const { titulo_tabla, data, titulo, subtitulo, tipo, allowNew } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState(data);
   const handleChange = (e) => {
@@ -42,7 +42,7 @@ const Tabla = (props) => {
       <div className="card">
         <div className="card-header Tabla-header">
           {titulo_tabla}
-          <button className="btn btn-dark Tabla-new" onClick={handleNew}>
+          <button disabled={!allowNew} className="btn btn-dark Tabla-new" onClick={handleNew}>
             <FontAwesomeIcon icon="plus-circle" />
           </button>
         </div>
