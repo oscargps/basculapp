@@ -22,7 +22,7 @@ import LoteDetail from "./loteDetail";
 import RegDetail from "./regDetail";
 import TableNewRes from "../components/tableNewRes";
 import MovMasivos from "../components/movMasivos";
-
+import NewLote from "../components/newLote";
 
 const Dashboard = (props) => {
   const {
@@ -50,11 +50,11 @@ const Dashboard = (props) => {
   const setDetailComponent = () => {
     switch (onDetail.tipo) {
       case "res":
-        return <ResDetail/>;
+        return <ResDetail />;
       case "lote":
-        return <LoteDetail/>;
+        return <LoteDetail />;
       case "registro":
-        return <RegDetail/>;
+        return <RegDetail />;
       case "novedad":
         return <TablaNovedades />;
       case "newres":
@@ -71,6 +71,8 @@ const Dashboard = (props) => {
         return <TableNewRes />;
       case "mm":
         return <MovMasivos />;
+      case "newlote":
+        return <NewLote />;
       default:
         return null;
     }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles/components/tabla.css";
 import TablaItem from "./TablaItem";
-import { setModal, setDetail } from "../actions";
+import { setModal, setModal2, setMoveSell, setDetail } from "../actions";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Tabla = (props) => {
@@ -30,19 +30,32 @@ const Tabla = (props) => {
   }, [searchTerm]);
 
   const handleNew = () => {
-    props.setModal(true);
+    if (tipo === "lote") {
+      props.setModal2(true);
 
-    props.setDetail({
-      tipo: "new" + tipo,
-      id: null,
-    });
+      props.setMoveSell({
+        tipo: "new" + tipo,
+        id: null,
+      });
+    } else {
+      props.setModal(true);
+
+      props.setDetail({
+        tipo: "new" + tipo,
+        id: null,
+      });
+    }
   };
   return (
     <div className="Tabla">
       <div className="card">
         <div className="card-header Tabla-header">
           {titulo_tabla}
-          <button disabled={!allowNew} className="btn btn-dark Tabla-new" onClick={handleNew}>
+          <button
+            disabled={!allowNew}
+            className="btn btn-dark Tabla-new"
+            onClick={handleNew}
+          >
             <FontAwesomeIcon icon="plus-circle" />
           </button>
         </div>
@@ -82,8 +95,10 @@ const Tabla = (props) => {
 };
 
 const mapDispatchToProps = {
+  setMoveSell,
   setDetail,
   setModal,
+  setModal2,
 };
 
 export default connect(null, mapDispatchToProps)(Tabla);
