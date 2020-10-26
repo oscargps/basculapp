@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { setMoveSell, setModal2 } from "../actions";
+import { setMoveSell, setReset } from "../actions";
 import "../styles/components/newlote.css";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -68,6 +68,7 @@ const NewLote = (props) => {
       let resp = await newLote(usuario.id, data);
       if (resp) {
         Swal.fire("¡Listo!", "El lote ha sido creado con exito", "success");
+        props.setReset(true)
       } else {
         Swal.fire(
           "¡Error!",
@@ -133,8 +134,8 @@ const NewLote = (props) => {
   );
 };
 const mapDispatchToProps = {
-  setModal2,
   setMoveSell,
+  setReset,
 };
 const mapStateToProps = (state) => {
   return {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { setInformation, setModal2 } from "../actions";
+import { setInformation, setReset  } from "../actions";
 import "../styles/components/movesell.css";
 import Form from "react-bootstrap/Form";
 import DropdownButton from "react-bootstrap/DropdownButton";
@@ -75,7 +75,7 @@ const MoveSell = (props) => {
         text: "Se ha registrado la novedad",
         icon: "success",
         onClose: () => {
-          props.setModal2(false);
+          props.setReset(true);
         },
       });
     } else {
@@ -96,6 +96,7 @@ const MoveSell = (props) => {
     let resp = await movesell(formData);
     if (resp) {
       Swal.fire("Listo!", "Se ha registrado la novedad", "success");
+      props.setReset(true);
     } else {
       Swal.fire("Error!", "Si persiste, contacte a soporte", "error");
     }
@@ -223,7 +224,8 @@ const MoveSell = (props) => {
 };
 const mapDispatchToProps = {
   setInformation,
-  setModal2,
+  setReset
+
 };
 const mapStateToProps = (state) => {
   return {

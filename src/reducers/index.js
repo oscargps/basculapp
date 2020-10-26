@@ -58,6 +58,14 @@ const reducer = (state, action) => {
         ...state,
         newReses: state.newReses.filter((items) => items.numeroRes !== action.payload),
       };
+    case "SET_RESET":
+      return {
+        ...state,
+        newReses: [],
+        fincaActual:{},
+        modal: false,
+        modal2: false
+      };
     default:
       return state;
   }

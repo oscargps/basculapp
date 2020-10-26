@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { setModal, setNewRes, setMoveSell, setModal2 } from "../actions";
+import {
+  setModal,
+  setNewRes,
+  setMoveSell,
+  setModal2,
+  setReset,
+} from "../actions";
 import "../styles/components/newres.css";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -118,6 +124,10 @@ const NewRes = (props) => {
     }
   };
   const saveReses = async () => {
+    if (newReses.length == 0) {
+      Swal.fire("No hay registros", "No hay animales por ingresar.", "warning");
+      return;
+    }
     let resp = await newRes(usuario.id, newReses);
     if (resp) {
       Swal.fire(
@@ -125,6 +135,7 @@ const NewRes = (props) => {
         "Los animales han sido añadidos con exito",
         "success"
       );
+      props.setReset(true);
     } else {
       Swal.fire("¡Error!", "Si el error persiste, contacte a soporte", "error");
     }
@@ -157,7 +168,7 @@ const NewRes = (props) => {
         setFile({
           selectedFileDocument: target.files[0],
           hojas,
-          file:true
+          file: true,
         });
       };
     }
@@ -245,14 +256,13 @@ const NewRes = (props) => {
                   className="btn btn-outline-secondary"
                   onClick={LoadReses}
                   type="button"
-                  disabled={file.file?false: true}
+                  disabled={file.file ? false : true}
                 >
                   Cargar
                 </button>
               </div>
             </div>
           </form>
-          {/* <button onClick={null}>Read</button> */}
         </div>
         <button
           onClick={() => {
@@ -401,6 +411,7 @@ const mapDispatchToProps = {
   setModal,
   setModal2,
   setMoveSell,
+  setReset,
 };
 const mapStateToProps = (state) => {
   return {

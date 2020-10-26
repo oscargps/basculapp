@@ -38,3 +38,7 @@ export const deleteNewRes= payload => ({
     type: 'DELETE_NEWRES',
     payload,//el payload es la informacion que vamos a transmitir
 })
+export const setReset= payload => ({ 
+    type: 'SET_RESET',
+    payload,//el payload es la informacion que vamos a transmitir
+})

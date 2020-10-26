@@ -6,7 +6,7 @@ import Badge from "react-bootstrap/Badge";
 import MultiSelect from "react-multi-select-component";
 import { Collapse } from "react-collapse";
 import { connect } from "react-redux";
-import { setModal2, setDetail } from "../actions";
+import { setDetail, setReset } from "../actions";
 import Swal from "sweetalert2";
 import movesell from "../utils/movesell";
 
@@ -88,7 +88,6 @@ const MovMasivos = (props) => {
     setResesMove(result);
   };
   const handleSave = () => {
-    let resp = true;
     if (Lote.id === onDetail.id || Object.keys(Lote) <= 0) {
       Swal.fire({
         title: "¡Verifica!",
@@ -112,7 +111,7 @@ const MovMasivos = (props) => {
               text: "Se ha registrado la novedad",
               icon: "success",
               onClose: () => {
-                props.setModal2(false);
+                props.setReset(true);
               },
             });
           } else {
@@ -251,7 +250,7 @@ const MovMasivos = (props) => {
   );
 };
 const mapDispatchToProps = {
-  setModal2,
+  setReset,
   setDetail,
 };
 const mapStateToProps = (state) => {
