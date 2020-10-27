@@ -123,10 +123,11 @@ const NewLote = (props) => {
           </Col>
         </Row>
         <textarea
+          maxlength="40"
           className="form-control"
           name="Text1"
           cols="40"
-          rows="8"
+          rows="3"
           value={obs}
           placeholder="Observaciones del lote.."
           onChange={(e) => setobs(e.target.value)}

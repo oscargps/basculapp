@@ -391,6 +391,7 @@ const NewRes = (props) => {
               </Col>
             </Row>
             <textarea
+            maxlength="40"
               className="form-control"
               name="Text1"
               cols="40"

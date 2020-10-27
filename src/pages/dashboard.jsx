@@ -109,7 +109,7 @@ const Dashboard = (props) => {
                   <Tabla
                     titulo_tabla="Lotes"
                     titulo="ref"
-                    subtitulo="obs"
+                    subtitulo="id"
                     tipo="lote"
                     data={lotes}
                     allowNew={true}

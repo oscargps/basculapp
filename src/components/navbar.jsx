@@ -23,18 +23,29 @@ const Navbar = (props) => {
   const handleSelect = async (e) => {
     let finca = JSON.parse(e);
     await props.setFinca(finca);
-    props.setLoading(true)
-    let data = await getInfo(cliente.id, finca.id)
-    if(Object.keys(data).length > 0){      
+    props.setLoading(true);
+    let data = await getInfo(cliente.id, finca.id);
+    if (Object.keys(data).length > 0) {
       props.setInformation(data);
-      props.setLoading(false)
-    }else{
+      props.setLoading(false);
+    } else {
       Swal.fire("Error!", "Si persiste, contacte a soporte", "error");
     }
   };
   const handleLogout = () => {
-    sessionStorage.clear();
-    history.push("/login");
+    Swal.fire({
+      title: "¿Cerrar sesión?",
+      text: "¿Desea cerra la sesión actual?",
+      showCancelButton: false,
+      showDenyButton: true,
+      confirmButtonText: `Salir`,
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        sessionStorage.clear();
+        history.push("/login");
+      }
+    });
   };
   const handleNovedad = () => {
     props.setModal(true);
@@ -69,7 +80,7 @@ const Navbar = (props) => {
             Ultimas Novedades
           </button>
         ) : null}
-        <p className="Navbar-Menu__username">{usuario.username}</p>
+        <p className="Navbar-Menu__username">{usuario.nombre}</p>
         <button onClick={handleLogout} className=" btn btn-warning btn-sm">
           Cerrar sesión
         </button>
