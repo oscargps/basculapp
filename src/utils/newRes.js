@@ -1,12 +1,11 @@
 import axios from "axios";
 
-const newRes = async (usuario, data) => {
+const newRes = async (header, data) => {
   let resp;
   const url = "https://basculapp.000webhostapp.com/api/newRes.php";
   let formData = new FormData();
-  formData.append("usuario", usuario);
+  formData.append("header", JSON.stringify(header));
   formData.append("data", JSON.stringify(data));
-    console.log(data);
   try {
     await axios.post(url, formData).then(() => {
       resp = true;

@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Swal from "sweetalert2";
 import newLote from "../utils/newLote";
+import getFecha from "../utils/getFecha";
 
 const NewLote = (props) => {
   const { lotes, cliente, fincaActual, usuario } = props;
@@ -58,6 +59,17 @@ const NewLote = (props) => {
         "warning"
       );
     } else {
+      let fecha = getFecha();
+      let header = {
+        id: cliente.id + "_" + fecha,
+        usuario: usuario.id,
+        cliente: cliente.id,
+        finca: fincaActual.id,
+        tipo: "CL",
+        tiporef: "lote",
+        ref: idNewLote,
+        obs: "Creación del lote " + NewLote,
+      };
       let data = {
         cliente: cliente.id,
         finca: fincaActual.id,
@@ -65,10 +77,10 @@ const NewLote = (props) => {
         lote: NewLote,
         obs,
       };
-      let resp = await newLote(usuario.id, data);
+      let resp = await newLote(header, data);
       if (resp) {
         Swal.fire("¡Listo!", "El lote ha sido creado con exito", "success");
-        props.setReset(true)
+        props.setReset(true);
       } else {
         Swal.fire(
           "¡Error!",

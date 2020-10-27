@@ -17,6 +17,8 @@ import Swal from "sweetalert2";
 import TableNewRes from "../components/tableNewRes";
 import newRes from "../utils/newRes";
 import * as XLSX from "xlsx";
+import getFecha from "../utils/getFecha";
+
 const NewRes = (props) => {
   const { reses, cliente, fincaActual, usuario, newReses } = props;
   const getToday = () => {
@@ -128,7 +130,18 @@ const NewRes = (props) => {
       Swal.fire("No hay registros", "No hay animales por ingresar.", "warning");
       return;
     }
-    let resp = await newRes(usuario.id, newReses);
+    let fecha = getFecha();
+    let header = {
+      id: cliente.id + "_" + fecha,
+      usuario: usuario.id,
+      cliente: cliente.id,
+      finca: fincaActual.id,
+      tipo: "CR",
+      tiporef: "res",
+      ref: "varios",
+      obs: "Creación de reses ingresadas al lote " + Lote.id,
+    };
+    let resp = await newRes(header, newReses);
     if (resp) {
       Swal.fire(
         "¡Listo!",

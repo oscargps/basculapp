@@ -5,10 +5,27 @@ import { setDetail, setModal2 } from "../actions";
 const TablaNovedades = (props) => {
   const { novedades } = props;
   const handleClick = (e) => {
-    props.setDetail({
-      tipo: "res",
-      id: e.target.value,
-    });
+    let novedad = JSON.parse(e.target.value);
+    switch (novedad.tipo) {
+      case "CL":
+        props.setDetail({
+          tipo: "lote",
+          id: novedad.ref,
+        });
+        break;
+      case "TR":
+        props.setDetail({
+          tipo: "res",
+          id: novedad.ref,
+        });
+        break;
+      case "VT":
+        props.setDetail({
+          tipo: "res",
+          id: novedad.ref,
+        });
+        break;
+    }
   };
   return (
     <>
@@ -33,7 +50,7 @@ const TablaNovedades = (props) => {
                   <td>{novedad.tipo}</td>
                   <td>
                     <button
-                      value={novedad.ref}
+                      value={JSON.stringify(novedad)}
                       onClick={handleClick}
                       className="btn btn-secondary btn-sm"
                     >
@@ -57,9 +74,9 @@ const TablaNovedades = (props) => {
 };
 
 const mapStateToProps = (state) => {
-    return{
-        novedades: state.novedades
-    }
+  return {
+    novedades: state.novedades,
+  };
 };
 const mapDispatchToProps = {
   setDetail,
