@@ -6,7 +6,8 @@ import "../styles/pages/lotedetail.css";
 import Chart from "react-google-charts";
 import Loader from "../components/loader";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
-import { setMoveSell, setModal2 } from "../actions";
+import { setMoveSell, setModal2, setPrintData } from "../actions";
+import { Link } from "react-router-dom";
 
 const LoteDetail = (props) => {
   const { reses, lotes, onDetail } = props;
@@ -35,6 +36,14 @@ const LoteDetail = (props) => {
   };
   const graficar = (data) => {
     setDataGrafica(data);
+  };
+  const print = () => {
+    props.setPrintData({
+      type: "lote",
+      reses,
+      actual,
+      valores: { maximo:maximo.idMax, minimo:minimo.idMin, promedio, totales:totales.cantidad },
+    });
   };
   return (
     <div className="loteDetail">
@@ -109,7 +118,9 @@ const LoteDetail = (props) => {
         <button className="btn btn-warning" onClick={handleMove}>
           Movimientos masivos
         </button>
-        <button className="btn btn-danger">Imprimir</button>
+        <Link to="printlote" onClick={print} className="btn btn-danger btn-md">
+          Imprimir reporte
+        </Link>
       </div>
     </div>
   );
@@ -118,6 +129,7 @@ const LoteDetail = (props) => {
 const mapDispatchToProps = {
   setMoveSell,
   setModal2,
+  setPrintData,
 };
 const mapStateToProps = (state) => {
   return {

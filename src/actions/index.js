@@ -42,11 +42,15 @@ export const setReset= payload => ({
     type: 'SET_RESET',
     payload,//el payload es la informacion que vamos a transmitir
 })
-export const setPrintRes= payload => ({ 
-    type: 'SET_PRINT_RES',
+export const setPrintData= payload => ({ 
+    type: 'SET_PRINT_DATA',
     payload,//el payload es la informacion que vamos a transmitir
 })
 export const setPagesToPrint= payload => ({ 
     type: 'SET_PAGES_PRINT',
+    payload,//el payload es la informacion que vamos a transmitir
+})
+export const deletePagesToPrint= payload => ({ 
+    type: 'DELETE_PAGES_PRINT',
     payload,//el payload es la informacion que vamos a transmitir
 })

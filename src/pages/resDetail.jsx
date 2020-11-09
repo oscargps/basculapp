@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { setModal2, setMoveSell,setPrintRes } from "../actions";
+import { setModal2, setMoveSell,setPrintData } from "../actions";
 import "../styles/pages/resdetail.css";
 import DetailTable from "../components/detailTable";
 import TablePesajes from "../components/tablePesaje";
@@ -10,7 +10,7 @@ import ChartLines from "../components/chartLines";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import {Link} from 'react-router-dom'
 const ResDetail = (props) => {
-  const { cliente, reses, onDetail,printRes } = props;
+  const { cliente, reses, onDetail } = props;
   const [actual, setActual] = useState("");
   const [Pesos, setPesos] = useState([]);
   const [dataGrafica, setDataGrafica] = useState([]);
@@ -46,7 +46,8 @@ const ResDetail = (props) => {
     setDataGrafica([["fecha", "peso"]].concat(dato));
   };
   const print=()=> {
-    props.setPrintRes({ 
+    props.setPrintData({ 
+      type: "res",
       Pesos,
       actual,
       dataGrafica
@@ -102,7 +103,7 @@ const ResDetail = (props) => {
 const mapDispatchToProps = {
   setModal2,
   setMoveSell,
-  setPrintRes
+  setPrintData
 };
 const mapStateToProps = (state) => {
   return {
@@ -110,7 +111,6 @@ const mapStateToProps = (state) => {
     reses: state.reses,
     modal2: state.modal2,
     onDetail: state.onDetail,
-    printRes: state.printRes,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ResDetail);

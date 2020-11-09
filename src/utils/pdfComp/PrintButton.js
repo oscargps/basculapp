@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { setPagesToPrint } from "../../actions";
+import { setPagesToPrint,deletePagesToPrint } from "../../actions";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import PdfDocument from "../PdfDocument";
@@ -60,6 +60,7 @@ const PrintButton = (props) => {
     });
   };
   useEffect(() => {
+    props.deletePagesToPrint()
     goPrint();
   }, [comps]);
 
@@ -83,7 +84,7 @@ const PrintButton = (props) => {
 };
 
 const mapDispatchToProps = {
-  setPagesToPrint,
+  setPagesToPrint,deletePagesToPrint
 };
 const mapStateToProps = (state) => {
   return {

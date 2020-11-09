@@ -29,7 +29,7 @@ const InitialState = {
   onDetail: {},
   onMove: {},
   newReses: [],
-  printRes: { Pesos: [], actual: {}, dataGrafica: [] },
+  printData: {id:'', Pesos: [], actual: {}, dataGrafica: [] },
   pagesToPrint: [],
 };
 const store = createStore(reducer, InitialState);
