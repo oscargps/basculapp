@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { deleteNewRes } from "../actions";
 import { connect } from "react-redux";
 
 const TableNewRes = (props) => {
-  const { newReses, onMove } = props;
+  const { newReses } = props;
   const handleDelete = (e) => {
     props.deleteNewRes(e.target.value);
   };

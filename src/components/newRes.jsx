@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import {
   setModal,
@@ -89,7 +89,7 @@ const NewRes = (props) => {
       return;
     }
     Object.keys(ingreso).map((item) => {
-      if (ingreso[item] === "" && item != "obs") {
+      if (ingreso[item] === "" && item !== "obs") {
         Swal.fire(
           "¡Campo vacio!",
           "Verifica la información y reintenta",
@@ -126,7 +126,7 @@ const NewRes = (props) => {
     }
   };
   const saveReses = async () => {
-    if (newReses.length == 0) {
+    if (newReses.length === 0) {
       Swal.fire("No hay registros", "No hay animales por ingresar.", "warning");
       return;
     }

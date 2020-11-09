@@ -4,7 +4,10 @@ const TablePesajes = ({ pesos }) => {
   let pesoAnt = [];
   return (
     <>
-      <table id="table-to-xls" className=" table table-responsive-md TablePesajes-table">
+      <table
+        id="table-to-xls"
+        className=" table table-responsive-md TablePesajes-table"
+      >
         <thead>
           <tr>
             <th>Peso</th>
@@ -18,9 +21,8 @@ const TablePesajes = ({ pesos }) => {
             pesos.map((peso) => {
               pesoAnt.push(peso.cantidad);
               let ganancia =
-                peso.cantidad - (pesoAnt.length >= 2
-                  ? pesoAnt[pesoAnt.length - 2]
-                  : 0);
+                peso.cantidad -
+                (pesoAnt.length >= 2 ? pesoAnt[pesoAnt.length - 2] : 0);
               return (
                 <tr key={peso.fecha}>
                   <td>{peso.cantidad}</td>
@@ -32,7 +34,9 @@ const TablePesajes = ({ pesos }) => {
             })
           ) : (
             <tr>
-              <p>No hay pesajes registrados</p>
+              <td>
+                <p>No hay pesajes registrados</p>
+              </td>
             </tr>
           )}
         </tbody>

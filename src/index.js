@@ -7,17 +7,17 @@ import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import reducer from "./reducers";
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import {  faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
-library.add(fab,faPlusCircle)
+library.add(fab, faPlusCircle);
 const InitialState = {
-  onLogin:false,
-  loading:false,
+  onLogin: false,
+  loading: false,
   cliente: {},
   usuario: {},
-  fincaActual:{},
+  fincaActual: {},
   fincas: [],
   reses: [],
   lotes: [],
@@ -26,9 +26,11 @@ const InitialState = {
   novedades: [],
   modal: false,
   modal2: false,
-  onDetail:{},
-  onMove:{},
-  newReses:[]
+  onDetail: {},
+  onMove: {},
+  newReses: [],
+  printRes: { Pesos: [], actual: {}, dataGrafica: [] },
+  pagesToPrint: [],
 };
 const store = createStore(reducer, InitialState);
 ReactDOM.render(

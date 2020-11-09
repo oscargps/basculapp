@@ -66,6 +66,16 @@ const reducer = (state, action) => {
         modal: false,
         modal2: false
       };
+    case "SET_PRINT_RES":
+      return {
+        ...state,
+        printRes: action.payload
+      };
+    case "SET_PAGES_PRINT":
+      return {
+        ...state,
+        pagesToPrint: [...state.pagesToPrint,action.payload]
+      };
     default:
       return state;
   }

@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { setModal2, setMoveSell } from "../actions";
-import Chart from "react-google-charts";
+import { setModal2, setMoveSell,setPrintRes } from "../actions";
 import "../styles/pages/resdetail.css";
 import DetailTable from "../components/detailTable";
 import TablePesajes from "../components/tablePesaje";
 import TableRegistros from "../components/tableRegistros";
 import getPesos from "../utils/getPesos";
-import Loader from "../components/loader";
+import ChartLines from "../components/chartLines";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
-
+import {Link} from 'react-router-dom'
 const ResDetail = (props) => {
-  const { cliente, reses, onDetail, print } = props;
+  const { cliente, reses, onDetail,printRes } = props;
   const [actual, setActual] = useState("");
   const [Pesos, setPesos] = useState([]);
   const [dataGrafica, setDataGrafica] = useState([]);
@@ -46,6 +45,13 @@ const ResDetail = (props) => {
     }
     setDataGrafica([["fecha", "peso"]].concat(dato));
   };
+  const print=()=> {
+    props.setPrintRes({ 
+      Pesos,
+      actual,
+      dataGrafica
+    })
+  }
 
   return (
     <div className="ResDetail" ref={null}>
@@ -58,25 +64,12 @@ const ResDetail = (props) => {
         </div>
         <div className="resDetail-data2">
           <div className="resDetail-data2__grafica">
-            <Chart
-              width={"100%"}
-              height={"90%"}
-              chartType="LineChart"
-              loader={
-                <div>
-                  <Loader />
-                </div>
-              }
+            <ChartLines
+
               data={dataGrafica}
-              options={{
-                hAxis: {
-                  title: "Tiempo",
-                },
-                vAxis: {
-                  title: "Peso",
-                },
-              }}
-              rootProps={{ "data-testid": "1" }}
+              xlabel= "Tiempo"
+              ylabel= "Peso"
+
             />
           </div>
           <div className="resDetail-data2__info">
@@ -98,9 +91,7 @@ const ResDetail = (props) => {
               <button className="btn btn-info btn-md" onClick={handleMove}>
                 Trasladar/Vender
               </button>
-              <button onClick={print} className="btn btn-danger btn-md">
-                Imprimir reporte
-              </button>
+                <Link to="printres" onClick={print} className="btn btn-danger btn-md" >Imprimir reporte</Link>
             </div>
           </div>
         </div>
@@ -111,6 +102,7 @@ const ResDetail = (props) => {
 const mapDispatchToProps = {
   setModal2,
   setMoveSell,
+  setPrintRes
 };
 const mapStateToProps = (state) => {
   return {
@@ -118,6 +110,7 @@ const mapStateToProps = (state) => {
     reses: state.reses,
     modal2: state.modal2,
     onDetail: state.onDetail,
+    printRes: state.printRes,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ResDetail);

@@ -6,7 +6,7 @@ const TableRegistros = (props) => {
   const { data } = props;
   const handleClick = (e) => {
     props.setDetail({
-      tipo:'registro',
+      tipo: "registro",
       id: e.target.value,
     });
   };
@@ -43,7 +43,9 @@ const TableRegistros = (props) => {
             })
           ) : (
             <tr>
-              <p>No hay registros</p>
+              <td>
+                <p>No hay registros</p>
+              </td>
             </tr>
           )}
         </tbody>
