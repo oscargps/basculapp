@@ -9,10 +9,15 @@
   display: grid;
   grid-template-columns: 3fr 1fr;
 }
-.TableRegDetalle-table > tbody{
+.regDetail-content__table{
+  height: 100%;
     overflow-y: auto;
 }
-.regDetail-optiones {
+.regDetail-content__detail{
+  display:grid;
+  grid-template-rows: 1fr 1fr;
+}
+.regDetail-options {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
