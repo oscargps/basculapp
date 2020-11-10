@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import getRegistro from "../utils/getRegistro";
 import DetailTable from "../components/detailTable";
-import Loader from "../components/loader";
+import { setPrintData } from "../actions";
 import { connect } from "react-redux";
 import TableRegDetalles from "../components/tableRegDetalles";
 import "../styles/pages/regdetail.css";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
+import { Link } from "react-router-dom";
 
 const RegDetail = (props) => {
   const { onDetail } = props;
@@ -22,20 +23,27 @@ const RegDetail = (props) => {
   };
 
   const getValores = (medidas) => {
-    let promedio
-    let total=0;
+    let promedio;
+    let ptotal = 0;
     medidas.map((peso) => {
       console.log(peso.cantidad);
-      total += parseInt(peso.cantidad);
+      ptotal += parseInt(peso.cantidad);
     });
-    console.log(total);
-    promedio = total/medidas.length;
-    setTotales({ promedio, total });
+    console.log(ptotal);
+    promedio = ptotal / medidas.length;
+    setTotales({ promedio, ptotal, cantidad: medidas.length });
   };
   useEffect(() => {
     getContenido();
   }, [onDetail.id]);
-
+  const print = () => {
+    props.setPrintData({
+      type: "registro",
+      Encabezado,
+      Cantidades,
+      Totales
+    });
+  };
   return (
     <div className="regDetail">
       <div className="regDetail-detailTable">
@@ -59,9 +67,8 @@ const RegDetail = (props) => {
                 </tr>
                 <tr>
                   <th className="loteDetail-data__thead">Peso total: </th>
-                  <td>{Totales.total}Kg</td>
+                  <td>{Totales.ptotal}Kg</td>
                 </tr>
-
               </tbody>
             </table>
           </div>
@@ -74,14 +81,22 @@ const RegDetail = (props) => {
               sheet="pesajes"
               buttonText="Descargar reporte"
             />
-            <button className="btn btn-danger">Imprimir</button>
+            <Link
+              to="printreg"
+              onClick={print}
+              className="btn btn-danger btn-md"
+            >
+              Imprimir reporte
+            </Link>
           </div>
         </div>
       </div>
     </div>
   );
 };
-
+const mapDispatchToProps = {
+  setPrintData,
+};
 const mapStateToProps = (state) => {
   return {
     cliente: state.cliente,
@@ -93,4 +108,4 @@ const mapStateToProps = (state) => {
     onDetail: state.onDetail,
   };
 };
-export default connect(mapStateToProps, null)(RegDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(RegDetail);

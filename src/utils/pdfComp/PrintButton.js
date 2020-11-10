@@ -70,7 +70,7 @@ const PrintButton = (props) => {
       {pagesToPrint.length > 1 ? (
         <div>
           <PdfDocument
-            title="reporte de res"
+            title="reporte"
             document={<TestDocument pages={pagesToPrint} />} // aqui le estoy pasando el generador del pdf como prop
           />
         </div>
