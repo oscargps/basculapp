@@ -4,7 +4,7 @@ import ImgJaula from "../assets/img/jaula.jpeg";
 import Logo from "../assets/img/logo.png";
 
 import LoginForm from "../components/loginform";
-const Login = () => {
+const LogPage = () => {
   useEffect(() => {
     sessionStorage.clear();
   }, []);
@@ -19,4 +19,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LogPage;

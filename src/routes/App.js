@@ -1,6 +1,6 @@
 import React from "react";
-import { BrowserRouter, Route, Switch,Redirect } from "react-router-dom";
-import Login from "../pages/login";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import LogPage from "../pages/login";
 import Dashboard from "../pages/dashboard";
 import PrintableRes from "../pages/printableRes";
 import PrintableLote from "../pages/printableLote";
@@ -13,10 +13,8 @@ const App = () => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          {loggedIn ? <Redirect to="/dashboard" /> : <Redirect to="/login" />}
+          {loggedIn ? <Dashboard /> : <LogPage />}
         </Route>
-        <Route exact path="/dashboard" component={Dashboard} />
-        <Route exact path="/login" component={Login} />
         <Route exact path="/printres" component={PrintableRes} />
         <Route exact path="/printlote" component={PrintableLote} />
         <Route exact path="/printreg" component={PrintableReg} />
