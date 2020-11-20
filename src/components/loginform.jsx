@@ -24,7 +24,7 @@ const LoginForm = (props) => {
     if (resp) {
         props.setLogin(resp);
        sessionStorage.setItem('resp',JSON.stringify(resp));
-        history.push("/");
+        window.location.href="/";
     } else {
       Swal.fire({
         title: "Información incorrecta",

@@ -82,10 +82,10 @@ const Dashboard = (props) => {
     if (sessionStorage.getItem("resp")) {
       let data = JSON.parse(sessionStorage.getItem("resp"));
       props.setLogin(data);
-      document.addEventListener("keydown", escFunction, false);
-    } else {
-      window.location.href ="/login"
-    }
+      document.addEventListener("keydown", escFunction, false);}
+    // } else {
+    //   props.history.push("/login");
+    // }
   }, []);
 
   return (
