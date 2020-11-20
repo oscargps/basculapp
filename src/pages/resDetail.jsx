@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { setModal2, setMoveSell,setPrintData } from "../actions";
+import { setModal2, setMoveSell, setPrintData } from "../actions";
 import "../styles/pages/resdetail.css";
 import DetailTable from "../components/detailTable";
 import TablePesajes from "../components/tablePesaje";
@@ -8,9 +8,9 @@ import TableRegistros from "../components/tableRegistros";
 import getPesos from "../utils/getPesos";
 import ChartLines from "../components/chartLines";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 const ResDetail = (props) => {
-  const { cliente, reses, onDetail } = props;
+  const { cliente, reses, onDetail, usuario } = props;
   const [actual, setActual] = useState("");
   const [Pesos, setPesos] = useState([]);
   const [dataGrafica, setDataGrafica] = useState([]);
@@ -45,14 +45,14 @@ const ResDetail = (props) => {
     }
     setDataGrafica([["fecha", "peso"]].concat(dato));
   };
-  const print=()=> {
-    props.setPrintData({ 
+  const print = () => {
+    props.setPrintData({
       type: "res",
       Pesos,
       actual,
-      dataGrafica
-    })
-  }
+      dataGrafica,
+    });
+  };
 
   return (
     <div className="ResDetail" ref={null}>
@@ -65,13 +65,7 @@ const ResDetail = (props) => {
         </div>
         <div className="resDetail-data2">
           <div className="resDetail-data2__grafica">
-            <ChartLines
-
-              data={dataGrafica}
-              xlabel= "Tiempo"
-              ylabel= "Peso"
-
-            />
+            <ChartLines data={dataGrafica} xlabel="Tiempo" ylabel="Peso" />
           </div>
           <div className="resDetail-data2__info">
             <div className="resDetail-data2__info-registros">
@@ -88,11 +82,18 @@ const ResDetail = (props) => {
                 sheet="pesajes"
                 buttonText="Descargar pesajes"
               />
-              {/* </button> */}
-              <button className="btn btn-info btn-md" onClick={handleMove}>
-                Trasladar/Vender
-              </button>
-                <Link to="printres" onClick={print} className="btn btn-danger btn-md" >Imprimir reporte</Link>
+              {usuario.tipo !== "operario" && (
+                <button className="btn btn-info btn-md" onClick={handleMove}>
+                  Trasladar/Vender
+                </button>
+              )}
+              <Link
+                to="printres"
+                onClick={print}
+                className="btn btn-danger btn-md"
+              >
+                Imprimir reporte
+              </Link>
             </div>
           </div>
         </div>
@@ -103,7 +104,7 @@ const ResDetail = (props) => {
 const mapDispatchToProps = {
   setModal2,
   setMoveSell,
-  setPrintData
+  setPrintData,
 };
 const mapStateToProps = (state) => {
   return {
@@ -111,6 +112,7 @@ const mapStateToProps = (state) => {
     reses: state.reses,
     modal2: state.modal2,
     onDetail: state.onDetail,
+    usuario: state.usuario,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ResDetail);

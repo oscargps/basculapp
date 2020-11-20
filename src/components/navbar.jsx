@@ -43,7 +43,7 @@ const Navbar = (props) => {
     }).then((result) => {
       if (result.isConfirmed) {
         sessionStorage.clear();
-        history.push("/login");
+        window.location.href = "/login"
       }
     });
   };

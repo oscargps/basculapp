@@ -10,7 +10,7 @@ import { setMoveSell, setModal2, setPrintData } from "../actions";
 import { Link } from "react-router-dom";
 
 const LoteDetail = (props) => {
-  const { reses, lotes, onDetail } = props;
+  const { reses, lotes, onDetail, usuario } = props;
   const [actual, setActual] = useState("");
   const [totales, setTotales] = useState({});
   const [maximo, setMaximo] = useState({});
@@ -42,7 +42,12 @@ const LoteDetail = (props) => {
       type: "lote",
       reses,
       actual,
-      valores: { maximo:maximo.idMax, minimo:minimo.idMin, promedio, totales:totales.cantidad },
+      valores: {
+        maximo: maximo.idMax,
+        minimo: minimo.idMin,
+        promedio,
+        'total animales': totales.cantidad,
+      },
     });
   };
   return (
@@ -115,9 +120,11 @@ const LoteDetail = (props) => {
           sheet={onDetail.id}
           buttonText="Descargar Lote"
         />
-        <button className="btn btn-warning" onClick={handleMove}>
-          Movimientos masivos
-        </button>
+        {usuario.tipo !== "operario" && (
+          <button className="btn btn-warning" onClick={handleMove}>
+            Movimientos masivos
+          </button>
+        )}
         <Link to="printlote" onClick={print} className="btn btn-danger btn-md">
           Imprimir reporte
         </Link>
@@ -137,6 +144,7 @@ const mapStateToProps = (state) => {
     lotes: state.lotes,
     registros: state.registros,
     onDetail: state.onDetail,
+    usuario: state.usuario,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(LoteDetail);

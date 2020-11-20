@@ -2,7 +2,7 @@ import axios from "axios";
 
 const newLote = async (header, data) => {
   let resp;
-  const url = "https://basculapp.000webhostapp.com/api/addLote.php";
+  const url = "https://basculapp.basculasyservicios.com/server/api/addLote.php";
   let formData = new FormData();
   formData.append("header", JSON.stringify(header));
   formData.append("data", JSON.stringify(data));

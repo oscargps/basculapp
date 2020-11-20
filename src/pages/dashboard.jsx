@@ -35,6 +35,7 @@ const Dashboard = (props) => {
     modal2,
     onDetail,
     onMove,
+    usuario
   } = props;
 
   const escFunction = (e) => {
@@ -83,7 +84,7 @@ const Dashboard = (props) => {
       props.setLogin(data);
       document.addEventListener("keydown", escFunction, false);
     } else {
-      props.history.push("/login");
+      window.location.href ="/login"
     }
   }, []);
 
@@ -104,7 +105,7 @@ const Dashboard = (props) => {
                     subtitulo="subgenero"
                     tipo="res"
                     data={reses}
-                    allowNew={true}
+                    allowNew={usuario.tipo==='operario'?false:true}
                   />
                   <Tabla
                     titulo_tabla="Lotes"
@@ -112,7 +113,7 @@ const Dashboard = (props) => {
                     subtitulo="id"
                     tipo="lote"
                     data={lotes}
-                    allowNew={true}
+                    allowNew={usuario.tipo==='operario'?false:true}
                   />
                   <Tabla
                     titulo_tabla="Registros de pesaje"
@@ -157,6 +158,7 @@ const mapStateToProps = (state) => {
     modal2: state.modal2,
     onDetail: state.onDetail,
     onMove: state.onMove,
+    usuario: state.usuario
   };
 };
 

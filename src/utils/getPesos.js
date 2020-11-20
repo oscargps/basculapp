@@ -3,7 +3,7 @@ import axios from "axios";
 const getPesos = async (id, cliente) => {
   let resp;
   let url =
-    "https://basculapp.000webhostapp.com/api/getPesos.php?cliente=" +
+    "https://basculapp.basculasyservicios.com/server/api/getPesos.php?cliente=" +
     cliente +
     "&res=" +
     id;

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const movesell = async (data) => {
     let resp;
-    const url = "https://basculapp.000webhostapp.com/api/movesell.php"
+    const url = "https://basculapp.basculasyservicios.com/server/api/movesell.php"
 
     try {
         await axios.post(url, data).then(() => {

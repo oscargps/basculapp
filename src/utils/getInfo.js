@@ -1,7 +1,7 @@
 import axios from "axios";
 const getInfo = async (cliente, finca) => {
   const url =
-    "https://basculapp.000webhostapp.com/api/getInfoCliente.php?cliente=" +
+    "https://basculapp.basculasyservicios.com/server/api/getInfoCliente.php?cliente=" +
     cliente +
     "&finca=" +
     finca;

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const newRes = async (header, data) => {
   let resp;
-  const url = "https://basculapp.000webhostapp.com/api/newRes.php";
+  const url = "https://basculapp.basculasyservicios.com/server/api/newRes.php";
   let formData = new FormData();
   formData.append("header", JSON.stringify(header));
   formData.append("data", JSON.stringify(data));
