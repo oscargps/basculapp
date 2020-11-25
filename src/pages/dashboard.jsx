@@ -117,7 +117,7 @@ const Dashboard = (props) => {
                   />
                   <Tabla
                     titulo_tabla="Registros de pesaje"
-                    titulo="id"
+                    titulo="ref"
                     subtitulo="fecha"
                     tipo="registro"
                     data={registros}

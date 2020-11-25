@@ -26,7 +26,7 @@ const TableRegistros = (props) => {
             data.map((peso) => {
               return (
                 <tr key={peso.fecha}>
-                  <td>{peso.registro}</td>
+                  <td>{peso.tiporef}</td>
                   <td>{peso.fecha}</td>
                   <td>{peso.usuario}</td>
                   <td>
