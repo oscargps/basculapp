@@ -7,7 +7,7 @@ import TableRegDetalles from "../components/tableRegDetalles";
 import "../styles/pages/regdetail.css";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import { Link } from "react-router-dom";
-
+import numeral from 'numeral'
 const RegDetail = (props) => {
   const { onDetail } = props;
   const [Encabezado, setEncabezado] = useState([]);
@@ -63,11 +63,11 @@ const RegDetail = (props) => {
                 </tr>
                 <tr>
                   <th className="loteDetail-data__thead">Promedio de peso: </th>
-                  <td>{Totales.promedio}Kg</td>
+                  <td>{numeral(Totales.promedio).format('0,0.0')}Kg</td>
                 </tr>
                 <tr>
                   <th className="loteDetail-data__thead">Peso total: </th>
-                  <td>{Totales.ptotal}Kg</td>
+                  <td>{numeral(Totales.ptotal).format('0,0')}Kg</td>
                 </tr>
               </tbody>
             </table>

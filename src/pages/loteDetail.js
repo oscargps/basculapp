@@ -8,7 +8,7 @@ import Loader from "../components/loader";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import { setMoveSell, setModal2, setPrintData } from "../actions";
 import { Link } from "react-router-dom";
-
+import numeral from 'numeral'
 const LoteDetail = (props) => {
   const { reses, lotes, onDetail, usuario } = props;
   const [actual, setActual] = useState("");
@@ -65,7 +65,7 @@ const LoteDetail = (props) => {
               </tr>
               <tr>
                 <th className="loteDetail-data__thead">Promedio de peso: </th>
-                <td>{promedio}</td>
+                <td>{numeral(promedio).format('0,0.0')}Kg</td>
               </tr>
               <tr>
                 <th className="loteDetail-data__thead">Mayor peso: </th>
