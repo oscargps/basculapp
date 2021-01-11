@@ -123,7 +123,7 @@ const NewLote = (props) => {
           </Col>
         </Row>
         <textarea
-          maxlength="40"
+          maxLength="40"
           className="form-control"
           name="Text1"
           cols="40"

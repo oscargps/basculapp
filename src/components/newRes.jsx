@@ -247,8 +247,8 @@ const NewRes = (props) => {
             Descargar plantilla
           </a>
           <form className="was-validated">
-            <div class="input-group is-invalid">
-              <div class="custom-file">
+            <div className="input-group is-invalid">
+              <div className="custom-file">
                 <input
                   type="file"
                   name="file"
@@ -259,12 +259,12 @@ const NewRes = (props) => {
                 />
                 <label
                   className="custom-file-label"
-                  for="validatedInputGroupCustomFile"
+                  htmlFor="validatedInputGroupCustomFile"
                 >
                   {fileName}
                 </label>
               </div>
-              <div class="input-group-append">
+              <div className="input-group-append">
                 <button
                   className="btn btn-outline-secondary"
                   onClick={LoadReses}
@@ -391,7 +391,7 @@ const NewRes = (props) => {
               </Col>
             </Row>
             <textarea
-            maxlength="40"
+            maxLength="40"
               className="form-control"
               name="Text1"
               cols="40"

@@ -1,8 +1,6 @@
-import React from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import "../styles/components/navbar.css";
 import Logo from "../assets/img/logo.png";
-import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   setFinca,
@@ -10,15 +8,20 @@ import {
   setInformation,
   setDetail,
   setModal,
+  setModal2,
+  setMoveSell,
 } from "../actions";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
+import Modal from "react-bootstrap/Modal";
 import getInfo from "../utils/getInfo";
 import Swal from "sweetalert2";
+import ChangePassword from "./changePassword";
 
 const Navbar = (props) => {
-  let history = useHistory();
   const { fincas, cliente, usuario, fincaActual } = props;
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
 
   const handleSelect = async (e) => {
     let finca = JSON.parse(e);
@@ -32,6 +35,8 @@ const Navbar = (props) => {
       Swal.fire("Error!", "Si persiste, contacte a soporte", "error");
     }
   };
+
+
   const handleLogout = () => {
     Swal.fire({
       title: "¿Cerrar sesión?",
@@ -43,7 +48,7 @@ const Navbar = (props) => {
     }).then((result) => {
       if (result.isConfirmed) {
         sessionStorage.clear();
-        window.location.href = "/"
+        window.location.href = "/";
       }
     });
   };
@@ -80,10 +85,31 @@ const Navbar = (props) => {
             Ultimas Novedades
           </button>
         ) : null}
-        <p className="Navbar-Menu__username">{usuario.nombre}</p>
-        <button onClick={handleLogout} className=" btn btn-warning btn-sm">
-          Cerrar sesión
-        </button>
+        {/* <p className="Navbar-Menu__username">{usuario.nombre}</p> */}
+        <DropdownButton
+          variant="light"
+          title={usuario.nombre}
+          id="dropdown-menu-align-right"
+        >
+          <Dropdown.Item as="button" onClick={()=> setShow(true)}>
+            Cambiar contraseña
+          </Dropdown.Item>
+          <Dropdown.Item as="button" onClick={handleLogout}>
+            {/* <button onClick={handleLogout} className=" btn btn-warning btn-sm"> */}
+            Cerrar sesión
+            {/* </button> */}
+          </Dropdown.Item>
+        </DropdownButton>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Cambiar contraseña</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            <ChangePassword />
+          </Modal.Body>
+
+        </Modal>
       </div>
     </div>
   );
@@ -94,6 +120,8 @@ const mapDispatchToProps = {
   setInformation,
   setDetail,
   setModal,
+  setModal2,
+  setMoveSell,
 };
 const mapStateToProps = (state) => {
   return {

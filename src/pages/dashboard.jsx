@@ -39,11 +39,11 @@ const Dashboard = (props) => {
   } = props;
 
   const escFunction = (e) => {
+    console.log(modal, modal2);
     if (e.keyCode === 27) {
-      console.log(modal);
-      if (modal) {
+      if (modal2) {
         props.setModal2(false);
-      } else {
+      } else if (modal) {
         props.setModal(false);
       }
     }
@@ -83,9 +83,6 @@ const Dashboard = (props) => {
       let data = JSON.parse(sessionStorage.getItem("resp"));
       props.setLogin(data);
       document.addEventListener("keydown", escFunction, false);}
-    // } else {
-    //   props.history.push("/login");
-    // }
   }, []);
 
   return (
