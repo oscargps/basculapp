@@ -8,6 +8,7 @@
 }
 .Navbar-logo {
   height: 50px;
+  border-radius: 25px;
 }
 .Navbar-title {
   color: white;

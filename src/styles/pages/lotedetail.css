@@ -1,25 +1,25 @@
 .loteDetail {
-  display: flex;
-  flex-direction: column;
   height: 100%;
+  /* display: flex; */
+  /* flex-direction: column; */
 }
 
 .loteDetail-detailTable {
   height: 15%;
 }
 .loteDetail-data {
+  height: 75%;
   display: grid;
   grid-template-columns: 2fr 3fr;
-  height: 75%;
 }
 .loteDetail-data__table {
   height: 100%;
   overflow-y: auto;
 }
 .loteDetail-data__stadistics {
+  height: 80%;
   display: grid;
   grid-template-rows: 1fr 1fr;
-  height: 80%;
 }
 .loteDetail-data__stadistics-table {
   height: 50%;
@@ -33,10 +33,10 @@
   height: 50%;
 }
 .loteDetail--options {
+  height: 10%;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 10%;
   padding: 0.8em;
 }
 @media only screen and (max-width: 1024px) {
@@ -53,9 +53,9 @@
     overflow: scroll;
   }
   .loteDetail-data__stadistics {
+    height: 100%;
     display: grid;
     grid-template-rows: 1fr 1fr;
-    height: 100%;
   }
   .loteDetail-data__stadistics-table {
     height: 50%;
@@ -66,9 +66,9 @@
     height: 50%;
   }
   .loteDetail--options {
+    height: 50%;
     display: flex;
     flex-direction: column;
-    height: 50%;
   }
   .loteDetail--options > * {
     margin: 0.5em 0;
