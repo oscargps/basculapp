@@ -107,7 +107,7 @@ const Dashboard = (props) => {
                   <Tabla
                     titulo_tabla="Lotes"
                     titulo="ref"
-                    subtitulo="id"
+                    subtitulo="comp"
                     tipo="lote"
                     data={lotes}
                     allowNew={usuario.tipo==='operario'?false:true}

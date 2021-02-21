@@ -66,6 +66,7 @@ const Navbar = (props) => {
       <div className="Navbar-Menu">
         <DropdownButton
           variant="secondary"
+          size="sm"
           title={
             fincaActual.id
               ? fincaActual.id + "-" + fincaActual.nombre
@@ -81,13 +82,13 @@ const Navbar = (props) => {
           ))}
         </DropdownButton>
         {fincaActual.id ? (
-          <button className="btn btn-info btn-md" onClick={handleNovedad}>
+          <button className="btn btn-info btn-sm"  onClick={handleNovedad}>
             Ultimas Novedades
           </button>
         ) : null}
-        {/* <p className="Navbar-Menu__username">{usuario.nombre}</p> */}
         <DropdownButton
-          variant="light"
+          variant="outline-light"
+          size="sm"
           title={usuario.nombre}
           id="dropdown-menu-align-right"
         >
@@ -95,16 +96,13 @@ const Navbar = (props) => {
             Cambiar contraseña
           </Dropdown.Item>
           <Dropdown.Item as="button" onClick={handleLogout}>
-            {/* <button onClick={handleLogout} className=" btn btn-warning btn-sm"> */}
             Cerrar sesión
-            {/* </button> */}
           </Dropdown.Item>
         </DropdownButton>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Cambiar contraseña</Modal.Title>
           </Modal.Header>
-
           <Modal.Body>
             <ChangePassword />
           </Modal.Body>

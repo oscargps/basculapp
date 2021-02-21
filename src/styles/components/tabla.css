@@ -18,7 +18,7 @@
 }
 .Tabla-filter{
     margin-bottom: .5em;
-    padding:1em;
+    padding:0.5em;
     background-color: lightgray;;
 }
 .card-body{
@@ -30,6 +30,10 @@
     right:0;
     top: 0;
     font-size: .8em;
+}
+.tabla-footer{
+    font-weight: bold;
+    font-size:1em;
 }
 @media only screen and (max-width: 1024px) {
     .Tabla{

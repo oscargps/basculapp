@@ -11,11 +11,11 @@ const Tabla = (props) => {
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
   };
-  const clickDetail = (e) => {
+  const clickDetail = (id) => {
     props.setModal(true);
     props.setDetail({
       tipo,
-      id: e.target.value,
+      id: id,
     });
   };
   useEffect(() => {
@@ -32,14 +32,12 @@ const Tabla = (props) => {
   const handleNew = () => {
     if (tipo === "lote") {
       props.setModal2(true);
-
       props.setMoveSell({
         tipo: "new" + tipo,
         id: null,
       });
     } else {
       props.setModal(true);
-
       props.setDetail({
         tipo: "new" + tipo,
         id: null,
@@ -51,13 +49,15 @@ const Tabla = (props) => {
       <div className="card">
         <div className="card-header Tabla-header">
           {titulo_tabla}
-          <button
-            disabled={!allowNew}
-            className="btn btn-dark Tabla-new"
-            onClick={handleNew}
-          >
-            <FontAwesomeIcon icon="plus-circle" />
-          </button>
+          {allowNew && (
+            <button
+              disabled={!allowNew}
+              className="btn btn-dark Tabla-new"
+              onClick={handleNew}
+            >
+              <FontAwesomeIcon icon="plus-circle" />
+            </button>
+          )}
         </div>
         <div className="Tabla-filter">
           <input
@@ -76,9 +76,13 @@ const Tabla = (props) => {
                 <TablaItem
                   key={res.id}
                   titulo={res[titulo]}
-                  subtitulo={res[subtitulo]}
+                  subtitulo={
+                    tipo == "lote"
+                      ? "Cantidad: " + res[subtitulo]
+                      : res[subtitulo]
+                  }
                   id={res.id}
-                  select={clickDetail}
+                  select={() => clickDetail(res.id)}
                 />
               ))
             ) : (
@@ -86,8 +90,8 @@ const Tabla = (props) => {
             )}
           </div>
         </div>
-        <div className="card-footer">
-          <h5>Total: {searchResults.length}</h5>
+        <div className="card-footer tabla-footer">
+          Total: {searchResults.length}
         </div>
       </div>
     </div>

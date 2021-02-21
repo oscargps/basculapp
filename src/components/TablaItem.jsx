@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/components/tablaItem.css";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const TablaItem = (props) => {
   const { titulo, subtitulo, select, id } = props;
 
@@ -12,10 +12,9 @@ const TablaItem = (props) => {
       </div>
       <button
         onClick={select}
-        value={id}
         className="TablaItem-button btn btn-secondary btn-sm"
       >
-        Ver
+         <FontAwesomeIcon icon="eye"  />
       </button>
     </div>
   );
