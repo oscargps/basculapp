@@ -1,11 +1,38 @@
 .Signup{
     height: 100%;
-    width: 90%;
+    width: 100%;
     text-align: center;
 }
+.Signup__logo{
+    height:70px;
+    border-radius: 10px;
+}
+
 .Signup__title{
     background-color:#f44336;
-    color: white;
-    border-radius:10px;
+    color : white;
+    padding:5px;
+}
+.Signup__form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.Signup__form > *{
+    width: 90%;
+
+}
+.Signup__subtitle{
+    width: 90%;
+    color:#f44336;
+    border-bottom: solid 1px gray;
+
+    padding:5px;
+    margin-bottom:16px;
+}
+.Signup__form-footer{
+    background-color:#f44336;
+    color : white;
     padding:5px;
 }

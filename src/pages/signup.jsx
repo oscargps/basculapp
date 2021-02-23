@@ -4,28 +4,35 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import DropdownButton from "react-bootstrap/DropdownButton";
-import Dropdown from "react-bootstrap/Dropdown";
+import Logo from "../assets/img/logo.png";
+import signup from "../utils/signup";
+import Loader from "../components/loader";
 import Swal from "sweetalert2";
-import axios from 'axios'
+import axios from "axios";
 const Signup = () => {
-  const [form, setform] = useState({
+  const initialState = {
     clienteCode: "",
     clienteName: "",
-    id: "",
-    clienteMail: "",
+    clienteId: "",
+    // clienteMail: "",
     clientePhone: "",
-    address: "",
-    finca: "",
+    clienteAddress: "",
+    clienteObs: "registro por plataforma",
+    fincaName: "",
     fincaObs: "",
     userName: "",
     userCode: "",
     userNickName: "",
     userPhone: "",
     userMail: "",
-  });
+  };
+  let checked = false;
+  const [form, setform] = useState(initialState);
+  const [loading, setloading] = useState(true);
+  const [sendingData, setsendingData] = useState(true);
   useEffect(() => {
-    const url = "https://basculapp.basculasyservicios.com/server/api/getLastUser.php"
+    const url =
+      "https://basculapp.basculasyservicios.com/server/api/getLastUser.php";
     try {
       axios
         .get(url)
@@ -33,9 +40,10 @@ const Signup = () => {
           let data = response.data[0];
           setform({
             ...form,
-            clienteCode: parseInt(data.cliente)+ 1,
+            clienteCode: parseInt(data.cliente) + 1,
             userCode: parseInt(data.user) + 1,
           });
+          setloading(false);
         })
         .catch((er) => {
           return {};
@@ -46,29 +54,35 @@ const Signup = () => {
   }, []);
   const handleCheck = (e) => {
     if (e.target.checked) {
-      setform({
-        ...form,
-        userName: form.clienteName,
-        userPhone: form.clientePhone,
-        userMail: form.clienteMail,
-      });
+      checked = true;
+      handleSetUserName(form.clienteName);
+    } else {
+      checked = false;
     }
-  }
-  const handleSetUserName = (e) => {
-    let name = e.target.value.trim().split(" ");
+  };
+  const handleSetUserName = (inputName) => {
+    let name = inputName.trim().split(" ");
     let username;
     if (name.length >= 2) {
       username =
         name[0].charAt(0) +
-        (name[1].length > 2 ? name[1] : name[2] ? name[2] : name[1]);
+        (name[1].length > 2 ? name[1] : name[2] ? name[2] : name[1]) +
+        "1";
     } else if (name.length < 2) {
       username = name[0] + "1";
     }
-    setform({
-      ...form,
-      userNickName: username,
-      [e.target.name]: capitalize(e.target.value),
-    });
+    checked
+      ? setform({
+          ...form,
+          userNickName: username,
+          userName: capitalize(inputName),
+          userPhone: form.clientePhone,
+        })
+      : setform({
+          ...form,
+          userNickName: username,
+          userName: capitalize(inputName),
+        });
   };
   const capitalize = (nombre) => {
     let nameSplitted = nombre.split(" ");
@@ -79,82 +93,103 @@ const Signup = () => {
     return nameCapitalized.join(" ");
   };
   const handleInput = (e) => {
-    if (e.target.type == "text") {
-      setform({
-        ...form,
-        [e.target.name]: capitalize(e.target.value),
-      });
-    } else {
-      setform({
-        ...form,
-        [e.target.name]: e.target.value,
-      });
-    }
+    setform({
+      ...form,
+      [e.target.name]:
+        e.target.type == "text" ? capitalize(e.target.value) : e.target.value,
+    });
   };
 
-  const getIds = () => {
-   
-  }
+  const signupSubmit = async (e) => {
+    e.preventDefault();
+    // console.log(JSON.stringify(form));
+    setsendingData(true);
+    let passwordOk = checkPassword() ? true : false;
+    let resp = passwordOk ? await signup(form) : false;
+    if (resp) {
+      Swal.fire(
+        "¡Listo!",
+        "Tu información ha sido registrada con exito, pronto nos comunicaremos contigo.",
+        "success"
+      );
+      setform(initialState);
+    } else {
+      Swal.fire("¡Error!", "Si el error persiste, contacte a soporte", "error");
+    }
+    setsendingData(false);
+  };
+  const checkPassword = () => {
+    return form.password1 === form.password2 ? true : false;
+  };
   return (
     <>
-      <div className="card container Signup">
-        <div className="card-header Signup__title">
-          <h1 className="">Registro Basculapp</h1>
+      <div className="Signup">
+        <div className="Signup__title">
+          <Row>
+            <Col md={1}>
+              <img className="Signup__logo" src={Logo} alt="" />
+            </Col>
+            <Col md={11}>
+              <h2 className="">Formulario de registro Basculapp</h2>
+            </Col>
+          </Row>
         </div>
-        <hr />
-        <div className="card-body">
-          <h4 className="Signup__title">Registro de cliente</h4>
-          <div className="Signup__cliente">
-            <Form>
-              <Row>
-                <Col s={12} md={2}>
-                  <Form.Group>
-                    <Form.Label>Código de usuario</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="clienteCode"
-                      value={form.clienteCode}
-                      className="input"
-                      disabled
-                    />
-                  </Form.Group>
-                </Col>
-                <Col xs={12} md={2}>
-                  <Form.Group>
-                    <Form.Label>Identificación</Form.Label>
-                    <Form.Control
-                      type="text"
-                      onChange={handleInput}
-                      name="id"
-                      value={form.id}
-                      className="input"
-                      placeholder="Nit o Cédula"
-                      required
-                    />
-                  </Form.Group>
-                </Col>
-                <Col xs={12} md={8}>
-                  <Form.Group>
-                    <Form.Label>Nombre de cliente</Form.Label>
-                    <Form.Control
-                      type="text"
-                      onChange={handleInput}
-                      name="clienteName"
-                      value={form.clienteName}
-                      className="input"
-                      placeholder="Empresa o Persona natural"
-                      required
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-
-              <Row>
-                <Col xs={12} md={4}>
+        {loading ? (
+          <Loader />
+        ) : (
+          <Form onSubmit={signupSubmit}>
+            <div className="Signup__form">
+              <br />
+              <h4 className="Signup__subtitle">Información de cliente</h4>
+              <div className="Signup__cliente">
+                <Row>
+                  <Col s={12} md={2}>
+                    <Form.Group>
+                      <Form.Label>Código de cliente</Form.Label>
+                      <Form.Control
+                        type="text"
+                        name="clienteCode"
+                        value={form.clienteCode}
+                        className="input"
+                        disabled
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col xs={12} md={2}>
+                    <Form.Group>
+                      <Form.Label>Identificación</Form.Label>
+                      <Form.Control
+                        type="text"
+                        onChange={handleInput}
+                        name="clienteId"
+                        value={form.clienteId}
+                        className="input"
+                        placeholder="Nit o Cédula"
+                        required
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col xs={12} md={8}>
+                    <Form.Group>
+                      <Form.Label>Nombre de cliente</Form.Label>
+                      <Form.Control
+                        type="text"
+                        onChange={handleInput}
+                        name="clienteName"
+                        value={form.clienteName}
+                        className="input"
+                        placeholder="Empresa o Persona natural"
+                        required
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  {/* <Col xs={12} md={4}>
                   <Form.Group>
                     <Form.Label>Correo electrónico</Form.Label>
                     <Form.Control
-                      type="text"
+                      type="email"
                       onChange={handleInput}
                       name="clienteMail"
                       value={form.clienteMail}
@@ -163,37 +198,38 @@ const Signup = () => {
                       required
                     />
                   </Form.Group>
-                </Col>
-                <Col xs={12} md={4}>
-                  <Form.Group>
-                    <Form.Label>Teléfono de contacto</Form.Label>
-                    <Form.Control
-                      type="text"
-                      onChange={handleInput}
-                      name="clientePhone"
-                      value={form.clientePhone}
-                      className="input"
-                      placeholder="0000000000"
-                      required
-                    />
-                  </Form.Group>
-                </Col>
-                <Col xs={12} md={4}>
-                  <Form.Group>
-                    <Form.Label>Dirección o Ubicación</Form.Label>
-                    <Form.Control
-                      type="text"
-                      onChange={handleInput}
-                      name="address"
-                      value={form.address}
-                      className="input"
-                      placeholder="Ciudad o pueblo"
-                      required
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <h4 className="Signup__title">Registro de finca</h4>
+                </Col> */}
+                  <Col xs={12} md={4}>
+                    <Form.Group>
+                      <Form.Label>Teléfono de contacto</Form.Label>
+                      <Form.Control
+                        type="text"
+                        onChange={handleInput}
+                        name="clientePhone"
+                        value={form.clientePhone}
+                        className="input"
+                        placeholder="0000000000"
+                        required
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col xs={12} md={8}>
+                    <Form.Group>
+                      <Form.Label>Dirección o Ubicación</Form.Label>
+                      <Form.Control
+                        type="text"
+                        onChange={handleInput}
+                        name="clienteAddress"
+                        value={form.clienteAddress}
+                        className="input"
+                        placeholder="Ciudad o pueblo"
+                        required
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+              </div>
+              <h4 className="Signup__subtitle">Registro de finca</h4>
               <div className="Signup__finca">
                 <Row>
                   <Col xs={12} md={6}>
@@ -202,8 +238,8 @@ const Signup = () => {
                       <Form.Control
                         type="text"
                         onChange={handleInput}
-                        name="finca"
-                        value={form.finca}
+                        name="fincaName"
+                        value={form.fincaName}
                         className="input"
                         placeholder="La Luz"
                         required
@@ -218,6 +254,7 @@ const Signup = () => {
                       <Form.Control
                         placeholder="Ubicación, propósito, etc"
                         as="textarea"
+                        className="textarea"
                         rows={2}
                         onChange={handleInput}
                         name="fincaObs"
@@ -227,7 +264,7 @@ const Signup = () => {
                   </Col>
                 </Row>
               </div>
-              <h4 className="Signup__title">Registro de usuario</h4>
+              <h4 className="Signup__subtitle">Usuario de ingreso</h4>
               <div className="Signup__usuario">
                 <Row>
                   <Col s={6} md={2}>
@@ -260,13 +297,14 @@ const Signup = () => {
                       <Form.Label>Nombre de usuario</Form.Label>
                       <Form.Control
                         type="text"
-                        onChange={handleSetUserName}
+                        onChange={(e) => handleSetUserName(e.target.value)}
                         name="userName"
                         value={form.userName}
                         className="input"
                         required
                       />
-                      <input type="checkbox" onChange={handleCheck} /> Repetir información del cliente
+                      <input type="checkbox" onChange={handleCheck} /> Repetir
+                      información del cliente
                     </Form.Group>
                   </Col>
                 </Row>
@@ -303,7 +341,7 @@ const Signup = () => {
                     <Form.Group>
                       <Form.Label>Correo electrónico</Form.Label>
                       <Form.Control
-                        type="text"
+                        type="email"
                         onChange={handleInput}
                         name="userMail"
                         value={form.userMail}
@@ -327,17 +365,23 @@ const Signup = () => {
                   </Col>
                 </Row>
               </div>
-              <hr />
-              <Button variant="success" type="submit" size="lg">
-                Registrarse
+            </div>
+            <div className="Signup__form-footer">
+              <Button
+                variant="success"
+                type="submit"
+                size="lg"
+                disabled={loading}
+              >
+                {sendingData ? "Cargando" : "Registrarse"}
               </Button>
-            </Form>
-          </div>
-        </div>
-        <div className="card-footer">
-          Al dar click en "Registrarse", acepta estar de acuerdo con los
-          Terminos y condiciones
-        </div>
+              <div className="Signup-footer">
+                Al dar click en "Registrarse", aceptas estar de acuerdo con los
+                Terminos y condiciones y la Politica de privacidad
+              </div>
+            </div>
+          </Form>
+        )}
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { setMoveSell, setReset } from "../actions";
 import "../styles/components/newlote.css";
@@ -31,7 +31,6 @@ const NewLote = (props) => {
     switch (nombreSeparado.length) {
       case 1:
         return "L" + nombreSeparado[0].charAt(0).toUpperCase();
-        break;
       default:
         nombreSeparado.map((palabra) => {
           id.push(palabra.charAt(0).toUpperCase());
