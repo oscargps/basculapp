@@ -1,0 +1,30 @@
+.mainTable {
+  height: 100%;
+  max-height: 90vh;
+  border-radius: 10px;
+  margin: 0 0.2em;
+}
+.mainTable > .card {
+  height: 100%;
+}
+.maintable-table {
+  height: 100%;
+  overflow-y: auto;
+}
+.maintable-table__header {
+  height: 10%;
+}
+.maintable-table__body {
+  height: 90%;
+}
+
+@media only screen and (max-width: 1024px) {
+    .mainTable{
+        width: 100%;
+        margin: 1em;
+    }
+    .mainTable > .card{
+        height: 90vh;
+    }
+
+}

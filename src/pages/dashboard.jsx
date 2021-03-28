@@ -12,6 +12,7 @@ import Navbar from "../components/navbar";
 import Loader from "../components/loader";
 import "../styles/pages/dashboard.css";
 import Tabla from "../components/tabla";
+import MainTable from "../components/mainTable";
 import Modal from "../components/modal";
 import Modal2 from "../components/modal2";
 import MoveSell from "../components/moveSell";
@@ -35,7 +36,7 @@ const Dashboard = (props) => {
     modal2,
     onDetail,
     onMove,
-    usuario
+    usuario,
   } = props;
 
   const escFunction = (e) => {
@@ -82,7 +83,8 @@ const Dashboard = (props) => {
     if (sessionStorage.getItem("resp")) {
       let data = JSON.parse(sessionStorage.getItem("resp"));
       props.setLogin(data);
-      document.addEventListener("keydown", escFunction, false);}
+      document.addEventListener("keydown", escFunction, false);
+    }
   }, []);
 
   return (
@@ -96,21 +98,13 @@ const Dashboard = (props) => {
             {fincaActual.id ? (
               <>
                 <div className="Dashboard-tables">
-                  <Tabla
-                    titulo_tabla="Reses"
-                    titulo="numero"
-                    subtitulo="subgenero"
-                    tipo="res"
-                    data={reses}
-                    allowNew={usuario.tipo==='operario'?false:true}
-                  />
-                  <Tabla
-                    titulo_tabla="Lotes"
+                  <MainTable
+                    titulo_tabla="Lotes o Rotaciones"
                     titulo="ref"
                     subtitulo="comp"
                     tipo="lote"
                     data={lotes}
-                    allowNew={usuario.tipo==='operario'?false:true}
+                    allowNew={true}
                   />
                   <Tabla
                     titulo_tabla="Registros de pesaje"
@@ -155,7 +149,7 @@ const mapStateToProps = (state) => {
     modal2: state.modal2,
     onDetail: state.onDetail,
     onMove: state.onMove,
-    usuario: state.usuario
+    usuario: state.usuario,
   };
 };
 
