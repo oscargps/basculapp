@@ -21,6 +21,7 @@ import NewRes from "../components/newRes";
 import ResDetail from "./resDetail";
 import LoteDetail from "./loteDetail";
 import RegDetail from "./regDetail";
+import Terceros from "./terceros";
 import TableNewRes from "../components/tableNewRes";
 import MovMasivos from "../components/movMasivos";
 import NewLote from "../components/newLote";
@@ -37,6 +38,7 @@ const Dashboard = (props) => {
     onDetail,
     onMove,
     usuario,
+    terceros
   } = props;
 
   const escFunction = (e) => {
@@ -59,6 +61,8 @@ const Dashboard = (props) => {
         return <RegDetail />;
       case "novedad":
         return <TablaNovedades />;
+      case "terceros":
+        return <Terceros />;
       case "newres":
         return <NewRes />;
       default:
@@ -150,6 +154,7 @@ const mapStateToProps = (state) => {
     onDetail: state.onDetail,
     onMove: state.onMove,
     usuario: state.usuario,
+    terceros: state.terceros,
   };
 };
 

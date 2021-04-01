@@ -11,11 +11,8 @@
   height: 100%;
   overflow-y: auto;
 }
-.maintable-table__header {
-  height: 10%;
-}
-.maintable-table__body {
-  height: 90%;
+.rdt_TableCol{
+  font-weight: bold !important;
 }
 
 @media only screen and (max-width: 1024px) {

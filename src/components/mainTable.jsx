@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../styles/components/tabla.css";
 import "../styles/components/maintable.css";
-import Table from "react-bootstrap/Table";
 import CalcTotales from "../utils/calcTotales";
+import DataTable, { createTheme } from "react-data-table-component";
 import { setModal, setModal2, setMoveSell, setDetail } from "../actions";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,12 +12,61 @@ const MainTable = (props) => {
     titulo_tabla,
     data,
     titulo,
-    subtitulo,
     tipo,
     allowNew,
   } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState(data);
+
+  const customStyles = {
+    headRow: {
+      style: {
+        fontSize: "28px",
+        fontWeight: 400,
+        backgroundColor: "#d3d3d3",
+      },
+    },
+  };
+  const columns = [
+    {
+      name: "Nombre",
+      selector: "ref",
+      sortable: true,
+    },
+    {
+      name: "Cantidad",
+      selector: "comp",
+      sortable: true,
+    },
+    {
+      name: "Promedio actual",
+      selector: "promedio",
+      sortable: true,
+    },
+    {
+      name: "Ultimo pesaje",
+      selector: "lote",
+      sortable: true,
+    },
+    {
+      name: "Peso Maximo",
+      selector: "valmax",
+      sortable: true,
+    },
+    {
+      name: "Peso minimo",
+      selector: "valmin",
+      sortable: true,
+    },
+  ];
+  const getTotales = () => {
+    let lotes = [];
+    data.map((result) => {
+      let totales = CalcTotales(reses, result.id);
+      lotes.push({...result, ...totales});
+    });
+    return lotes;
+  };
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -29,12 +78,15 @@ const MainTable = (props) => {
     });
   };
   useEffect(() => {
-    setSearchResults(data.length > 0 ? data : []);
+    let dataTotal = getTotales();
+    console.log(dataTotal);
+    setSearchResults(dataTotal.length > 0 ? dataTotal : []);
   }, [data]);
   useEffect(() => {
+    let dataTotal = getTotales();
     const results =
-      data.length > 0
-        ? data.filter((dato) => dato[titulo].toLowerCase().includes(searchTerm))
+    dataTotal.length > 0
+        ? dataTotal.filter((dato) => dato[titulo].toLowerCase().includes(searchTerm))
         : [];
     setSearchResults(results);
   }, [searchTerm]);
@@ -79,52 +131,19 @@ const MainTable = (props) => {
           />
         </div>
         <div className="card-body maintable-table">
-          <Table striped bordered hover size="sm" className="">
-            <thead className="maintable-table__header">
-              <tr>
-                <th>Lote</th>
-                <th>Cantidad Animales</th>
-                <th>Promedio actual</th>
-                <th>Ultimo pesaje</th>
-                <th>Peso Maximo</th>
-                <th>Peso minimo</th>
-                <th>Ver</th>
-              </tr>
-            </thead>
-            <tbody className="maintable-table__body">
-              {searchResults.length > 0 ? (
-                searchResults.length > 0 &&
-                searchResults.map((res) => {
-                  let totales = CalcTotales(reses, res.id);
-                  return (
-                    <tr key={res.id}>
-                      <td>{res[titulo]}</td>
-                      <td>{res[subtitulo]}</td>
-                      <td>{totales.promedio}</td>
-                      <td>@mdo</td>
-                      <td>{totales.max.valmax}</td>
-                      <td>{totales.min.valmin}</td>
-                      <td>
-                        <button
-                          onClick={() => {
-                            clickDetail(res.id);
-                          }}
-                        >
-                          Ver
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })
-              ) : (
-                <tr>
-                  <td>
-                    <h5>No se encuentran registros</h5>
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </Table>
+          <DataTable
+            fixedHeader
+            pagination={true}
+            pointerOnHover
+            noHeader
+            customStyles={customStyles}
+            paginationRowsPerPageOptions={[10, 20, 50]}
+            columns={columns}
+            data={searchResults}
+            onRowClicked={(row) => {
+              clickDetail(row.id);
+            }}
+          />
         </div>
         <div className="card-footer tabla-footer">
           Total: {searchResults.length}

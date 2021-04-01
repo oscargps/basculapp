@@ -1,3 +1,4 @@
+import numeral from 'numeral'
 const CalcTotales = (data, idLote) => {
   let result = data.filter((res) => res.lote === idLote);
   let totales;
@@ -21,13 +22,15 @@ const CalcTotales = (data, idLote) => {
     total += peso;
   });
   valmin = 100000 ? (valmin = 0) : null;
-  totales = {
-    promedio: (i = 0 ? total / i : 0),
+ let promedio = numeral(i != 0 ? total / i : 0).format('0,0.0');
+  return {
+    promedio,
     total,
-    max: { valmax, idMax },
-    min: { valmin, idMin },
+    valmax,
+    idMax,
+    valmin,
+    idMin,
   };
-  return totales;
 };
 
 export default CalcTotales;
