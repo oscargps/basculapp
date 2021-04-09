@@ -209,6 +209,7 @@ const NewRes = (props) => {
           fechaing,
           obs: res["Observacion"],
         };
+        console.log(ingreso);
         if (validatedForm(ingreso)) {
           props.setNewRes(ingreso);
         }
