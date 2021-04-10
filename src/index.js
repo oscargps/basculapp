@@ -9,9 +9,9 @@ import { createStore } from "redux";
 import reducer from "./reducers";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
-import { faPlusCircle,faEye } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle,faEye,faPen,faTrash } from "@fortawesome/free-solid-svg-icons";
 
-library.add(fab, faPlusCircle, faEye);
+library.add(fab, faPlusCircle, faEye, faPen,faTrash);
 const InitialState = {
   onLogin: false,
   loading: false,

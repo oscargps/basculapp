@@ -42,7 +42,7 @@ const Navbar = (props) => {
       tipo: "terceros",
       id: null,
     });
-  }
+  };
   const handleLogout = () => {
     Swal.fire({
       title: "¿Cerrar sesión?",
@@ -62,6 +62,13 @@ const Navbar = (props) => {
     props.setModal(true);
     props.setDetail({
       tipo: "novedad",
+      id: null,
+    });
+  };
+  const handleCompra = () => {
+    props.setModal(true);
+    props.setDetail({
+      tipo: "newres",
       id: null,
     });
   };
@@ -89,8 +96,10 @@ const Navbar = (props) => {
         </DropdownButton>
         {fincaActual.id ? (
           <>
-            <button className="btn btn-info btn-sm">Ventas</button>
-            <button className="btn btn-info btn-sm">Compras</button>
+            <button className="btn btn-success btn-sm">Ventas</button>
+            <button className="btn btn-primary btn-sm" onClick={handleCompra}>
+              Compras
+            </button>
             <button className="btn btn-info btn-sm" onClick={handleNovedad}>
               Ultimas Novedades
             </button>
@@ -102,11 +111,15 @@ const Navbar = (props) => {
           title={usuario.nombre}
           id="dropdown-menu-align-right"
         >
+          <Dropdown.Item onClick={verTerceros} disabled={!fincaActual.id}>
+            Terceros
+          </Dropdown.Item>
+          <Dropdown.Item disabled={!fincaActual.id}>
+            Administrar Finca
+          </Dropdown.Item>
           <Dropdown.Item onClick={() => setShow(true)}>
             Cambiar contraseña
           </Dropdown.Item>
-          <Dropdown.Item onClick={verTerceros} >Terceros</Dropdown.Item>
-          <Dropdown.Item>Administrar Finca</Dropdown.Item>
           <Dropdown.Item onClick={handleLogout}>Cerrar sesión</Dropdown.Item>
         </DropdownButton>
         <Modal show={show} onHide={handleClose}>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/components/tabla.css";
 import "../styles/components/maintable.css";
 import CalcTotales from "../utils/calcTotales";
-import DataTable, { createTheme } from "react-data-table-component";
+import DataTable from "react-data-table-component";
 import { setModal, setModal2, setMoveSell, setDetail } from "../actions";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -79,7 +79,6 @@ const MainTable = (props) => {
   };
   useEffect(() => {
     let dataTotal = getTotales();
-    console.log(dataTotal);
     setSearchResults(dataTotal.length > 0 ? dataTotal : []);
   }, [data]);
   useEffect(() => {
@@ -92,19 +91,11 @@ const MainTable = (props) => {
   }, [searchTerm]);
 
   const handleNew = () => {
-    if (tipo === "lote") {
       props.setModal2(true);
       props.setMoveSell({
-        tipo: "new" + tipo,
+        tipo: "newlote",
         id: null,
       });
-    } else {
-      props.setModal(true);
-      props.setDetail({
-        tipo: "new" + tipo,
-        id: null,
-      });
-    }
   };
   return (
     <div className="mainTable">

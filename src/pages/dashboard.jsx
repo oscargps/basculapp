@@ -21,10 +21,11 @@ import NewRes from "../components/newRes";
 import ResDetail from "./resDetail";
 import LoteDetail from "./loteDetail";
 import RegDetail from "./regDetail";
-import Terceros from "./terceros";
+import Terceros from "../components/terceros";
 import TableNewRes from "../components/tableNewRes";
 import MovMasivos from "../components/movMasivos";
 import NewLote from "../components/newLote";
+import NewTercero from "../components/newTercero";
 
 const Dashboard = (props) => {
   const {
@@ -79,6 +80,8 @@ const Dashboard = (props) => {
         return <MovMasivos />;
       case "newlote":
         return <NewLote />;
+      case "newTercero":
+        return <NewTercero />;
       default:
         return null;
     }

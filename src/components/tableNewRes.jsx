@@ -42,7 +42,11 @@ const TableNewRes = (props) => {
             </tr>
           ))
         ) : (
-          <p>No hay registros</p>
+          <tr>
+            <td>
+              <p>No hay registros</p>
+            </td>
+          </tr>
         )}
       </tbody>
     </table>
