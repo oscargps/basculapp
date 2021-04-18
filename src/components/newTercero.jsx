@@ -15,7 +15,6 @@ const NewTercero = (props) => {
           id: "",
           identificacion: "",
           cliente: cliente.id,
-          tipo: "undefined",
           nombre: "",
           contacto: "",
           obs: "",
@@ -57,8 +56,7 @@ const NewTercero = (props) => {
     if (
       tercero.identificacion === "" ||
       tercero.nombre === "" ||
-      TerceroRepetido ||
-      tercero.tipo === "undefined"
+      TerceroRepetido
     ) {
       Swal.fire(
         "Información errada o vacia",
@@ -100,20 +98,6 @@ const NewTercero = (props) => {
     <div className="NewLote">
       <h3>Creación y modificación de terceros</h3>
       <Form className="NewLote-Form">
-        <Form.Group controlId="exampleForm.ControlSelect1">
-          <Form.Label>Tipo de tercero</Form.Label>
-          <Form.Control
-            as="select"
-            value={tercero.tipo}
-            onChange={handleChange}
-            name="tipo"
-          >
-            <option value="undefined">Seleccione...</option>
-            <option value="cliente">Cliente</option>
-            <option value="proveedor">Proveedor</option>
-            <option value="mixto">Mixto</option>
-          </Form.Control>
-        </Form.Group>
         <Form.Group>
           <Form.Label>Identifiación</Form.Label>
           <Form.Control

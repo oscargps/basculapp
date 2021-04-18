@@ -7,11 +7,6 @@ const Terceros = (props) => {
   const { terceros } = props;
   const columns = [
     {
-      name: "Tipo",
-      selector: "tipo",
-      sortable: true,
-    },
-    {
       name: "Identificacion",
       selector: "identificacion",
       sortable: true,
