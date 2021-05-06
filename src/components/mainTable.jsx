@@ -124,6 +124,8 @@ const MainTable = (props) => {
         <div className="card-body maintable-table">
           <DataTable
             fixedHeader
+            striped
+            highlightOnHover
             pagination={true}
             pointerOnHover
             noHeader

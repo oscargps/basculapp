@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { setDetail } from "../actions";
 import "../styles/components/tablepesaje.css";
+import DataTable from "react-data-table-component";
+
 const TableReses = (props) => {
   const { reses, idLote, resultados, grafica } = props;
   const [resesLote, setResesLote] = useState([]);
@@ -24,11 +26,11 @@ const TableReses = (props) => {
       cantidad++;
       if (peso > valmax) {
         valmax = peso;
-        idMax = res.id;
+        idMax = res.numero;
       }
       if (peso < valmin && peso > 0) {
         valmin = peso;
-        idMin = res.id;
+        idMin = res.numero;
       }
       total += peso;
       return true
@@ -45,21 +47,52 @@ const TableReses = (props) => {
     if (data.length > 0) {
       dato = data.map((peso) => {
         let pesoNum = parseInt(peso["ultimo peso"]);
-        return [peso.id, pesoNum];
+        return [peso.numero, pesoNum];
       });
     }
     grafica([["fecha", "peso"]].concat(dato));
   };
 
-  const handleClick = (e) => {
+  const handleClick = (id) => {
     props.setDetail({
       tipo: "res",
-      id: e.target.value,
+      id: id,
     });
   };
+  const customStyles = {
+    headRow: {
+      style: {
+        fontSize: "28px",
+        fontWeight: 400,
+        backgroundColor: "#d3d3d3",
+      },
+    },
+  };
+  const columns = [
+    {
+      name: "Res",
+      selector: "numero",
+      sortable: true,
+    },
+    {
+      name: "Ultimo peso",
+      selector: "ultimo peso",
+      sortable: true,
+    },
+    {
+      name: "Fecha",
+      selector: "fecha ultimo peso",
+      sortable: true,
+    },
+    {
+      name: "Observacion",
+      selector: "obs",
+      sortable: true,
+    },
+  ];
   return (
     <>
-      <table id="table-to-xls" className=" table  table-responsive-md TableReses-table">
+      {/* <table id="table-to-xls" className=" table  table-responsive-md TableReses-table">
         <thead>
           <tr>
             <th>Res</th>
@@ -98,7 +131,22 @@ const TableReses = (props) => {
             </tr>
           )}
         </tbody>
-      </table>
+      </table> */}
+      <DataTable
+            fixedHeader
+            striped
+            highlightOnHover
+            pagination={true}
+            pointerOnHover
+            noHeader
+            customStyles={customStyles}
+            paginationRowsPerPageOptions={[10, 20, 50]}
+            columns={columns}
+            data={resesLote}
+            onRowClicked={(row) => {
+              handleClick(row.id);
+            }}
+          />
     </>
   );
 };

@@ -5,7 +5,7 @@ import { setModal, setModal2, setMoveSell, setDetail } from "../actions";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Tabla = (props) => {
-  const { titulo_tabla, data, titulo, subtitulo, tipo, allowNew } = props;
+  const { titulo_tabla, data, titulo, subtitulo, badge, tipo, allowNew } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState(data);
   const handleChange = (e) => {
@@ -44,6 +44,22 @@ const Tabla = (props) => {
       });
     }
   };
+  const getTipoRef =(tipo)=>{
+    switch (tipo) {
+      case "VT":
+        return "Venta"
+      case "CP":
+        return "Compra"
+      case "LT":
+        return "Lote"
+      case "RM":
+        return "Grupo de reses"
+      case "RI":
+        return "Res individual"
+      default:
+        return "Otro"
+    }
+  }
   return (
     <div className="Tabla">
       <div className="card">
@@ -83,6 +99,9 @@ const Tabla = (props) => {
                   }
                   id={res.id}
                   select={() => clickDetail(res.id)}
+                  badge={tipo == "registro"
+                      ? getTipoRef(res[badge])
+                      : res[badge]}
                 />
               ))
             ) : (

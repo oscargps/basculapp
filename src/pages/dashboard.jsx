@@ -117,6 +117,7 @@ const Dashboard = (props) => {
                     titulo_tabla="Registros de pesaje"
                     titulo="ref"
                     subtitulo="fecha"
+                    badge="tiporef"
                     tipo="registro"
                     data={registros}
                     allowNew={false}

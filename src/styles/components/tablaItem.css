@@ -3,19 +3,31 @@
   padding: 0.5em;
   display: grid;
   grid-template-columns: 3fr 1fr;
-  height:4em;
+  height:3.5em;
+  position: relative;
+  cursor: pointer;
+}
+.TablaItem:hover {
+  background-color:#e5e7e9;
 }
 .TablaItem-title {
   line-height: 0.5em;
 }
 .TablaItem-title__title {
   font-weight: bold;
+  font-size: 1em;
 }
+
 .TablaItem-button {
   padding: 0;
   font-size: 1em;
   height: 2em;
   width: 80%;
+}
+.badgetype{
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 @media only screen and (max-width: 1024px) {
     .TablaItem-title {
