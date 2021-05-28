@@ -26,6 +26,7 @@ import TableNewRes from "../components/tableNewRes";
 import MovMasivos from "../components/movMasivos";
 import NewLote from "../components/newLote";
 import NewTercero from "../components/newTercero";
+import Transactions from "../components/transactions";
 
 const Dashboard = (props) => {
   const {
@@ -66,6 +67,8 @@ const Dashboard = (props) => {
         return <Terceros />;
       case "newres":
         return <NewRes />;
+      case "transactions":
+        return <Transactions />;
       default:
         return null;
     }

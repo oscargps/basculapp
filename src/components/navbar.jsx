@@ -72,6 +72,13 @@ const Navbar = (props) => {
       id: null,
     });
   };
+  const handleVentas = () => {
+    props.setModal(true);
+    props.setDetail({
+      tipo: "transactions",
+      id: null,
+    });
+  };
   return (
     <div className="Navbar">
       <img className="Navbar-logo" src={Logo} alt="" />
@@ -96,7 +103,9 @@ const Navbar = (props) => {
         </DropdownButton>
         {fincaActual.id ? (
           <>
-            <button className="btn btn-success btn-sm">Ventas</button>
+            <button className="btn btn-success btn-sm" onClick={handleVentas}>
+              Ventas
+            </button>
             <button className="btn btn-primary btn-sm" onClick={handleCompra}>
               Compras
             </button>
