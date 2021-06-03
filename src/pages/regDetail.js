@@ -7,12 +7,18 @@ import TableRegDetalles from "../components/tableRegDetalles";
 import "../styles/pages/regdetail.css";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import { Link } from "react-router-dom";
-import numeral from 'numeral'
+import numeral from "numeral";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 const RegDetail = (props) => {
   const { onDetail } = props;
   const [Encabezado, setEncabezado] = useState([]);
   const [Cantidades, setCantidades] = useState([]);
   const [Totales, setTotales] = useState([]);
+  const [TextAction, setTextAction] = useState("");
+  const [isAprove, setisAprove] = useState(false);
+  const [show, setShow] = useState(false);
   let result = {};
 
   const getContenido = async () => {
@@ -36,12 +42,13 @@ const RegDetail = (props) => {
   useEffect(() => {
     getContenido();
   }, [onDetail.id]);
+
   const print = () => {
     props.setPrintData({
       type: "registro",
       Encabezado,
       Cantidades,
-      Totales
+      Totales,
     });
   };
   return (
@@ -63,16 +70,21 @@ const RegDetail = (props) => {
                 </tr>
                 <tr>
                   <th className="loteDetail-data__thead">Promedio de peso: </th>
-                  <td>{numeral(Totales.promedio).format('0,0.0')}Kg</td>
+                  <td>{numeral(Totales.promedio).format("0,0.0")}Kg</td>
                 </tr>
                 <tr>
                   <th className="loteDetail-data__thead">Peso total: </th>
-                  <td>{numeral(Totales.ptotal).format('0,0')}Kg</td>
+                  <td>{numeral(Totales.ptotal).format("0,0")}Kg</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div className="regDetail-options">
+            {Encabezado.Tipo == "Venta" || Encabezado.Tipo == "Compra" ? (
+              <button className="btn btn-primary" onClick={() => setShow(true)}>
+                Aprovar/Denegar Transacción
+              </button>
+            ) : null}
             <ReactHTMLTableToExcel
               id="test-table-xls-button"
               className=" btn btn-success btn-md download-table-xls-button"
@@ -91,6 +103,29 @@ const RegDetail = (props) => {
           </div>
         </div>
       </div>
+      <Modal show={show} onHide={() => setShow(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Autorización de transacción de venta</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Control
+            as="textarea"
+            placeholder="Observaciones adicionales..."
+            style={{ height: "100px" }}
+            onChange={(e) => {
+              setTextAction(e.target.value);
+            }}
+            value={TextAction}
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="success">Aprobar</Button>
+          <Button variant="danger">Denegar</Button>
+          <Button variant="secondary" onClick={() => setShow(false)}>
+            Cancelar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

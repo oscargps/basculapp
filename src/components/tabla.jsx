@@ -44,6 +44,13 @@ const Tabla = (props) => {
       });
     }
   };
+  // const getTipoRef = {
+  //   VT: "Venta",
+  //   CP: "Compra",
+  //   LT: "Lote",
+  //   RM: "Grupo de reses",
+  //   RI: "Res individual"
+  // }
   const getTipoRef =(tipo)=>{
     switch (tipo) {
       case "VT":
