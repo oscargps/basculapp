@@ -11,12 +11,17 @@ import numeral from "numeral";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import getFecha from "../utils/getFecha";
+import movesell from "../utils/movesell";
+import {setTransactions} from "../utils/transactions"
+import Swal from "sweetalert2";
+
 const RegDetail = (props) => {
-  const { onDetail } = props;
+  const { onDetail, cliente, fincaActual, usuario } = props;
   const [Encabezado, setEncabezado] = useState([]);
   const [Cantidades, setCantidades] = useState([]);
   const [Totales, setTotales] = useState([]);
-  const [TextAction, setTextAction] = useState("");
+  const [textAction, setTextAction] = useState("");
   const [isAprove, setisAprove] = useState(false);
   const [show, setShow] = useState(false);
   let result = {};
@@ -32,10 +37,8 @@ const RegDetail = (props) => {
     let promedio;
     let ptotal = 0;
     medidas.map((peso) => {
-      console.log(peso.cantidad);
       ptotal += parseInt(peso.cantidad);
     });
-    console.log(ptotal);
     promedio = ptotal / medidas.length;
     setTotales({ promedio, ptotal, cantidad: medidas.length });
   };
@@ -50,6 +53,47 @@ const RegDetail = (props) => {
       Cantidades,
       Totales,
     });
+  };
+
+  const setTransaction = async (isAprove) => {
+    setShow(false);
+    let resp = false
+    let fecha = getFecha();
+    let obs = `Transacción ${isAprove ? "Aprobada" : "Denegada"} con obs: ${textAction}`;
+    let formData = new FormData();
+    formData.append("id", cliente.id + "_" + fecha);
+    formData.append("idReg", onDetail.id);
+    formData.append("cliente", cliente.id);
+    formData.append("usuario", usuario.id);
+    formData.append("finca", fincaActual.id);
+    formData.append("tipo", "VTM");
+    formData.append("tiporef", "trans");
+    formData.append("ref", onDetail.id);
+    formData.append("action", isAprove ? "Aprobada" : "Denegada");
+    formData.append("obs", obs );
+    formData.append("data", JSON.stringify(Cantidades));
+    // for (var pair of formData.entries()) {
+    //   console.log(pair[0] + ", " + pair[1]);
+    // }
+    resp = await setTransactions(formData)
+    if(isAprove){
+      resp = await movesell(formData);
+    }
+    if(resp){
+      Swal.fire({
+        title: "Listo!",
+        text: "Se ha enviado la respuesta de la transacción",
+        icon: "success",
+        confirmButtonText: "Ok",
+      });
+    }else{
+      Swal.fire({
+        title: "Error!",
+        text: "Algo salió mal, si el problema persiste , contacte a soporte",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+    }
   };
   return (
     <div className="regDetail">
@@ -115,12 +159,16 @@ const RegDetail = (props) => {
             onChange={(e) => {
               setTextAction(e.target.value);
             }}
-            value={TextAction}
+            value={textAction}
           />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="success">Aprobar</Button>
-          <Button variant="danger">Denegar</Button>
+          <Button variant="success" onClick={() => setTransaction(true)}>
+            Aprobar
+          </Button>
+          <Button variant="danger" onClick={() => setTransaction(false)}>
+            Denegar
+          </Button>
           <Button variant="secondary" onClick={() => setShow(false)}>
             Cancelar
           </Button>
@@ -136,11 +184,9 @@ const mapStateToProps = (state) => {
   return {
     cliente: state.cliente,
     usuario: state.usuario,
-    reses: state.reses,
-    lotes: state.lotes,
-    registros: state.registros,
     modal: state.modal,
     onDetail: state.onDetail,
+    fincaActual: state.fincaActual,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(RegDetail);

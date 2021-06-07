@@ -26,6 +26,7 @@ const TablaNovedades = (props) => {
         });
         break;
       case "NP":
+      case "VTM":
         props.setDetail({
           tipo: "registro",
           id: novedad.ref,

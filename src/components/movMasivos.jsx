@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import { setDetail, setReset } from "../actions";
 import Swal from "sweetalert2";
 import movesell from "../utils/movesell";
+import getFecha from "../utils/getFecha";
 
 import "../styles/components/movmasivos.css";
 const MovMasivos = (props) => {
@@ -29,18 +30,7 @@ const MovMasivos = (props) => {
     });
     setResesLote(temp);
   }, [reses]);
-  const getFecha = () => {
-    let today = new Date();
-    let dd = String(today.getDate()).padStart(2, "0");
-    let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    let yyyy = today.getFullYear();
-    let hh = today.getHours();
-    let min = today.getMinutes();
-    let ss = today.getSeconds();
 
-    today = yyyy + mm + dd + "_" + hh + min + ss;
-    return today;
-  };
   const trasladarRes = async (reses) => {
     let fecha = getFecha();
     let formData = new FormData();

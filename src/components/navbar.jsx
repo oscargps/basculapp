@@ -104,7 +104,7 @@ const Navbar = (props) => {
         {fincaActual.id ? (
           <>
             <button className="btn btn-success btn-sm" onClick={handleVentas}>
-              Ventas
+              Trasacciones Compra/Venta
             </button>
             <button className="btn btn-primary btn-sm" onClick={handleCompra}>
               Compras
