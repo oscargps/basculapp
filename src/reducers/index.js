@@ -59,6 +59,11 @@ const reducer = (state, action) => {
         ...state,
         newReses: state.newReses.filter((items) => items.numeroRes !== action.payload),
       };
+    case "CLEAR_NEWRES":
+      return {
+        ...state,
+        newReses: [],
+      };
     case "SET_RESET":
       return {
         ...state,

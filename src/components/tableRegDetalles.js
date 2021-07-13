@@ -42,7 +42,9 @@ const TableRegDetalle = (props) => {
             })
           ) : (
             <tr>
-              <p>No hay pesajes registrados</p>
+              <td>
+                <p>No hay pesajes registrados</p>
+              </td>
             </tr>
           )}
         </tbody>

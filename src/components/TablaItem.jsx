@@ -6,9 +6,9 @@ const TablaItem = (props) => {
   const { titulo, subtitulo, select, id, badge } = props;
 
   return (
-    <div className="TablaItem"  onClick={select}>
+    <div className="TablaItem"  onClick={select?select:null}>
       <Badge pill variant="info" className="badgetype">
-        {badge}
+        {badge?badge:null}
       </Badge>
       <div className="TablaItem-title">
         <p className="TablaItem-title__title">{titulo}</p>

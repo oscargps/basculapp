@@ -36,7 +36,7 @@ const Transactions = (props) => {
     },
     {
       name: "Tipo",
-      selector: "terceroNombre",
+      selector: "tipo",
       sortable: true,
     },
     {
